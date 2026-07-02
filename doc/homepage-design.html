@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PicZip Homepage Design Mock</title>
+    <style>
+      :root {
+        --ink: #15171a;
+        --muted: #69707a;
+        --line: #dfe5ea;
+        --paper: #f7f5ef;
+        --panel: #fffdf7;
+        --teal: #0f9f8f;
+        --lime: #c9f25d;
+        --coral: #ff6f61;
+        --blue: #4b74ff;
+        --shadow: 0 24px 70px rgba(31, 38, 44, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(120deg, rgba(201, 242, 93, 0.28), transparent 24%),
+          linear-gradient(240deg, rgba(75, 116, 255, 0.14), transparent 28%),
+          var(--paper);
+        color: var(--ink);
+        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .page {
+        min-height: 100vh;
+        padding: 28px 34px 42px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1180px;
+        margin: 0 auto 26px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        font-size: 26px;
+        letter-spacing: 0;
+      }
+
+      .mark {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        background: var(--lime);
+        box-shadow: 4px 4px 0 var(--ink);
+        font-size: 22px;
+      }
+
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px;
+        border: 1px solid rgba(21, 23, 26, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 253, 247, 0.78);
+        backdrop-filter: blur(16px);
+      }
+
+      .navlinks span {
+        padding: 10px 14px;
+        border-radius: 999px;
+        color: #3b4047;
+        font-size: 14px;
+      }
+
+      .navlinks span:first-child {
+        background: var(--ink);
+        color: white;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 0.94fr 1.06fr;
+        gap: 30px;
+        align-items: start;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+
+      .copy {
+        padding: 42px 0 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 20px;
+        padding: 9px 13px;
+        border: 1px solid rgba(21, 23, 26, 0.14);
+        border-radius: 999px;
+        background: rgba(255, 253, 247, 0.78);
+        color: #394047;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: var(--teal);
+        box-shadow: 0 0 0 6px rgba(15, 159, 143, 0.14);
+      }
+
+      h1 {
+        max-width: 560px;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 76px;
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 520px;
+        margin: 22px 0 24px;
+        color: #4f5862;
+        font-size: 19px;
+        line-height: 1.55;
+      }
+
+      .proof {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        max-width: 540px;
+        margin: 26px 0 0;
+      }
+
+      .proof div {
+        min-height: 74px;
+        padding: 14px;
+        border: 1px solid rgba(21, 23, 26, 0.14);
+        border-radius: 8px;
+        background: rgba(255, 253, 247, 0.62);
+      }
+
+      .proof strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 21px;
+      }
+
+      .proof span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .tool {
+        position: relative;
+        padding: 18px;
+        border: 2px solid var(--ink);
+        border-radius: 18px;
+        background: var(--panel);
+        box-shadow: var(--shadow), 7px 7px 0 var(--ink);
+      }
+
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 4px 16px;
+      }
+
+      .tool-title {
+        font-weight: 850;
+        font-size: 18px;
+      }
+
+      .local {
+        padding: 8px 11px;
+        border-radius: 999px;
+        background: rgba(15, 159, 143, 0.12);
+        color: #08796e;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .drop {
+        display: grid;
+        place-items: center;
+        min-height: 250px;
+        border: 2px dashed #b9c3cb;
+        border-radius: 12px;
+        background:
+          linear-gradient(135deg, rgba(15, 159, 143, 0.08), transparent),
+          #fafafa;
+        text-align: center;
+      }
+
+      .drop-icon {
+        display: grid;
+        place-items: center;
+        width: 78px;
+        height: 78px;
+        margin: 0 auto 16px;
+        border-radius: 22px;
+        background: var(--ink);
+        color: var(--lime);
+        font-size: 34px;
+        box-shadow: 0 14px 30px rgba(21, 23, 26, 0.22);
+      }
+
+      .drop h2 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        letter-spacing: 0;
+      }
+
+      .drop p {
+        margin: 0 auto 18px;
+        max-width: 390px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 13px 18px;
+        border: 2px solid var(--ink);
+        border-radius: 10px;
+        background: var(--coral);
+        color: white;
+        font-weight: 850;
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      .settings {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .setting {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+      }
+
+      .setting label {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .setting strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 17px;
+      }
+
+      .range {
+        height: 8px;
+        margin-top: 11px;
+        border-radius: 99px;
+        background: linear-gradient(90deg, var(--teal) 72%, #e8ecef 72%);
+      }
+
+      .tasks {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        max-width: 1180px;
+        margin: 26px auto 0;
+      }
+
+      .task {
+        min-height: 122px;
+        padding: 17px;
+        border: 1px solid rgba(21, 23, 26, 0.14);
+        border-radius: 8px;
+        background: rgba(255, 253, 247, 0.82);
+      }
+
+      .task.active {
+        border: 2px solid var(--ink);
+        background: #eaff9b;
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      .task .glyph {
+        margin-bottom: 13px;
+        font-size: 25px;
+      }
+
+      .task strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .task span {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .below {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 20px;
+        max-width: 1180px;
+        margin: 22px auto 0;
+      }
+
+      .strip,
+      .faq-preview {
+        padding: 22px;
+        border: 1px solid rgba(21, 23, 26, 0.14);
+        border-radius: 10px;
+        background: rgba(255, 253, 247, 0.74);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .chip {
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: white;
+        border: 1px solid var(--line);
+        font-size: 14px;
+        font-weight: 750;
+      }
+
+      .faq-preview p {
+        margin: 12px 0 0;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1180px;
+        margin: 18px auto 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 14px;
+        font-weight: 750;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .below {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 52px;
+        }
+
+        .tasks {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .navlinks {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav">
+        <div class="brand"><div class="mark">↯</div>PicZip</div>
+        <div class="navlinks">
+          <span>Compress</span>
+          <span>Guide</span>
+          <span>FAQ</span>
+          <span>Privacy</span>
+          <span>ZH</span>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <div class="copy">
+          <div class="eyebrow"><span class="dot"></span>Local image tools. No upload.</div>
+          <h1>Private image compressor for fast web-ready files.</h1>
+          <p class="lead">
+            Compress JPG, PNG, and WebP images directly in your browser with Wasm codecs. Set an exact target size, batch export a ZIP, and keep every file on your device.
+          </p>
+          <div class="proof">
+            <div><strong>100%</strong><span>browser-side processing</span></div>
+            <div><strong>50+</strong><span>images per batch</span></div>
+            <div><strong>100KB</strong><span>exact-size presets</span></div>
+          </div>
+        </div>
+
+        <div class="tool">
+          <div class="toolbar">
+            <div class="tool-title">Compress images</div>
+            <div class="local">No server upload</div>
+          </div>
+          <div class="drop">
+            <div>
+              <div class="drop-icon">⇩</div>
+              <h2>Drop images here</h2>
+              <p>JPG, PNG, WebP. Use MozJPEG and WebP Wasm engines locally in your browser.</p>
+              <div class="button">Choose images</div>
+            </div>
+          </div>
+          <div class="settings">
+            <div class="setting">
+              <label>Target size</label>
+              <strong>200 KB</strong>
+              <div class="range"></div>
+            </div>
+            <div class="setting">
+              <label>Output</label>
+              <strong>Auto · WebP</strong>
+              <div class="range"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tasks">
+        <div class="task active"><div class="glyph">↯</div><strong>Compress locally</strong><span>Reduce image size with local Wasm codecs.</span></div>
+        <div class="task"><div class="glyph">◇</div><strong>Exact size</strong><span>Target 50KB, 100KB, 200KB, or a custom limit.</span></div>
+        <div class="task"><div class="glyph">▥</div><strong>Batch ZIP</strong><span>Compress multiple images and download one ZIP.</span></div>
+        <div class="task"><div class="glyph">?</div><strong>Compression guide</strong><span>Learn which format and quality setting to use.</span></div>
+      </section>
+
+      <section class="below">
+        <div class="strip">
+          <strong>Popular Google landing pages</strong>
+          <div class="chips">
+            <div class="chip">Compress image to 100KB</div>
+            <div class="chip">Compress JPG</div>
+            <div class="chip">Batch image compressor</div>
+            <div class="chip">Compress image without upload</div>
+            <div class="chip">Local image compressor</div>
+          </div>
+        </div>
+        <div class="faq-preview">
+          <strong>Privacy promise</strong>
+          <p>Your images are decoded, compressed, and exported in the browser. PicZip does not upload image files, store image content, or keep a processing history.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>PicZip runs image compression locally in your browser.</span>
+        <div class="footer-links">
+          <span>Guide</span>
+          <span>FAQ</span>
+          <span>Privacy</span>
+          <span>Terms</span>
+          <span>Sitemap</span>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

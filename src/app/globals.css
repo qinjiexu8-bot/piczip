@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f5ef;
+  --foreground: #15171a;
+  --muted: #69707a;
+  --line: #dfe5ea;
+  --panel: #fffdf7;
+  --teal: #0f9f8f;
+  --lime: #dffe72;
+  --coral: #ff6f61;
+  --blue: #4b74ff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--background);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background:
+    linear-gradient(120deg, rgba(223, 254, 114, 0.34), transparent 24rem),
+    linear-gradient(240deg, rgba(75, 116, 255, 0.14), transparent 28rem),
+    var(--background);
+  color: var(--foreground);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--foreground);
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::before {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  opacity: 0.32;
+  background-image: radial-gradient(rgba(21, 23, 26, 0.12) 0.7px, transparent 0.7px);
+  background-size: 12px 12px;
+}
