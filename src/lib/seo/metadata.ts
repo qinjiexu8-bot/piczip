@@ -13,6 +13,7 @@ export function createMetadata({ title, description, path }: PageMetadata): Meta
   const englishPath = toEnglishPath(path);
   const chinesePath = toLocalizedPath(path);
   const canonicalPath = path === "/zh" ? "/zh" : path;
+  const isChinesePage = path === "/zh" || path.startsWith("/zh/");
 
   return {
     title,
@@ -30,7 +31,8 @@ export function createMetadata({ title, description, path }: PageMetadata): Meta
       description,
       url,
       siteName: siteConfig.name,
-      locale: siteConfig.locale,
+      locale: isChinesePage ? "zh_CN" : siteConfig.locale,
+      alternateLocale: isChinesePage ? ["en_US"] : ["zh_CN"],
       type: "website",
     },
     twitter: {

@@ -33,6 +33,22 @@ const icons = {
 };
 
 export function HomePage({ copy }: { copy: HomePageCopy }) {
+  const appSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "PicZip",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any",
+    inLanguage: copy.locale === "zh" ? "zh-CN" : "en",
+    url: copy.locale === "zh" ? "https://piczip.app/zh" : "https://piczip.app/",
+    description: copy.description,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+
   return (
     <div className="grain flex min-h-screen flex-col">
       <Header />
@@ -101,6 +117,10 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
           </div>
         </section>
       </main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
+      />
       <Footer />
     </div>
   );
