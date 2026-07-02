@@ -23,6 +23,7 @@ export function Header() {
     },
     { label: isChinese ? "指南" : "Guide", href: localizedHref(pathname, "/guide"), active: normalizedPath === "/guide" },
     { label: "FAQ", href: localizedHref(pathname, "/faq"), active: normalizedPath === "/faq" },
+    { label: isChinese ? "关于" : "About", href: localizedHref(pathname, "/about"), active: normalizedPath === "/about" },
     { label: isChinese ? "隐私" : "Privacy", href: localizedHref(pathname, "/privacy"), active: normalizedPath === "/privacy" },
   ];
 

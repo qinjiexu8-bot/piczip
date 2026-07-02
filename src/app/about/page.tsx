@@ -26,6 +26,14 @@ export default function Page() {
         clear privacy boundaries. More image tools can be added later after the compression workflow
         is stable.
       </p>
+      <h2>Contact</h2>
+      <p>
+        For questions, feedback, or support, email{" "}
+        <a className="font-black text-teal-700" href="mailto:support@piczip.app">
+          support@piczip.app
+        </a>
+        .
+      </p>
     </ContentPage>
   );
 }

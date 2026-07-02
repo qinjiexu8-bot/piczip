@@ -14,6 +14,14 @@ export default function Page() {
       <p>很多图片压缩工具需要上传文件。PicZip 优先选择浏览器本地处理，也不要求用户先注册账号，让隐私图片处理更安心。</p>
       <h2>当前重点</h2>
       <p>第一版专注图片压缩、指定大小、批量 ZIP 下载和清晰的隐私边界。后续再逐步扩展更多图片工具。</p>
+      <h2>联系我们</h2>
+      <p>
+        如需反馈问题、提出建议或寻求支持，请发送邮件至{" "}
+        <a className="font-black text-teal-700" href="mailto:support@piczip.app">
+          support@piczip.app
+        </a>
+        。
+      </p>
     </ContentPage>
   );
 }

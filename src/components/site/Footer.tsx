@@ -10,6 +10,7 @@ export function Footer() {
   const footerLinks = [
     [isChinese ? "指南" : "Guide", localizedHref(pathname, "/guide")],
     ["FAQ", localizedHref(pathname, "/faq")],
+    [isChinese ? "关于" : "About", localizedHref(pathname, "/about")],
     [isChinese ? "隐私" : "Privacy", localizedHref(pathname, "/privacy")],
     [isChinese ? "条款" : "Terms", localizedHref(pathname, "/terms")],
     [isChinese ? "站点地图" : "Sitemap", "/sitemap.xml"],
