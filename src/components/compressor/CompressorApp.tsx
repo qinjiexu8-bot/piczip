@@ -123,6 +123,15 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
   const [currentProcessing, setCurrentProcessing] = useState<{ index: number; total: number } | null>(
     null,
   );
+  const [toast, setToast] = useState<{ message: string; type: "success" | "info" } | null>(null);
+
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => {
+      setToast(null);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [toast]);
 
   const completed = items.filter((item) => item.status === "done" && item.result);
   const queued = items.filter((item) => item.status === "queued");
@@ -162,7 +171,15 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
         status: "queued" as const,
       }));
 
-    setItems((current) => [...current, ...accepted]);
+    if (accepted.length > 0) {
+      setItems((current) => [...current, ...accepted]);
+      const message = locale === "zh"
+        ? `已成功添加 ${accepted.length} 张图片！请点击“开始压缩”。`
+        : `Successfully added ${accepted.length} ${
+            accepted.length === 1 ? t.imageSingular : t.imagePlural
+          }! Click "Compress images" to start.`;
+      setToast({ message, type: "success" });
+    }
   }
 
   async function compressAll() {
@@ -370,15 +387,7 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
         {t.targetHint}
       </p>
 
-      {queued.length > 0 && !isProcessing && (
-        <div className="mt-4 rounded-xl border border-lime-200 bg-[rgba(235,251,232,0.6)] px-4 py-3 text-sm font-black text-slate-700">
-          {locale === "zh"
-            ? `已成功添加 ${queued.length} 张图片。请点击下方的“开始压缩”按钮进行本地处理！`
-            : `Successfully added ${queued.length} ${
-                queued.length === 1 ? t.imageSingular : t.imagePlural
-              }. Click the "Compress images" button to start!`}
-        </div>
-      )}
+
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <button
@@ -478,6 +487,12 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
           {t.across} {completed.length} {completed.length === 1 ? t.imageSingular : t.imagePlural}.
         </p>
       ) : null}
+
+      {toast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-xl border-2 border-foreground bg-[var(--lime)] px-5 py-3 font-black text-slate-800 shadow-[4px_4px_0_var(--foreground)] animate-slide-down">
+          {toast.message}
+        </div>
+      )}
     </section>
   );
 }
