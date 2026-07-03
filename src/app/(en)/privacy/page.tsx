@@ -13,6 +13,8 @@ export default function Page() {
     <ContentPage
       title="Privacy policy"
       description="PicZip is designed around local browser processing, clear privacy boundaries, and minimal data collection."
+      locale="en"
+      breadcrumbLabel="Privacy"
     >
       <h2>Image files</h2>
       <p>

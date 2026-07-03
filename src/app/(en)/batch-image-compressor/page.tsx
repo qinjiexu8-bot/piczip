@@ -22,6 +22,7 @@ export default function Page() {
         "Download individual results or export all compressed files in one ZIP.",
       ]}
       faqs={sharedFaqs}
+      breadcrumbLabel="Batch Image Compressor"
     />
   );
 }

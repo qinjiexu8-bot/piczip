@@ -12,6 +12,8 @@ export default function Page() {
     <ContentPage
       title="Terms of use"
       description="These terms describe the baseline rules for using PicZip."
+      locale="en"
+      breadcrumbLabel="Terms"
     >
       <h2>Use of the service</h2>
       <p>

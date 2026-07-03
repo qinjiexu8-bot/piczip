@@ -9,7 +9,12 @@ export const metadata = createMetadata({
 
 export default function Page() {
   return (
-    <ContentPage title="使用条款" description="这些条款说明 PicZip 的基础使用规则。">
+    <ContentPage
+      title="使用条款"
+      description="这些条款说明 PicZip 的基础使用规则。"
+      locale="zh"
+      breadcrumbLabel="条款"
+    >
       <h2>服务使用</h2>
       <p>PicZip 提供免费的浏览器端图片压缩工具。你需要自行确认压缩结果是否符合自己的上传或使用要求。</p>
       <h2>无担保</h2>

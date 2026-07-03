@@ -9,7 +9,12 @@ export const metadata = createMetadata({
 
 export default function Page() {
   return (
-    <ContentPage title="关于 PicZip" description="PicZip 是一个小而实用的免费图片压缩工具，专注浏览器本地处理。">
+    <ContentPage
+      title="关于 PicZip"
+      description="PicZip 是一个小而实用的免费图片压缩工具，专注浏览器本地处理。"
+      locale="zh"
+      breadcrumbLabel="关于"
+    >
       <h2>为什么做 PicZip</h2>
       <p>很多图片压缩工具需要上传文件。PicZip 优先选择浏览器本地处理，也不要求用户先注册账号，让隐私图片处理更安心。</p>
       <h2>当前重点</h2>

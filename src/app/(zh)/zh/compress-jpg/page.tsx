@@ -18,6 +18,7 @@ export default function Page() {
       guideTitle="如何压缩 JPG 图片"
       guide={zhDefaultGuide}
       faqs={zhSharedFaqs}
+      breadcrumbLabel="压缩 JPG"
     />
   );
 }

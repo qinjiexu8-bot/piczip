@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CompressorApp } from "@/components/compressor/CompressorApp";
+import { Breadcrumb } from "@/components/site/Breadcrumb";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 
@@ -10,6 +11,7 @@ type SeoLandingPageProps = {
   guideTitle: string;
   guide: string[];
   locale?: "en" | "zh";
+  breadcrumbLabel: string;
   faqs: Array<{
     question: string;
     answer: string;
@@ -24,6 +26,7 @@ export function SeoLandingPage({
   guide,
   faqs,
   locale = "en",
+  breadcrumbLabel,
 }: SeoLandingPageProps) {
   const isChinese = locale === "zh";
   const labels = {
@@ -63,6 +66,7 @@ export function SeoLandingPage({
     <div className="grain flex min-h-screen flex-col">
       <Header />
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-10 sm:px-8">
+        <Breadcrumb locale={locale} items={[{ label: breadcrumbLabel }]} />
         <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="pt-7 lg:pt-10">
             <p className="mb-4 inline-flex rounded-full border border-black/10 bg-[rgba(255,253,247,0.78)] px-3 py-2 text-sm font-black text-teal-700">

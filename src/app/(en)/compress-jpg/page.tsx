@@ -18,6 +18,7 @@ export default function Page() {
       guideTitle="How to compress a JPG"
       guide={defaultGuide}
       faqs={sharedFaqs}
+      breadcrumbLabel="Compress JPG"
     />
   );
 }

@@ -22,6 +22,7 @@ export default function Page() {
         "压缩结果由你下载，站点不保存图片内容或处理历史。",
       ]}
       faqs={zhSharedFaqs}
+      breadcrumbLabel="图片压缩不上传"
     />
   );
 }

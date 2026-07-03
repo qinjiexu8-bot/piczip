@@ -13,6 +13,8 @@ export default function Page() {
     <ContentPage
       title="图片压缩指南"
       description="这是一份实用图片压缩指南，帮助你在表单、网站、邮件和社媒场景中减少图片体积，同时保留足够清晰度。"
+      locale="zh"
+      breadcrumbLabel="指南"
     >
       <h2>先选择合适格式</h2>
       <p>

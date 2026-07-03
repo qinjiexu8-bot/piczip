@@ -22,6 +22,7 @@ export default function Page() {
         "Download the result; no image file is uploaded, stored, or kept as history.",
       ]}
       faqs={sharedFaqs}
+      breadcrumbLabel="Compress Without Upload"
     />
   );
 }

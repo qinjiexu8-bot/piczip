@@ -15,6 +15,8 @@ export function createMetadata({ title, description, path }: PageMetadata): Meta
   const canonicalPath = path === "/zh" ? "/zh" : path;
   const isChinesePage = path === "/zh" || path.startsWith("/zh/");
 
+  const ogImageUrl = absoluteUrl("/og-image.jpg");
+
   return {
     title,
     description,
@@ -34,11 +36,20 @@ export function createMetadata({ title, description, path }: PageMetadata): Meta
       locale: isChinesePage ? "zh_CN" : siteConfig.locale,
       alternateLocale: isChinesePage ? ["en_US"] : ["zh_CN"],
       type: "website",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImageUrl],
     },
   };
 }

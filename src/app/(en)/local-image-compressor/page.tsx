@@ -18,6 +18,7 @@ export default function Page() {
       guideTitle="How to use the local compressor"
       guide={defaultGuide}
       faqs={sharedFaqs}
+      breadcrumbLabel="Local Image Compressor"
     />
   );
 }

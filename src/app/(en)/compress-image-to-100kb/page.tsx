@@ -22,6 +22,7 @@ export default function Page() {
         "If a large image cannot reach 100KB cleanly, reduce max width and run compression again.",
       ]}
       faqs={sharedFaqs}
+      breadcrumbLabel="Compress to 100KB"
     />
   );
 }

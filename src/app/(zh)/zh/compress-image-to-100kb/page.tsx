@@ -22,6 +22,7 @@ export default function Page() {
         "如果仍然超过 100KB，可以降低最大宽度后重新压缩。",
       ]}
       faqs={zhSharedFaqs}
+      breadcrumbLabel="图片压缩到 100KB"
     />
   );
 }

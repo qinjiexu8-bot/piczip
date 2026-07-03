@@ -14,6 +14,8 @@ export default function Page() {
     <ContentPage
       title="Image compression guide"
       description="A practical guide to reducing image file size while keeping enough quality for forms, websites, email, and social media."
+      locale="en"
+      breadcrumbLabel="Guide"
     >
       <h2>Start with the right format</h2>
       <p>

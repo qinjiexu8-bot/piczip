@@ -12,12 +12,13 @@ export default function Page() {
   return (
     <SeoLandingPage
       locale="zh"
-      title="适合隐私文件的本地图片压缩工具"
-      description="在自己的设备上完成图片压缩，适合隐私文件、重复上传任务、网站图片、批量下载和指定大小限制。"
-      bullets={["在浏览器中运行，不需要把图片上传到服务器。", ...zhBaseBullets]}
-      guideTitle="如何使用本地图片压缩"
+      title="本地图片压缩工具，适合隐私文件"
+      description="在当前设备中本地压缩图片。适合证件照、表单上传、批量下载和严格大小限制。"
+      bullets={["直接在浏览器运行，无需把文件上传到第三方服务器。", ...zhBaseBullets]}
+      guideTitle="如何使用本地压缩"
       guide={zhDefaultGuide}
       faqs={zhSharedFaqs}
+      breadcrumbLabel="本地图片压缩"
     />
   );
 }

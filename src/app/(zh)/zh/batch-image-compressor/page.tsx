@@ -22,6 +22,7 @@ export default function Page() {
         "压缩完成后单张下载，或一次性下载 ZIP 文件。",
       ]}
       faqs={zhSharedFaqs}
+      breadcrumbLabel="批量图片压缩"
     />
   );
 }

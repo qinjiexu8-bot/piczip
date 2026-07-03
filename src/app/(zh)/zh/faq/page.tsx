@@ -39,7 +39,12 @@ export default function Page() {
   };
 
   return (
-    <ContentPage title="图片压缩常见问题" description="关于免费浏览器图片压缩、隐私、指定大小和批量下载的常见问题。">
+    <ContentPage
+      title="图片压缩常见问题"
+      description="关于免费浏览器图片压缩、隐私、指定大小和批量下载的常见问题。"
+      locale="zh"
+      breadcrumbLabel="FAQ"
+    >
       {faqs.map((faq) => (
         <section key={faq.question}>
           <h2>{faq.question}</h2>

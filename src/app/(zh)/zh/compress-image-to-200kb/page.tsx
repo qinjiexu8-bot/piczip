@@ -22,6 +22,7 @@ export default function Page() {
         "压缩完成后可以单张下载，也可以打包 ZIP 下载。",
       ]}
       faqs={zhSharedFaqs}
+      breadcrumbLabel="图片压缩到 200KB"
     />
   );
 }

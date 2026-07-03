@@ -22,6 +22,7 @@ export default function Page() {
         "Download the result directly or export all compressed images as one ZIP.",
       ]}
       faqs={sharedFaqs}
+      breadcrumbLabel="Compress to 200KB"
     />
   );
 }

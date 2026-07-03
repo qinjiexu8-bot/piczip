@@ -1,18 +1,22 @@
 import type { ReactNode } from "react";
+import { Breadcrumb } from "@/components/site/Breadcrumb";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 
 type ContentPageProps = {
   title: string;
   description: string;
+  locale?: "en" | "zh";
+  breadcrumbLabel: string;
   children: ReactNode;
 };
 
-export function ContentPage({ title, description, children }: ContentPageProps) {
+export function ContentPage({ title, description, locale = "en", breadcrumbLabel, children }: ContentPageProps) {
   return (
     <div className="grain flex min-h-screen flex-col">
       <Header />
       <main className="mx-auto w-full max-w-4xl flex-1 px-5 pb-10 sm:px-8">
+        <Breadcrumb locale={locale} items={[{ label: breadcrumbLabel }]} />
         <article className="rounded-2xl border border-black/10 bg-[rgba(255,253,247,0.82)] p-6 shadow-sm sm:p-9">
           <h1 className="font-serif text-5xl font-black leading-none tracking-normal">{title}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">{description}</p>

@@ -13,6 +13,8 @@ export default function Page() {
     <ContentPage
       title="About PicZip"
       description="PicZip is a focused image tool built for fast, free, browser-side compression."
+      locale="en"
+      breadcrumbLabel="About"
     >
       <h2>Why PicZip exists</h2>
       <p>

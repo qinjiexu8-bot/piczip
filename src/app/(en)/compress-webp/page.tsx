@@ -18,6 +18,7 @@ export default function Page() {
       guideTitle="How to compress WebP"
       guide={defaultGuide}
       faqs={sharedFaqs}
+      breadcrumbLabel="Compress WebP"
     />
   );
 }

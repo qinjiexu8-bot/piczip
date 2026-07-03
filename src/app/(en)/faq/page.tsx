@@ -46,6 +46,8 @@ export default function Page() {
     <ContentPage
       title="Image compression FAQ"
       description="Common questions about free browser image compression, file privacy, target sizes, and batch downloads."
+      locale="en"
+      breadcrumbLabel="FAQ"
     >
       {faqs.map((faq) => (
         <section key={faq.question}>
