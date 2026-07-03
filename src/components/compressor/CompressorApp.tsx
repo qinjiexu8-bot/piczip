@@ -129,7 +129,7 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
     if (!toast) return;
     const timer = setTimeout(() => {
       setToast(null);
-    }, 2000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [toast]);
 
