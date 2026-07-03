@@ -124,13 +124,25 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
     null,
   );
   const [toast, setToast] = useState<{ message: string; type: "success" | "info" } | null>(null);
+  const [isToastVisible, setIsToastVisible] = useState(false);
 
   useEffect(() => {
     if (!toast) return;
-    const timer = setTimeout(() => {
-      setToast(null);
+
+    setIsToastVisible(true);
+
+    const fadeTimer = setTimeout(() => {
+      setIsToastVisible(false);
     }, 3000);
-    return () => clearTimeout(timer);
+
+    const unmountTimer = setTimeout(() => {
+      setToast(null);
+    }, 3300);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(unmountTimer);
+    };
   }, [toast]);
 
   const completed = items.filter((item) => item.status === "done" && item.result);
@@ -489,7 +501,13 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
       ) : null}
 
       {toast && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-xl border-2 border-foreground bg-[var(--lime)] px-5 py-3 font-black text-slate-800 shadow-[4px_4px_0_var(--foreground)] animate-slide-down">
+        <div
+          className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-xl border-2 border-foreground bg-[var(--lime)] px-5 py-3 font-black text-slate-800 shadow-[4px_4px_0_var(--foreground)] transition-all duration-300 ease-out ${
+            isToastVisible
+              ? "opacity-100 translate-y-0 scale-100"
+              : "opacity-0 -translate-y-4 scale-95"
+          }`}
+        >
           {toast.message}
         </div>
       )}
