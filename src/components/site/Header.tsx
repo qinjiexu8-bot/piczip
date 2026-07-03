@@ -29,7 +29,7 @@ export function Header() {
 
   return (
     <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-7 sm:px-8">
-      <Link href="/" className="flex items-center gap-3 font-black text-2xl tracking-normal">
+      <Link href={localizedHref(pathname, "/")} className="flex items-center gap-3 font-black text-2xl tracking-normal">
         <span className="grid size-11 place-items-center rounded-xl border-2 border-foreground bg-[var(--lime)] shadow-[4px_4px_0_var(--foreground)]">
           <Zap className="size-5" strokeWidth={3} />
         </span>
