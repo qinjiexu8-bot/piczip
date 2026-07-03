@@ -125,6 +125,7 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
   );
 
   const completed = items.filter((item) => item.status === "done" && item.result);
+  const queued = items.filter((item) => item.status === "queued");
   const totalSaved = completed.reduce((sum, item) => {
     const result = item.result;
     return result ? sum + Math.max(0, result.originalBytes - result.compressedBytes) : sum;
@@ -368,6 +369,16 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
       <p className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-xs leading-5 text-slate-500">
         {t.targetHint}
       </p>
+
+      {queued.length > 0 && !isProcessing && (
+        <div className="mt-4 rounded-xl border border-lime-200 bg-[rgba(235,251,232,0.6)] px-4 py-3 text-sm font-black text-slate-700">
+          {locale === "zh"
+            ? `已成功添加 ${queued.length} 张图片。请点击下方的“开始压缩”按钮进行本地处理！`
+            : `Successfully added ${queued.length} ${
+                queued.length === 1 ? t.imageSingular : t.imagePlural
+              }. Click the "Compress images" button to start!`}
+        </div>
+      )}
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <button
