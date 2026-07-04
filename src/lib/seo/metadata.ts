@@ -6,9 +6,10 @@ type PageMetadata = {
   title: string;
   description: string;
   path: string;
+  robots?: Metadata["robots"];
 };
 
-export function createMetadata({ title, description, path }: PageMetadata): Metadata {
+export function createMetadata({ title, description, path, robots }: PageMetadata): Metadata {
   const url = absoluteUrl(path);
   const englishPath = toEnglishPath(path);
   const chinesePath = toLocalizedPath(path);
@@ -20,6 +21,7 @@ export function createMetadata({ title, description, path }: PageMetadata): Meta
   return {
     title,
     description,
+    robots,
     alternates: {
       canonical: absoluteUrl(canonicalPath),
       languages: {

@@ -62,6 +62,19 @@ export function SeoLandingPage({
     })),
   };
 
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: title,
+    description: description,
+    step: guide.map((stepText, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: isChinese ? `步骤 ${index + 1}` : `Step ${index + 1}`,
+      text: stepText,
+    })),
+  };
+
   return (
     <div className="grain flex min-h-screen flex-col">
       <Header />
@@ -133,6 +146,10 @@ export function SeoLandingPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <Footer />
     </div>

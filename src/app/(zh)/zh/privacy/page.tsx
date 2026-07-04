@@ -5,6 +5,7 @@ export const metadata = createMetadata({
   title: "隐私政策",
   description: "PicZip 隐私政策。图片在浏览器本地压缩，不上传服务器进行处理。",
   path: "/zh/privacy",
+  robots: { index: false, follow: true },
 });
 
 export default function Page() {

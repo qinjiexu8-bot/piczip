@@ -6,6 +6,7 @@ export const metadata = createMetadata({
   description:
     "PicZip privacy policy. Image files are compressed locally in the browser and are not uploaded to a server for processing.",
   path: "/privacy",
+  robots: { index: false, follow: true },
 });
 
 export default function Page() {

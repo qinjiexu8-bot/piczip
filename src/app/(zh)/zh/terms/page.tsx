@@ -5,6 +5,7 @@ export const metadata = createMetadata({
   title: "使用条款",
   description: "PicZip 使用条款，适用于免费的浏览器图片压缩工具。",
   path: "/zh/terms",
+  robots: { index: false, follow: true },
 });
 
 export default function Page() {
