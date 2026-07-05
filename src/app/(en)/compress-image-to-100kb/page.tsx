@@ -15,6 +15,7 @@ export default function Page() {
       title="Compress an image to 100KB in your browser"
       description="Set a 100KB target and reduce your image without uploading it. This is useful for profile photos, application forms, email attachments, and upload limits."
       bullets={["100KB target preset for strict upload forms.", ...baseBullets]}
+      compressorDefaults={{ targetKb: 100 }}
       guideTitle="How to compress an image to 100KB"
       guide={[
         "Set Target size to 100 KB in the compressor.",

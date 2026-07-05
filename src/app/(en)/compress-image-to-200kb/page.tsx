@@ -15,6 +15,7 @@ export default function Page() {
       title="Compress an image to 200KB without uploading"
       description="Reduce JPG, PNG, or WebP files to a 200KB target in your browser. PicZip helps with forms, web uploads, and email-friendly images."
       bullets={["200KB target preset for common upload limits.", ...baseBullets]}
+      compressorDefaults={{ targetKb: 200 }}
       guideTitle="How to compress an image to 200KB"
       guide={[
         "Set Target size to 200 KB before starting compression.",

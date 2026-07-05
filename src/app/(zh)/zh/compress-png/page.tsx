@@ -15,6 +15,7 @@ export default function Page() {
       title="压缩 PNG 图片，文件保留在本地"
       description="减小 PNG 文件体积，适合截图、透明图片、UI 图和网站素材。压缩在浏览器中完成，图片不会上传服务器。"
       bullets={["适合截图和透明背景图片的 PNG 压缩。", ...zhBaseBullets]}
+      compressorDefaults={{ format: "png" }}
       guideTitle="如何压缩 PNG 图片"
       guide={zhDefaultGuide}
       faqs={zhSharedFaqs}

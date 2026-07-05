@@ -15,6 +15,7 @@ export default function Page() {
       title="批量压缩图片，并下载一个 ZIP"
       description="一次选择多张图片，在浏览器本地批量压缩，并将结果打包成 ZIP 下载。适合网站素材、产品图、邮件附件和重复上传任务。"
       bullets={["一次最多处理 50 张图片并下载一个 ZIP。", ...zhBaseBullets]}
+      compressorDefaults={{ targetKb: 200 }}
       guideTitle="如何批量压缩图片"
       guide={[
         "把多张 JPG、PNG 或 WebP 图片拖入压缩器。",

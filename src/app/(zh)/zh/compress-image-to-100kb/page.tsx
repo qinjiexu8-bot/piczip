@@ -15,6 +15,7 @@ export default function Page() {
       title="在浏览器中把图片压缩到 100KB"
       description="设置 100KB 目标大小，在不上传图片的情况下减小文件体积。适合头像、报名表、邮件附件和严格上传限制。"
       bullets={["面向严格上传表单的 100KB 目标预设。", ...zhBaseBullets]}
+      compressorDefaults={{ targetKb: 100 }}
       guideTitle="如何把图片压缩到 100KB"
       guide={[
         "将目标大小设置为 100 KB。",

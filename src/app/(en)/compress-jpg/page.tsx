@@ -15,6 +15,7 @@ export default function Page() {
       title="Compress JPG images for free, without uploading"
       description="Reduce JPG photo size directly in your browser. PicZip is useful for application photos, email attachments, website images, and upload forms with strict file limits."
       bullets={["JPG compression tuned for photos and camera images.", ...baseBullets]}
+      compressorDefaults={{ format: "jpeg" }}
       guideTitle="How to compress a JPG"
       guide={defaultGuide}
       faqs={sharedFaqs}

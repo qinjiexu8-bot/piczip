@@ -15,6 +15,7 @@ export default function Page() {
       title="免费压缩 JPG 图片，不上传服务器"
       description="在浏览器中减小 JPG 照片体积，适合报名照、邮件附件、网站图片和有文件大小限制的上传表单。"
       bullets={["针对照片和相机图片的 JPG 压缩。", ...zhBaseBullets]}
+      compressorDefaults={{ format: "jpeg" }}
       guideTitle="如何压缩 JPG 图片"
       guide={zhDefaultGuide}
       faqs={zhSharedFaqs}

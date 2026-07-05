@@ -15,6 +15,7 @@ export default function Page() {
       title="Compress PNG images while keeping files local"
       description="Reduce PNG file size for screenshots, transparent graphics, UI assets, and website images. Compression runs in your browser, so selected files stay on your device."
       bullets={["PNG compression for screenshots and transparent images.", ...baseBullets]}
+      compressorDefaults={{ format: "png" }}
       guideTitle="How to compress a PNG"
       guide={defaultGuide}
       faqs={sharedFaqs}

@@ -12,6 +12,10 @@ type SeoLandingPageProps = {
   guide: string[];
   locale?: "en" | "zh";
   breadcrumbLabel: string;
+  compressorDefaults?: {
+    targetKb?: number;
+    format?: "auto" | "jpeg" | "png" | "webp";
+  };
   faqs: Array<{
     question: string;
     answer: string;
@@ -27,6 +31,7 @@ export function SeoLandingPage({
   faqs,
   locale = "en",
   breadcrumbLabel,
+  compressorDefaults,
 }: SeoLandingPageProps) {
   const isChinese = locale === "zh";
   const labels = {
@@ -80,24 +85,37 @@ export function SeoLandingPage({
       <Header />
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-10 sm:px-8">
         <Breadcrumb locale={locale} items={[{ label: breadcrumbLabel }]} />
-        <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="pt-7 lg:pt-10">
-            <p className="mb-4 inline-flex rounded-full border border-black/10 bg-[rgba(255,253,247,0.78)] px-3 py-2 text-sm font-black text-teal-700">
+        <section className="pt-7 text-center lg:pt-10">
+          <div className="mx-auto max-w-4xl">
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/10 bg-[rgba(255,253,247,0.78)] px-3 py-2 text-sm font-black text-slate-700 backdrop-blur">
+              <span className="size-2.5 rounded-full bg-[var(--teal)] shadow-[0_0_0_6px_rgba(15,159,143,0.14)]" />
               {labels.eyebrow}
             </p>
-            <h1 className="font-serif text-5xl font-black leading-none tracking-normal sm:text-6xl">
+            <h1 className="font-serif text-5xl font-black leading-[0.95] tracking-normal sm:text-6xl lg:text-7xl">
               {title}
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">{description}</p>
-            <ul className="mt-6 grid gap-3">
-              {bullets.map((bullet) => (
-                <li key={bullet} className="rounded-xl border border-black/10 bg-[rgba(255,253,247,0.74)] p-4 font-bold">
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+              {description}
+            </p>
+            <ul className="mx-auto mt-7 grid max-w-3xl gap-3 text-left md:grid-cols-3">
+              {bullets.slice(0, 3).map((bullet) => (
+                <li
+                  key={bullet}
+                  className="rounded-lg border border-black/10 bg-[rgba(255,253,247,0.66)] p-4 text-sm font-bold leading-6 text-slate-700"
+                >
                   {bullet}
                 </li>
               ))}
             </ul>
           </div>
-          <CompressorApp locale={locale} />
+        </section>
+
+        <section className="mt-8">
+          <CompressorApp
+            locale={locale}
+            initialTargetKb={compressorDefaults?.targetKb}
+            initialFormat={compressorDefaults?.format}
+          />
         </section>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">

@@ -15,6 +15,7 @@ export default function Page() {
       title="不上传服务器，把图片压缩到 200KB"
       description="在浏览器中把 JPG、PNG 或 WebP 压缩到 200KB 左右，适合表单上传、网站图片和邮件附件。"
       bullets={["面向常见上传限制的 200KB 目标预设。", ...zhBaseBullets]}
+      compressorDefaults={{ targetKb: 200 }}
       guideTitle="如何把图片压缩到 200KB"
       guide={[
         "将目标大小设置为 200 KB。",

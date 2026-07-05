@@ -111,13 +111,23 @@ const compressorCopy = {
   },
 };
 
-export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) {
+type CompressorAppProps = {
+  locale?: CompressorLocale;
+  initialTargetKb?: number;
+  initialFormat?: OutputFormat;
+};
+
+export function CompressorApp({
+  locale = "en",
+  initialTargetKb = 200,
+  initialFormat = "auto",
+}: CompressorAppProps) {
   const t = compressorCopy[locale];
   const workerRef = useRef<Worker | null>(null);
   const [items, setItems] = useState<FileItem[]>([]);
-  const [format, setFormat] = useState<OutputFormat>("auto");
+  const [format, setFormat] = useState<OutputFormat>(initialFormat);
   const [quality, setQuality] = useState(82);
-  const [targetKb, setTargetKb] = useState(200);
+  const [targetKb, setTargetKb] = useState(initialTargetKb);
   const [maxWidth, setMaxWidth] = useState(2400);
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentProcessing, setCurrentProcessing] = useState<{ index: number; total: number } | null>(
@@ -146,7 +156,6 @@ export function CompressorApp({ locale = "en" }: { locale?: CompressorLocale }) 
   }, [toast]);
 
   const completed = items.filter((item) => item.status === "done" && item.result);
-  const queued = items.filter((item) => item.status === "queued");
   const totalSaved = completed.reduce((sum, item) => {
     const result = item.result;
     return result ? sum + Math.max(0, result.originalBytes - result.compressedBytes) : sum;

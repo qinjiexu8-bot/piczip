@@ -15,6 +15,7 @@ export default function Page() {
       title="Batch compress images and download a ZIP"
       description="Compress multiple images locally and export the results in one ZIP file. PicZip is useful for website assets, product photos, email attachments, and repeated upload tasks."
       bullets={["Add up to 50 images and download one ZIP.", ...baseBullets]}
+      compressorDefaults={{ targetKb: 200 }}
       guideTitle="How to batch compress images"
       guide={[
         "Drop multiple JPG, PNG, or WebP images into the compressor.",
