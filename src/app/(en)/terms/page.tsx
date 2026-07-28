@@ -5,7 +5,6 @@ export const metadata = createMetadata({
   title: "Terms of Use",
   description: "Terms of use for PicZip, a free browser-based image compression tool.",
   path: "/terms",
-  robots: { index: false, follow: true },
 });
 
 export default function Page() {
