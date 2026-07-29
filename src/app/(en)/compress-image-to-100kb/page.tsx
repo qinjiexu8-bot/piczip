@@ -24,6 +24,12 @@ export default function Page() {
       ]}
       faqs={sharedFaqs}
       breadcrumbLabel="Compress to 100KB"
+      relatedGuides={[
+        {
+          label: "Guide: reach 100KB without uploading",
+          href: "/guides/compress-image-to-100kb-without-uploading",
+        },
+      ]}
     />
   );
 }

@@ -469,7 +469,16 @@ export function CompressorApp({
                 <span>
                   {t.outputLabel}:{" "}
                   <strong>
-                    {item.result ? formatBytes(item.result.compressedBytes) : "-"}
+                    <span
+                      data-compressed-bytes={item.result?.compressedBytes}
+                      title={
+                        item.result
+                          ? `${item.result.compressedBytes.toLocaleString()} bytes`
+                          : undefined
+                      }
+                    >
+                      {item.result ? formatBytes(item.result.compressedBytes) : "-"}
+                    </span>
                     {item.result ? ` (${formatResult(item.result, t.noReduction)})` : ""}
                   </strong>
                 </span>

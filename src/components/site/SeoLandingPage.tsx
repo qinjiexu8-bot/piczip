@@ -20,6 +20,10 @@ type SeoLandingPageProps = {
     question: string;
     answer: string;
   }>;
+  relatedGuides?: Array<{
+    label: string;
+    href: string;
+  }>;
 };
 
 export function SeoLandingPage({
@@ -32,6 +36,7 @@ export function SeoLandingPage({
   locale = "en",
   breadcrumbLabel,
   compressorDefaults,
+  relatedGuides = [],
 }: SeoLandingPageProps) {
   const isChinese = locale === "zh";
   const labels = {
@@ -149,6 +154,15 @@ export function SeoLandingPage({
         <section className="mt-6 rounded-xl border border-black/10 bg-[rgba(255,253,247,0.78)] p-6">
           <h2 className="font-black">{labels.related}</h2>
           <div className="mt-4 flex flex-wrap gap-3">
+            {relatedGuides.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="rounded-full border border-teal-200 bg-teal-50 px-4 py-2 text-sm font-black text-teal-800 hover:border-teal-700"
+              >
+                {label}
+              </Link>
+            ))}
             {relatedTools.map(([label, href]) => (
               <Link
                 key={href}

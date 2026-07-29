@@ -6,6 +6,8 @@ Primary market: Google search, English first.
 
 Core positioning: free browser image compressor, no sign-up, no upload, local processing, exact KB targets, batch ZIP download.
 
+All new articles must follow the release gate in [content-publishing-standard.md](./content-publishing-standard.md). Drafts, screenshots, test records, and QA reports must be completed before a route is made indexable or added to the sitemap.
+
 ## North Star
 
 The goal is not just traffic. The goal is search traffic from people who need to compress images now.

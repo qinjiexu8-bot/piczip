@@ -1,4 +1,4 @@
-export const englishRoutes = [
+export const localizedEnglishRoutes = [
   "/",
   "/compress-jpg",
   "/compress-png",
@@ -15,7 +15,18 @@ export const englishRoutes = [
   "/about",
 ] as const;
 
-export const localizedRoutes = englishRoutes.map((route) => toLocalizedPath(route));
+export const englishOnlyRoutes = [
+  "/guides/compress-image-to-100kb-without-uploading",
+] as const;
+
+export const englishRoutes = [...localizedEnglishRoutes, ...englishOnlyRoutes] as const;
+
+export const localizedRoutes = localizedEnglishRoutes.map((route) => toLocalizedPath(route));
+
+export function hasLocalizedVersion(pathname: string) {
+  const normalized = stripLocale(pathname);
+  return (localizedEnglishRoutes as readonly string[]).includes(normalized);
+}
 
 export function isChinesePath(pathname: string) {
   return pathname === "/zh" || pathname.startsWith("/zh/");
@@ -37,7 +48,8 @@ export function toEnglishPath(pathname: string) {
 }
 
 export function alternateLanguagePath(pathname: string) {
-  return isChinesePath(pathname) ? toEnglishPath(pathname) : toLocalizedPath(pathname);
+  if (isChinesePath(pathname)) return toEnglishPath(pathname);
+  return hasLocalizedVersion(pathname) ? toLocalizedPath(pathname) : "/zh/guide";
 }
 
 export function localizedHref(pathname: string, englishHref: string) {

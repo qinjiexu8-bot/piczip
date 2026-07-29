@@ -29,6 +29,13 @@ export default function Page() {
         quality or smaller dimensions. Start with 200KB or 100KB, then reduce maximum width if the
         result is still too large.
       </p>
+      <p>
+        For a tested walkthrough, read{" "}
+        <Link className="font-black text-teal-700" href="/guides/compress-image-to-100kb-without-uploading">
+          how to compress an image to 100KB without uploading
+        </Link>
+        .
+      </p>
       <h2>Resize before lowering quality too far</h2>
       <p>
         If a photo still looks too large after compression, reduce the maximum width before pushing

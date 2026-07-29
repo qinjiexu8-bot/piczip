@@ -7,9 +7,18 @@ type PageMetadata = {
   description: string;
   path: string;
   robots?: Metadata["robots"];
+  hasChineseVersion?: boolean;
+  type?: "website" | "article";
 };
 
-export function createMetadata({ title, description, path, robots }: PageMetadata): Metadata {
+export function createMetadata({
+  title,
+  description,
+  path,
+  robots,
+  hasChineseVersion = true,
+  type = "website",
+}: PageMetadata): Metadata {
   const url = absoluteUrl(path);
   const englishPath = toEnglishPath(path);
   const chinesePath = toLocalizedPath(path);
@@ -24,11 +33,16 @@ export function createMetadata({ title, description, path, robots }: PageMetadat
     robots,
     alternates: {
       canonical: absoluteUrl(canonicalPath),
-      languages: {
-        en: absoluteUrl(englishPath),
-        zh: absoluteUrl(chinesePath),
-        "x-default": absoluteUrl(stripLocale(path)),
-      },
+      languages: hasChineseVersion
+        ? {
+            en: absoluteUrl(englishPath),
+            zh: absoluteUrl(chinesePath),
+            "x-default": absoluteUrl(stripLocale(path)),
+          }
+        : {
+            en: absoluteUrl(englishPath),
+            "x-default": absoluteUrl(stripLocale(path)),
+          },
     },
     openGraph: {
       title,
@@ -37,7 +51,7 @@ export function createMetadata({ title, description, path, robots }: PageMetadat
       siteName: siteConfig.name,
       locale: isChinesePage ? "zh_CN" : siteConfig.locale,
       alternateLocale: isChinesePage ? ["en_US"] : ["zh_CN"],
-      type: "website",
+      type,
       images: [
         {
           url: ogImageUrl,
