@@ -24,6 +24,12 @@ export default function Page() {
       ]}
       faqs={zhSharedFaqs}
       breadcrumbLabel="图片压缩到 100KB"
+      relatedGuides={[
+        {
+          label: "实测指南：图片压缩到 100KB 且不上传服务器",
+          href: "/zh/guides/compress-image-to-100kb-without-uploading",
+        },
+      ]}
     />
   );
 }

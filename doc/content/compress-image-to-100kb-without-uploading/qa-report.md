@@ -54,7 +54,7 @@ Both files were inspected. They contain no personal filename, account, person, p
 - [x] Structured data matches visible content
 - [x] Mobile and desktop layouts are readable
 - [x] Build, lint, and link checks pass
-- [x] No draft-only or nonexistent Chinese route appears in the sitemap
+- [x] The published Chinese counterpart appears in the sitemap with matching hreflang
 
 ## Quality score
 
@@ -76,7 +76,7 @@ Total: 29/30
 - Desktop viewport: no horizontal overflow; images loaded
 - Mobile viewport: no horizontal overflow; H1 and images fit the content width
 - Canonical: `https://piczip.app/guides/compress-image-to-100kb-without-uploading`
-- Hreflang: English and x-default only
+- Hreflang: English, Chinese, and x-default
 - Structured data: BreadcrumbList, Article, and HowTo
 - Images: both rendered at 832×468 desktop and 335px wide mobile
 
@@ -89,4 +89,3 @@ None.
 Approved by: Codex editorial and technical QA  
 Approved at: 2026-07-29  
 Reason: All hard blockers passed and the article scored 29/30 with no category below 4.
-

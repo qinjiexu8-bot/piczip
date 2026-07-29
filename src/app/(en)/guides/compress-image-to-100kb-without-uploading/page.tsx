@@ -11,7 +11,6 @@ export const metadata = createMetadata({
   description:
     "Compress an image to under 100KB without uploading it. Follow a tested PicZip workflow with real settings, screenshots, file sizes, and limits.",
   path,
-  hasChineseVersion: false,
   type: "article",
 });
 

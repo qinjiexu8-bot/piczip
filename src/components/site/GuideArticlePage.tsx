@@ -6,6 +6,7 @@ import { Header } from "@/components/site/Header";
 import { absoluteUrl } from "@/lib/seo/site";
 
 type GuideArticlePageProps = {
+  locale?: "en" | "zh";
   title: string;
   description: string;
   path: string;
@@ -19,6 +20,7 @@ type GuideArticlePageProps = {
 };
 
 export function GuideArticlePage({
+  locale = "en",
   title,
   description,
   path,
@@ -30,6 +32,9 @@ export function GuideArticlePage({
   image,
   children,
 }: GuideArticlePageProps) {
+  const isChinese = locale === "zh";
+  const aboutPath = isChinese ? "/zh/about" : "/about";
+  const homePath = isChinese ? "/zh" : "/";
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -41,12 +46,12 @@ export function GuideArticlePage({
     author: {
       "@type": "Organization",
       name: "PicZip",
-      url: absoluteUrl("/about"),
+      url: absoluteUrl(aboutPath),
     },
     publisher: {
       "@type": "Organization",
       name: "PicZip",
-      url: absoluteUrl("/"),
+      url: absoluteUrl(homePath),
     },
     image: [absoluteUrl(image)],
     mainEntityOfPage: absoluteUrl(path),
@@ -60,7 +65,7 @@ export function GuideArticlePage({
     step: howToSteps.map((text, index) => ({
       "@type": "HowToStep",
       position: index + 1,
-      name: `Step ${index + 1}`,
+      name: isChinese ? `步骤 ${index + 1}` : `Step ${index + 1}`,
       text,
     })),
   };
@@ -70,30 +75,41 @@ export function GuideArticlePage({
       <Header />
       <main className="mx-auto w-full max-w-4xl flex-1 px-5 pb-12 sm:px-8">
         <Breadcrumb
+          locale={locale}
           items={[
-            { label: "Guide", href: "/guide" },
+            { label: isChinese ? "指南" : "Guide", href: isChinese ? "/zh/guide" : "/guide" },
             { label: breadcrumbLabel },
           ]}
         />
 
         <article>
           <header className="border-b border-black/10 pb-8">
-            <p className="text-sm font-black uppercase text-teal-700">Tested PicZip guide</p>
-            <h1 className="mt-4 font-serif text-5xl font-black leading-[1.02] tracking-normal sm:text-6xl">
+            <p className="text-sm font-black uppercase text-teal-700">
+              {isChinese ? "PicZip 实测指南" : "Tested PicZip guide"}
+            </p>
+            <h1 className="mt-4 font-serif text-4xl font-black leading-[1.08] tracking-normal sm:text-6xl sm:leading-[1.02]">
               {title}
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{description}</p>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
               <span>
-                By <Link className="font-bold text-foreground" href="/about">PicZip</Link>
+                {isChinese ? "作者：" : "By "}
+                <Link className="font-bold text-foreground" href={aboutPath}>PicZip</Link>
               </span>
-              <span>Published {formatDate(publishedAt)}</span>
-              <span>Verified {formatDate(verifiedAt)}</span>
+              <span>
+                {isChinese ? "发布于 " : "Published "}
+                {formatDate(publishedAt, locale)}
+              </span>
+              <span>
+                {isChinese ? "复测于 " : "Verified "}
+                {formatDate(verifiedAt, locale)}
+              </span>
               <span>{readingTime}</span>
             </div>
             <p className="mt-5 rounded-lg bg-teal-50 px-4 py-3 text-sm leading-6 text-teal-900">
-              Testing note: the figures and screenshots on this page come from a reproducible
-              PicZip browser test using a privacy-safe image fixture.
+              {isChinese
+                ? "测试说明：本文数据和截图来自可重复执行的 PicZip 浏览器测试，测试图片不含个人隐私。"
+                : "Testing note: the figures and screenshots on this page come from a reproducible PicZip browser test using a privacy-safe image fixture."}
             </p>
           </header>
 
@@ -103,11 +119,13 @@ export function GuideArticlePage({
 
           <footer className="mt-10 border-t border-black/10 pt-6 text-sm leading-7 text-slate-600">
             <p>
-              Found an error or a result you cannot reproduce? Contact{" "}
+              {isChinese
+                ? "发现错误，或无法复现文中的结果？请联系 "
+                : "Found an error or a result you cannot reproduce? Contact "}
               <a className="font-bold text-teal-700" href="mailto:support@piczip.app">
                 support@piczip.app
               </a>
-              .
+              {isChinese ? "。" : "."}
             </p>
           </footer>
         </article>
@@ -125,10 +143,10 @@ export function GuideArticlePage({
   );
 }
 
-function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en", {
+function formatDate(value: string, locale: "en" | "zh") {
+  return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en", {
     year: "numeric",
-    month: "short",
+    month: locale === "zh" ? "long" : "short",
     day: "numeric",
     timeZone: "UTC",
   }).format(new Date(`${value}T00:00:00Z`));

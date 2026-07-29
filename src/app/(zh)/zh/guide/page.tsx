@@ -22,7 +22,17 @@ export default function Page() {
         照片可以优先尝试 JPG 或 WebP，需要透明背景时再保留 PNG。
       </p>
       <h2>谨慎使用指定大小</h2>
-      <p>100KB 这类严格限制很实用，但大图可能需要降低质量或缩小尺寸才能达到目标。</p>
+      <p>
+        100KB 这类严格限制很实用，但大图可能需要降低质量或缩小尺寸才能达到目标。第一次处理这类要求，
+        可以参考我们用真实图片完成的
+        <Link
+          className="font-black text-teal-700"
+          href="/zh/guides/compress-image-to-100kb-without-uploading"
+        >
+          图片压缩到 100KB 实测指南
+        </Link>
+        。
+      </p>
       <h2>优先缩小尺寸，再大幅降低质量</h2>
       <p>
         如果图片压缩后仍然太大，可以先降低最大宽度，再继续降低质量。很多时候，适当缩小尺寸比把质量拉得很低更清晰。

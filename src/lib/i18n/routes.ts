@@ -13,11 +13,10 @@ export const localizedEnglishRoutes = [
   "/privacy",
   "/terms",
   "/about",
-] as const;
-
-export const englishOnlyRoutes = [
   "/guides/compress-image-to-100kb-without-uploading",
 ] as const;
+
+export const englishOnlyRoutes = [] as const;
 
 export const englishRoutes = [...localizedEnglishRoutes, ...englishOnlyRoutes] as const;
 
