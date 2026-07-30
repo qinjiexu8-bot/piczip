@@ -36,6 +36,13 @@ export default function Page() {
         </Link>
         .
       </p>
+      <p>
+        Preparing an application upload? See our comparison of two ways to{" "}
+        <Link className="font-black text-teal-700" href="/guides/compress-image-to-200kb-for-online-forms">
+          compress an image to 200KB for an online form
+        </Link>
+        .
+      </p>
       <h2>Resize before lowering quality too far</h2>
       <p>
         If a photo still looks too large after compression, reduce the maximum width before pushing
@@ -51,6 +58,13 @@ export default function Page() {
       <p>
         For product photos, blog images, and website assets, use the same target size and export all
         results as one ZIP. This keeps repeated optimization work fast and consistent.
+      </p>
+      <p>
+        For email, use our tested workflow to{" "}
+        <Link className="font-black text-teal-700" href="/guides/reduce-image-size-for-email-attachments">
+          reduce several image attachments and decide whether to send a ZIP
+        </Link>
+        .
       </p>
       <p>
         Ready to try it? <Link className="font-black text-teal-700" href="/">Open the compressor</Link>.

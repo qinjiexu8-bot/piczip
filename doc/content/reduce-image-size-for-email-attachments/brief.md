@@ -1,6 +1,6 @@
 # Content Brief: Reduce Image Size for Email Attachments
 
-Status: Planned
+Status: Approved
 
 ## Keyword map
 
@@ -31,4 +31,3 @@ Compress a small batch of mixed images, record total size before and after, expo
 ## Cannibalization check
 
 Do not target the broad `batch image compressor` term. The article must remain focused on the email use case.
-

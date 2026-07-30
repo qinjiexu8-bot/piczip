@@ -24,6 +24,12 @@ export default function Page() {
       ]}
       faqs={sharedFaqs}
       breadcrumbLabel="Batch Image Compressor"
+      relatedGuides={[
+        {
+          label: "Guide: reduce image size for email attachments",
+          href: "/guides/reduce-image-size-for-email-attachments",
+        },
+      ]}
     />
   );
 }

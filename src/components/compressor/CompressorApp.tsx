@@ -133,6 +133,7 @@ export function CompressorApp({
   const [currentProcessing, setCurrentProcessing] = useState<{ index: number; total: number } | null>(
     null,
   );
+  const [lastZipBytes, setLastZipBytes] = useState<number>();
   const [toast, setToast] = useState<{ message: string; type: "success" | "info" } | null>(null);
   const [isToastVisible, setIsToastVisible] = useState(false);
 
@@ -292,6 +293,7 @@ export function CompressorApp({
 
   function clearAll() {
     setItems([]);
+    setLastZipBytes(undefined);
   }
 
   async function downloadResult(result: CompressionResult) {
@@ -308,6 +310,7 @@ export function CompressorApp({
     }
 
     const zipped = zipSync(files);
+    setLastZipBytes(zipped.byteLength);
     await saveBlob(
       new Blob([zipped], { type: "application/zip" }),
       "piczip-compressed-images.zip",
@@ -420,9 +423,10 @@ export function CompressorApp({
           <ImageIcon className="size-5" />
           {isProcessing ? t.compressing : t.compress}
         </button>
-        <button
-          type="button"
-          onClick={() => void downloadZip()}
+          <button
+            type="button"
+            onClick={() => void downloadZip()}
+            data-zip-bytes={lastZipBytes}
           disabled={!completed.length}
           className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 font-bold disabled:cursor-not-allowed disabled:opacity-50"
         >
@@ -471,6 +475,9 @@ export function CompressorApp({
                   <strong>
                     <span
                       data-compressed-bytes={item.result?.compressedBytes}
+                      data-output-mime={item.result?.mimeType}
+                      data-output-width={item.result?.width}
+                      data-output-height={item.result?.height}
                       title={
                         item.result
                           ? `${item.result.compressedBytes.toLocaleString()} bytes`

@@ -24,6 +24,12 @@ export default function Page() {
       ]}
       faqs={sharedFaqs}
       breadcrumbLabel="Compress to 200KB"
+      relatedGuides={[
+        {
+          label: "Guide: prepare a 200KB image for an online form",
+          href: "/guides/compress-image-to-200kb-for-online-forms",
+        },
+      ]}
     />
   );
 }

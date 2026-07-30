@@ -1,6 +1,6 @@
 # Content Brief: Compress an Image to 200KB for Online Forms
 
-Status: Planned
+Status: Approved
 
 ## Keyword map
 
@@ -31,4 +31,3 @@ Test a photo or scan with a 200KB target. Compare a quality-only result with a m
 ## Cannibalization check
 
 Keep application-form constraints central. The transactional term remains assigned to `/compress-image-to-200kb`.
-
