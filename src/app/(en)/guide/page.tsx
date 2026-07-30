@@ -23,6 +23,13 @@ export default function Page() {
         modern web-friendly format. If the goal is a smaller upload, try JPG or WebP for photos and
         keep PNG for images that need transparency.
       </p>
+      <p>
+        For measured results from the same source image, compare{" "}
+        <Link className="font-black text-teal-700" href="/guides/jpg-vs-png-vs-webp-file-size">
+          JPG, PNG, and WebP file sizes
+        </Link>
+        .
+      </p>
       <h2>Use target size carefully</h2>
       <p>
         A strict target like 100KB is useful for upload forms, but very large photos may need lower
@@ -48,6 +55,13 @@ export default function Page() {
         If a photo still looks too large after compression, reduce the maximum width before pushing
         quality very low. Smaller dimensions often preserve a cleaner result than aggressive quality
         reduction.
+      </p>
+      <p>
+        Screenshots need a different approach from photos. Read how to{" "}
+        <Link className="font-black text-teal-700" href="/guides/compress-screenshot-without-blurry-text">
+          compress a screenshot without making small text blurry
+        </Link>
+        .
       </p>
       <h2>Keep private files local</h2>
       <p>

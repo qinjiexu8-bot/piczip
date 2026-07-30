@@ -20,6 +20,12 @@ export default function Page() {
       guide={defaultGuide}
       faqs={sharedFaqs}
       breadcrumbLabel="Compress JPG"
+      relatedGuides={[
+        {
+          label: "Guide: compare JPG, PNG, and WebP file size",
+          href: "/guides/jpg-vs-png-vs-webp-file-size",
+        },
+      ]}
     />
   );
 }

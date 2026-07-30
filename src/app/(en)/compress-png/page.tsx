@@ -20,6 +20,16 @@ export default function Page() {
       guide={defaultGuide}
       faqs={sharedFaqs}
       breadcrumbLabel="Compress PNG"
+      relatedGuides={[
+        {
+          label: "Guide: compress screenshots without blurry text",
+          href: "/guides/compress-screenshot-without-blurry-text",
+        },
+        {
+          label: "Guide: compare JPG, PNG, and WebP file size",
+          href: "/guides/jpg-vs-png-vs-webp-file-size",
+        },
+      ]}
     />
   );
 }
