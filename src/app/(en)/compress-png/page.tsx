@@ -29,6 +29,10 @@ export default function Page() {
           label: "Guide: compare JPG, PNG, and WebP file size",
           href: "/guides/jpg-vs-png-vs-webp-file-size",
         },
+        {
+          label: "Guide: why a compressed image can still be too large",
+          href: "/guides/why-compressed-image-is-still-too-large",
+        },
       ]}
     />
   );

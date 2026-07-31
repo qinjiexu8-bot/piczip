@@ -19,6 +19,12 @@ export default function Page() {
       guide={defaultGuide}
       faqs={sharedFaqs}
       breadcrumbLabel="Local Image Compressor"
+      relatedGuides={[
+        {
+          label: "Guide: reduce file size without changing dimensions",
+          href: "/guides/reduce-image-size-without-changing-dimensions",
+        },
+      ]}
     />
   );
 }

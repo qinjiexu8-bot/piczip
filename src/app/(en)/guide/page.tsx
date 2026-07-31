@@ -57,6 +57,20 @@ export default function Page() {
         reduction.
       </p>
       <p>
+        Need to preserve the pixel count? Follow our tested method to{" "}
+        <Link className="font-black text-teal-700" href="/guides/reduce-image-size-without-changing-dimensions">
+          reduce image size without changing dimensions
+        </Link>
+        .
+      </p>
+      <p>
+        If a target setting still returns a large file, use the checks in{" "}
+        <Link className="font-black text-teal-700" href="/guides/why-compressed-image-is-still-too-large">
+          why a compressed image is still too large
+        </Link>
+        .
+      </p>
+      <p>
         Screenshots need a different approach from photos. Read how to{" "}
         <Link className="font-black text-teal-700" href="/guides/compress-screenshot-without-blurry-text">
           compress a screenshot without making small text blurry
