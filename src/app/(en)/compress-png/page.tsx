@@ -22,6 +22,14 @@ export default function Page() {
       breadcrumbLabel="Compress PNG"
       relatedGuides={[
         {
+          label: "Guide: compress PNG without losing transparency",
+          href: "/guides/compress-png-without-losing-transparency",
+        },
+        {
+          label: "Guide: reduce PNG size for an email signature",
+          href: "/guides/reduce-png-size-for-email-signature",
+        },
+        {
           label: "Guide: compress screenshots without blurry text",
           href: "/guides/compress-screenshot-without-blurry-text",
         },

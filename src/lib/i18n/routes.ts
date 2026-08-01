@@ -23,6 +23,8 @@ export const englishOnlyRoutes = [
   "/guides/compress-screenshot-without-blurry-text",
   "/guides/reduce-image-size-without-changing-dimensions",
   "/guides/why-compressed-image-is-still-too-large",
+  "/guides/compress-png-without-losing-transparency",
+  "/guides/reduce-png-size-for-email-signature",
 ] as const;
 
 export const englishRoutes = [...localizedEnglishRoutes, ...englishOnlyRoutes] as const;

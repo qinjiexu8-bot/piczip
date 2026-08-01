@@ -77,6 +77,17 @@ export default function Page() {
         </Link>
         .
       </p>
+      <p>
+        Working with a logo or cutout? Read how to{" "}
+        <Link className="font-black text-teal-700" href="/guides/compress-png-without-losing-transparency">
+          compress PNG without losing transparency
+        </Link>
+        , or follow the specific workflow to{" "}
+        <Link className="font-black text-teal-700" href="/guides/reduce-png-size-for-email-signature">
+          reduce a PNG email signature
+        </Link>
+        .
+      </p>
       <h2>Keep private files local</h2>
       <p>
         Browser-side compression is best for IDs, application photos, internal screenshots, and
