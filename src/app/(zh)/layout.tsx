@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 import { siteConfig } from "@/lib/seo/site";
 
@@ -42,7 +43,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className={notoSans.variable}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

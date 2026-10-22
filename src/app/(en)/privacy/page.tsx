@@ -23,8 +23,15 @@ export default function Page() {
       </p>
       <h2>Analytics</h2>
       <p>
-        We may use privacy-conscious analytics to understand page views, browser compatibility, and
-        feature usage. Analytics should not include image file names, image content, or image hashes.
+        We use Vercel Web Analytics to measure page views, referral sources, and browser and device
+        types. Page visit data is sent to Vercel for aggregated statistics without third-party
+        cookies. We do not send image files, file names, or image hashes to the analytics service.
+      </p>
+      <p>
+        For details, see the{" "}
+        <a className="font-medium text-teal-700 underline underline-offset-4" href="https://vercel.com/docs/analytics/privacy-policy">
+          Vercel Web Analytics privacy documentation
+        </a>.
       </p>
       <h2>Browser storage</h2>
       <p>
