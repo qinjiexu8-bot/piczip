@@ -1,5 +1,8 @@
 export const localizedEnglishRoutes = [
   "/",
+  "/resize-image",
+  "/convert-image",
+  "/stitch-images",
   "/compress-jpg",
   "/compress-png",
   "/compress-webp",

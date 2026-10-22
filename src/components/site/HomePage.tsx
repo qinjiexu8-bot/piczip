@@ -1,6 +1,8 @@
+import { ToolIntro } from "@/components/site/ToolIntro";
+import { ToolLinks } from "@/components/image-tools/ToolLinks";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Check, CheckCircle2, FileArchive, Lock, ShieldCheck, UserRoundX, WalletCards } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, FileArchive, Lock, ShieldCheck, UserRoundX, WalletCards } from "lucide-react";
 import { CompressorApp } from "@/components/compressor/CompressorApp";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
@@ -53,16 +55,12 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
     <div className="grain flex min-h-screen flex-col overflow-x-clip">
       <Header />
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-7 sm:px-8">
-        <section className="home-hero">
-          <span className="privacy-eyebrow"><Lock size={11} />{copy.locale === "zh" ? "为你的隐私而设计" : "PRIVATE BY DESIGN"}</span>
-          <h1>{copy.title}</h1>
-          <p>{copy.description}</p>
-          <div className="proof-row">
-            {(copy.locale === "zh" ? ["无需注册", "图片留在本地", "一次最多 50 张"] : ["No sign-up needed", "Files stay on your device", "Up to 50 images at once"]).map(label => (
-              <span key={label}><Check size={12} className="text-emerald-700" />{label}</span>
-            ))}
-          </div>
-        </section>
+        <ToolIntro
+          title={copy.title}
+          description={copy.description}
+          locale={copy.locale}
+          benefits={copy.locale === "zh" ? ["无需注册", "一次最多 50 张"] : ["No sign-up needed", "Up to 50 images at once"]}
+        />
 
         <CompressorApp locale={copy.locale} />
 
@@ -71,6 +69,8 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
             <Feature key={feature.title} icon={icons[feature.icon]} title={feature.title} text={feature.text} />
           ))}
         </section>
+
+        <ToolLinks locale={copy.locale} />
 
         <section className="home-support">
           <div>

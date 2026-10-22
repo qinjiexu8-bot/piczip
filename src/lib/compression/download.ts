@@ -1,7 +1,7 @@
 import type { CompressionResult } from "./types";
 
 /** ZIP keys must remain unique even when the generated suffix already exists. */
-export function createZipEntries(results: CompressionResult[]): Record<string, Uint8Array> {
+export function createZipEntries(results: Pick<CompressionResult, "outputName" | "buffer">[]): Record<string, Uint8Array> {
   const files: Record<string, Uint8Array> = Object.create(null);
   const used = new Set<string>();
 

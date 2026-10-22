@@ -1,3 +1,4 @@
+import { ToolIntro } from "@/components/site/ToolIntro";
 import Link from "next/link";
 import { CompressorApp } from "@/components/compressor/CompressorApp";
 import { Breadcrumb } from "@/components/site/Breadcrumb";
@@ -40,7 +41,6 @@ export function SeoLandingPage({
 }: SeoLandingPageProps) {
   const isChinese = locale === "zh";
   const labels = {
-    eyebrow: isChinese ? "免费 · 无需注册 · 不上传" : "Free · No sign-up · No upload",
     faq: isChinese ? "常见问题" : "FAQ",
     related: isChinese ? "相关压缩任务" : "Related compression tasks",
   };
@@ -89,33 +89,10 @@ export function SeoLandingPage({
     <div className="grain flex min-h-screen flex-col">
       <Header />
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-10 sm:px-8">
-        <Breadcrumb locale={locale} items={[{ label: breadcrumbLabel }]} />
-        <section className="pt-3 text-center lg:pt-5">
-          <div className="mx-auto max-w-4xl">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#e8f0e5] px-3 py-1.5 text-xs font-medium text-[#315b46]">
-              <span className="size-1.5 rounded-full bg-[var(--teal)]" />
-              {labels.eyebrow}
-            </p>
-            <h1 className="font-serif text-4xl font-normal leading-[1.15] tracking-tight sm:text-5xl">
-              {title}
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#6b776f]">
-              {description}
-            </p>
-            <ul className="mx-auto mt-4 flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-1 text-center">
-              {bullets.slice(0, 3).map((bullet) => (
-                <li
-                  key={bullet}
-                  className="text-[11px] leading-6 text-[#6b776f]"
-                >
-                  {bullet}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        <div className="tool-breadcrumb"><Breadcrumb locale={locale} items={[{ label: breadcrumbLabel }]} /></div>
+        <ToolIntro title={title} description={description} locale={locale} benefits={bullets.slice(0, 3)} />
 
-        <section className="mt-6">
+        <section>
           <CompressorApp
             locale={locale}
             initialTargetKb={compressorDefaults?.targetKb}

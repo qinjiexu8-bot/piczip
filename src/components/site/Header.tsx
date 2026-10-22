@@ -11,6 +11,9 @@ export function Header() {
   const normalized = stripLocale(pathname);
   const items = [
     { label: isChinese ? "图片压缩" : "Compress", href: localizedHref(pathname, "/"), active: normalized === "/" || normalized.startsWith("/compress") || normalized === "/local-image-compressor" || normalized === "/batch-image-compressor" },
+    { label: isChinese ? "尺寸调整" : "Resize", href: localizedHref(pathname, "/resize-image"), active: normalized === "/resize-image" },
+    { label: isChinese ? "格式转换" : "Convert", href: localizedHref(pathname, "/convert-image"), active: normalized === "/convert-image" },
+    { label: isChinese ? "图片拼接" : "Stitch", href: localizedHref(pathname, "/stitch-images"), active: normalized === "/stitch-images" },
     { label: isChinese ? "使用指南" : "Guides", href: localizedHref(pathname, "/guide"), active: normalized === "/guide" || normalized.startsWith("/guides/") },
     { label: isChinese ? "常见问题" : "FAQ", href: localizedHref(pathname, "/faq"), active: normalized === "/faq" },
   ];
@@ -22,7 +25,7 @@ export function Header() {
         PicZip<span className="brand-dot">.</span>
       </Link>
       <div className="flex items-center gap-3 sm:gap-7">
-        <nav aria-label={isChinese ? "主导航" : "Main navigation"} className="hidden items-center gap-8 md:flex">
+        <nav aria-label={isChinese ? "主导航" : "Main navigation"} className="hidden items-center gap-5 lg:gap-7 md:flex">
           {items.map(item => (
             <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} className={`site-nav-link ${item.active ? "is-active" : ""}`}>
               {item.label}
