@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import "../globals.css";
 import { siteConfig } from "@/lib/seo/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
+  display: "swap",
   subsets: ["latin"],
 });
 
@@ -40,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={geistSans.variable}>
+    <html lang="en" className={notoSans.variable}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

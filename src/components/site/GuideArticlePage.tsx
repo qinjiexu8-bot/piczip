@@ -87,7 +87,7 @@ export function GuideArticlePage({
             <p className="text-sm font-black uppercase text-teal-700">
               {isChinese ? "PicZip 实测指南" : "Tested PicZip guide"}
             </p>
-            <h1 className="mt-4 font-serif text-4xl font-black leading-[1.08] tracking-normal sm:text-6xl sm:leading-[1.02]">
+            <h1 className="mt-4 font-sans text-3xl font-semibold leading-[1.25] tracking-tight sm:text-5xl sm:leading-[1.15]">
               {title}
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{description}</p>

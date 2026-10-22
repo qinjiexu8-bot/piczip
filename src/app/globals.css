@@ -15,13 +15,13 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-noto-sans), "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
   --font-mono: ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; }
 html { min-height: 100%; background: var(--background); scroll-behavior: smooth; }
-body { min-height: 100%; margin: 0; background: var(--background); color: var(--foreground); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-sans); min-height: 100%; margin: 0; background: var(--background); color: var(--foreground); -webkit-font-smoothing: antialiased; }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; }
@@ -49,7 +49,7 @@ a, button, input, select, summary { -webkit-tap-highlight-color: transparent; }
 /* Compact, shared introduction: give the working area the first screen. */
 .tool-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(210px, 290px); gap: 32px; align-items: center; padding: 22px 2px 24px; }
 .tool-intro-copy { min-width: 0; }
-.tool-intro h1 { margin: 0; font-family: Georgia, "Noto Serif SC", serif; font-size: clamp(28px, 3vw, 36px); line-height: 1.25; font-weight: 400; letter-spacing: -.035em; color: #183d32; text-wrap: balance; }
+.tool-intro h1 { margin: 0; font-family: var(--font-sans); font-size: clamp(28px, 3vw, 36px); line-height: 1.25; font-weight: 650; letter-spacing: -.025em; color: #183d32; text-wrap: balance; }
 .tool-intro-copy > p { margin: 9px 0 0; font-size: 13px; line-height: 1.75; color: #6b776f; }
 .tool-intro-details { padding-left: 23px; border-left: 1px solid #dce6db; color: #66776c; font-size: 11px; line-height: 1.65; }
 .tool-intro-privacy { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: #315b46; }
@@ -70,7 +70,7 @@ a, button, input, select, summary { -webkit-tap-highlight-color: transparent; }
 .compressor-card, .results-card { border: 1px solid var(--line); border-radius: 18px; background: white; box-shadow: 0 8px 30px #183e2c04; }
 .compressor-card { padding: 25px; }
 .compressor-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
-.compressor-heading h2 { font-family: Georgia, "Noto Serif SC", serif; font-size: 23px; line-height: 1.2; letter-spacing: -.025em; }
+.compressor-heading h2 { font-family: var(--font-sans); font-size: 21px; line-height: 1.35; font-weight: 600; letter-spacing: -.02em; }
 .privacy-pill { display: inline-flex; align-items: center; gap: 5px; padding: 5px 9px; border-radius: 30px; color: #19784b; background: #ecf6ec; font-size: 10px; font-weight: 550; }
 .compressor-workspace { display: grid; grid-template-columns: 1.06fr 1fr; gap: 26px; }
 .dropzone { display: grid; place-items: center; position: relative; min-height: 288px; padding: 25px 20px; text-align: center; border: 1px dashed #b7cebe; border-radius: 10px; background: linear-gradient(140deg, #f6f9f4, #fafcf9); cursor: pointer; transition: background .2s, border-color .2s; }
@@ -254,7 +254,7 @@ a, button, input, select, summary { -webkit-tap-highlight-color: transparent; }
 .tool-stale { color: #93651e; background: #fff7e5; border-radius: 7px; padding: 10px 12px; font-size: 12px; margin-bottom: 16px; }
 .tool-discovery { border-top: 1px solid var(--line); margin-top: 30px; padding: 28px 0 15px; }
 .tool-discovery-heading { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; }
-.tool-discovery-heading h2 { font-family: Georgia, "Noto Serif SC", serif; font-size: 22px; }
+.tool-discovery-heading h2 { font-family: var(--font-sans); font-size: 20px; font-weight: 600; letter-spacing: -.015em; }
 .tool-discovery-heading > span { font-size: 11px; color: var(--muted); }
 .tool-links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
 .tool-link-card { display: flex; align-items: flex-start; gap: 12px; padding: 20px 18px; border: 1px solid var(--line); border-radius: 12px; background: #ffffffb3; transition: background .2s, border-color .2s; }
@@ -277,3 +277,7 @@ a, button, input, select, summary { -webkit-tap-highlight-color: transparent; }
   .tool-results { padding-bottom: 18px; }
   .tool-link-card { padding: 18px; }
 }
+
+/* Chinese UI uses native sans glyphs with natural spacing; numeric results align. */
+:lang(zh-CN) :is(h1, h2, h3, .drop-title) { letter-spacing: 0; }
+.number-with-unit input, .quality-field output, .result-sizes, .result-meta, .tool-output-details span { font-variant-numeric: tabular-nums; }
