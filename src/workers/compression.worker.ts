@@ -51,6 +51,7 @@ async function compressImage(job: CompressionJob): Promise<CompressionResult> {
     width: resized.width,
     height: resized.height,
     durationMs,
+    targetBytes: job.options.targetBytes,
     engine: engineLabel(outputFormat),
     buffer: encoded,
   };
@@ -124,7 +125,7 @@ async function encodeWithTargetSize(
   let best = await encodeImage(image, format, quality);
   let smallest = best;
 
-  if (!targetBytes || best.byteLength <= targetBytes) {
+  if (format === "png" || !targetBytes || best.byteLength <= targetBytes) {
     return best;
   }
 

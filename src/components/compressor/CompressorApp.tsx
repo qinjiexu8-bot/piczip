@@ -1,20 +1,23 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Archive, Download, ImageIcon, Loader2, Lock, Trash2, Upload } from "lucide-react";
+import Image from "next/image";
+import { Archive, ArrowDown, Check, CheckCircle2, CircleAlert, Download, ImageIcon, Leaf, Loader2, Lock, Plus, Trash2, X } from "lucide-react";
 import { zipSync } from "fflate";
 import type {
   CompressionOptions,
   CompressionResult,
   OutputFormat,
-  WorkerResponse,
 } from "@/lib/compression/types";
+import { CompressionBatch } from "@/lib/compression/batch";
+import { createZipEntries } from "@/lib/compression/download";
+import { CompressionWorkerClient, CompressionWorkerError } from "@/lib/compression/worker-client";
 
 type FileItem = {
   id: string;
   file: File;
-  status: "queued" | "compressing" | "done" | "error";
+  previewUrl: string;
+  status: "queued" | "compressing" | "done" | "error" | "cancelled";
   result?: CompressionResult;
   error?: string;
 };
@@ -36,19 +39,36 @@ type SaveFilePicker = {
 
 const maxFiles = 50;
 const maxPixels = 40_000_000;
+const maxFileBytes = 50 * 1024 * 1024;
 const acceptedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 
 type CompressorLocale = "en" | "zh";
 
 const compressorCopy = {
   en: {
-    title: "Compress images",
+    title: "Image compressor",
+    settings: "Compression settings",
+    choose: "Choose images",
+    fileTypes: "JPG, PNG, WebP · Up to 50 images",
+    fileLimits: "50 MB per image · 40 MP maximum",
+    yourImages: "Your images",
+    files: "files",
+    fileSingular: "file",
+    queued: "Queued",
+    done: "Ready",
+    error: "Failed",
+    above: "Above target",
+    aboveHint: "Above the selected target. Try a smaller width or a different format.",
+    pngHint: "PNG keeps its color data; the quality slider does not apply.",
+    widthHint: "0 keeps the original width. Images are never enlarged.",
+    targetOff: "No limit",
+    saved: "Saved",
     subtitle: "Free JPG, PNG, and WebP compression in your browser.",
     noUpload: "No upload",
     dropTitle: "Drop images here",
     dropText: "Choose up to 50 images. No account is required and files are not uploaded.",
     targetSize: "Target size",
-    targetHint: "Best effort in KB. Use 0 to disable; lower max width if needed.",
+    targetHint: "Best effort in KB. Use 0 for no size limit.",
     output: "Output",
     quality: "Quality",
     maxWidth: "Max width",
@@ -56,6 +76,11 @@ const compressorCopy = {
     compress: "Compress images",
     downloadZip: "Download ZIP",
     clear: "Clear",
+    cancel: "Cancel",
+    cancelled: "Cancelled",
+    timeout: "This image took too long. Try a smaller image or retry.",
+    workerFailed: "The image processor stopped. Please retry.",
+    fileTooLarge: "Image exceeds the 50MB file size limit.",
     processingTitle: "Compressing images",
     processingDetail: "Processing",
     tableFile: "File",
@@ -76,7 +101,23 @@ const compressorCopy = {
     failed: "Compression failed.",
   },
   zh: {
-    title: "压缩图片",
+    title: "图片压缩",
+    settings: "压缩设置",
+    choose: "选择图片",
+    fileTypes: "JPG、PNG、WebP · 最多 50 张",
+    fileLimits: "每张不超过 50 MB · 最大 40 MP",
+    yourImages: "你的图片",
+    files: "张图片",
+    fileSingular: "张图片",
+    queued: "待处理",
+    done: "已完成",
+    error: "处理失败",
+    above: "超出目标",
+    aboveHint: "仍超出指定大小，可尝试降低宽度或更换输出格式。",
+    pngHint: "PNG 保留颜色数据，质量滑杆不影响 PNG 输出。",
+    widthHint: "填 0 保留原始宽度，图片不会被放大。",
+    targetOff: "不限制",
+    saved: "已节省",
     subtitle: "免费压缩 JPG、PNG、WebP，直接在浏览器中完成。",
     noUpload: "不上传",
     dropTitle: "拖入图片",
@@ -90,6 +131,11 @@ const compressorCopy = {
     compress: "开始压缩",
     downloadZip: "下载 ZIP",
     clear: "清空",
+    cancel: "取消压缩",
+    cancelled: "已取消",
+    timeout: "此图片处理超时，请尝试较小的图片或重试。",
+    workerFailed: "图片处理器意外停止，请重试。",
+    fileTooLarge: "图片超过 50MB 文件大小限制。",
     processingTitle: "正在压缩图片",
     processingDetail: "处理中",
     tableFile: "文件",
@@ -123,7 +169,10 @@ export function CompressorApp({
   initialFormat = "auto",
 }: CompressorAppProps) {
   const t = compressorCopy[locale];
-  const workerRef = useRef<Worker | null>(null);
+  const workerRef = useRef<CompressionWorkerClient | null>(null);
+  const batchRef = useRef<CompressionBatch | null>(null);
+  const previewUrls = useRef(new Map<string, string>());
+  const [isDragging, setIsDragging] = useState(false);
   const [items, setItems] = useState<FileItem[]>([]);
   const [format, setFormat] = useState<OutputFormat>(initialFormat);
   const [quality, setQuality] = useState(82);
@@ -140,8 +189,6 @@ export function CompressorApp({
   useEffect(() => {
     if (!toast) return;
 
-    setIsToastVisible(true);
-
     const fadeTimer = setTimeout(() => {
       setIsToastVisible(false);
     }, 3000);
@@ -157,10 +204,12 @@ export function CompressorApp({
   }, [toast]);
 
   const completed = items.filter((item) => item.status === "done" && item.result);
-  const totalSaved = completed.reduce((sum, item) => {
+  const totalSaved = Math.max(0, completed.reduce((sum, item) => {
     const result = item.result;
-    return result ? sum + Math.max(0, result.originalBytes - result.compressedBytes) : sum;
-  }, 0);
+    return result ? sum + result.originalBytes - result.compressedBytes : sum;
+  }, 0));
+  const totalOriginalBytes = completed.reduce((sum, item) => sum + item.file.size, 0);
+  const savedPercent = totalOriginalBytes ? Math.round(totalSaved / totalOriginalBytes * 100) : 0;
 
   const options = useMemo<CompressionOptions>(
     () => ({
@@ -173,12 +222,17 @@ export function CompressorApp({
   );
 
   useEffect(() => {
-    workerRef.current = new Worker(new URL("../../workers/compression.worker.ts", import.meta.url), {
-      type: "module",
-    });
+    workerRef.current = new CompressionWorkerClient(
+      () => new Worker(new URL("../../workers/compression.worker.ts", import.meta.url), { type: "module" }),
+    );
 
+    const urls = previewUrls.current;
     return () => {
-      workerRef.current?.terminate();
+      urls.forEach(url => URL.revokeObjectURL(url));
+      urls.clear();
+      batchRef.current?.cancel();
+      batchRef.current = null;
+      workerRef.current?.dispose();
       workerRef.current = null;
     };
   }, []);
@@ -187,11 +241,12 @@ export function CompressorApp({
     const accepted = Array.from(fileList)
       .filter((file) => acceptedImageTypes.has(file.type))
       .slice(0, Math.max(0, maxFiles - items.length))
-      .map((file) => ({
-        id: crypto.randomUUID(),
-        file,
-        status: "queued" as const,
-      }));
+      .map((file) => {
+        const id = crypto.randomUUID();
+        const previewUrl = URL.createObjectURL(file);
+        previewUrls.current.set(id, previewUrl);
+        return { id, file, previewUrl, status: "queued" as const };
+      });
 
     if (accepted.length > 0) {
       setItems((current) => [...current, ...accepted]);
@@ -201,97 +256,97 @@ export function CompressorApp({
             accepted.length === 1 ? t.imageSingular : t.imagePlural
           }! Click "Compress images" to start.`;
       setToast({ message, type: "success" });
+      setIsToastVisible(true);
     }
   }
 
   async function compressAll() {
-    if (!workerRef.current || isProcessing) return;
+    if (!workerRef.current || batchRef.current || !items.length) return;
 
+    const batch = new CompressionBatch();
+    batchRef.current = batch;
     setIsProcessing(true);
-    const queued = items.filter((item) => item.status !== "compressing");
-
-    for (const [index, item] of queued.entries()) {
-      setCurrentProcessing({ index: index + 1, total: queued.length });
-      setItems((current) =>
-        current.map((entry) =>
-          entry.id === item.id ? { ...entry, status: "compressing", error: undefined } : entry,
-        ),
-      );
-
-      try {
-        const result = await runCompression(item, options);
-        setItems((current) =>
-          current.map((entry) =>
-            entry.id === item.id ? { ...entry, status: "done", result } : entry,
-          ),
-        );
-      } catch (error) {
-        setItems((current) =>
-          current.map((entry) =>
-            entry.id === item.id
-              ? {
-                  ...entry,
-                  status: "error",
-                  error: error instanceof Error ? error.message : t.failed,
-                }
-              : entry,
-          ),
-        );
+    setLastZipBytes(undefined);
+    try {
+      await batch.run(items, (item, signal) => runCompression(item, options, signal), {
+        start: (item, index, total) => {
+          setCurrentProcessing({ index, total });
+          setItems((current) => current.map((entry) => entry.id === item.id
+            ? { ...entry, status: "compressing", result: undefined, error: undefined }
+            : entry));
+        },
+        success: (item, result) => {
+          setItems((current) => current.map((entry) => entry.id === item.id
+            ? { ...entry, status: "done", result }
+            : entry));
+        },
+        failure: (item, error) => {
+          const message = error instanceof CompressionWorkerError
+            ? error.code === "timeout" ? t.timeout : t.workerFailed
+            : error instanceof Error ? error.message : t.failed;
+          setItems((current) => current.map((entry) => entry.id === item.id
+            ? { ...entry, status: "error", error: message }
+            : entry));
+        },
+      });
+    } finally {
+      // A cancelled batch may finish preparation after a new batch has started.
+      if (batchRef.current === batch) {
+        batchRef.current = null;
+        setIsProcessing(false);
+        setCurrentProcessing(null);
       }
     }
-
-    setIsProcessing(false);
-    setCurrentProcessing(null);
   }
 
-  async function runCompression(item: FileItem, compressionOptions: CompressionOptions) {
+  async function runCompression(item: FileItem, compressionOptions: CompressionOptions, signal: AbortSignal) {
+    signal.throwIfAborted();
+    if (item.file.size > maxFileBytes) throw new Error(t.fileTooLarge);
     const bitmap = await createImageBitmap(item.file);
     const pixels = bitmap.width * bitmap.height;
     bitmap.close();
+    signal.throwIfAborted();
 
     if (pixels > maxPixels) {
       throw new Error(t.tooLarge);
     }
 
     const buffer = await item.file.arrayBuffer();
+    signal.throwIfAborted();
+    const worker = workerRef.current;
+    if (!worker) throw new Error(t.workerNotReady);
+    return worker.run({
+      id: crypto.randomUUID(),
+      name: item.file.name,
+      type: item.file.type,
+      buffer,
+      options: compressionOptions,
+    }, signal);
+  }
 
-    return new Promise<CompressionResult>((resolve, reject) => {
-      const worker = workerRef.current;
-      if (!worker) {
-        reject(new Error(t.workerNotReady));
-        return;
-      }
-
-      const onMessage = (event: MessageEvent<WorkerResponse>) => {
-        if (event.data.id !== item.id) return;
-        worker.removeEventListener("message", onMessage);
-
-        if (event.data.ok) {
-          resolve(event.data.result);
-        } else {
-          reject(new Error(event.data.error));
-        }
-      };
-
-      worker.addEventListener("message", onMessage);
-      worker.postMessage(
-        {
-          id: item.id,
-          name: item.file.name,
-          type: item.file.type,
-          buffer,
-          options: compressionOptions,
-        },
-        [buffer],
-      );
-    });
+  function cancelCompression() {
+    batchRef.current?.cancel();
+    batchRef.current = null;
+    setIsProcessing(false);
+    setCurrentProcessing(null);
+    setItems((current) => current.map((item) => item.status === "compressing"
+      ? { ...item, status: "cancelled", result: undefined, error: undefined }
+      : item));
   }
 
   function removeItem(id: string) {
+    batchRef.current?.remove(id);
+    const url = previewUrls.current.get(id);
+    if (url) URL.revokeObjectURL(url);
+    previewUrls.current.delete(id);
     setItems((current) => current.filter((item) => item.id !== id));
+    setLastZipBytes(undefined);
   }
 
   function clearAll() {
+    cancelCompression();
+    previewUrls.current.forEach(url => URL.revokeObjectURL(url));
+    previewUrls.current.clear();
     setItems([]);
     setLastZipBytes(undefined);
   }
@@ -302,13 +357,7 @@ export function CompressorApp({
   }
 
   async function downloadZip() {
-    const files: Record<string, Uint8Array> = {};
-
-    for (const item of completed) {
-      if (!item.result) continue;
-      files[item.result.outputName] = new Uint8Array(item.result.buffer);
-    }
-
+    const files = createZipEntries(completed.flatMap((item) => item.result ? [item.result] : []));
     const zipped = zipSync(files);
     setLastZipBytes(zipped.byteLength);
     await saveBlob(
@@ -319,233 +368,128 @@ export function CompressorApp({
   }
 
   return (
-    <section className="rounded-[18px] border-2 border-foreground bg-[var(--panel)] p-4 shadow-[7px_7px_0_var(--foreground),0_24px_70px_rgba(31,38,44,0.13)] sm:p-5">
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-black">{t.title}</h2>
-          <p className="mt-1 text-sm text-slate-600">{t.subtitle}</p>
+    <section className="compressor-shell" aria-label={t.title}>
+      <div className="compressor-card">
+        <div className="compressor-heading">
+          <h2>{t.title}</h2>
+          <span className="privacy-pill"><Lock size={11} aria-hidden="true" />{t.noUpload}</span>
         </div>
-        <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-3 py-2 text-xs font-black text-teal-700">
-          <Lock className="size-4" />
-          {t.noUpload}
-        </span>
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-        <label
-          onDragOver={(event) => event.preventDefault()}
-          onDrop={(event) => {
-            event.preventDefault();
-            void addFiles(event.dataTransfer.files);
-          }}
-          className="grid min-h-72 cursor-pointer place-items-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/80 p-6 text-center transition hover:border-slate-500 lg:min-h-80"
-        >
-          <input
-            type="file"
-            multiple
-            accept="image/jpeg,image/png,image/webp"
-            className="sr-only"
-            onChange={(event) => {
-              if (event.target.files) void addFiles(event.target.files);
-              event.currentTarget.value = "";
-            }}
-          />
-          <span>
-            <span className="mx-auto mb-4 grid size-20 place-items-center rounded-3xl bg-foreground text-[var(--lime)] shadow-xl">
-              <Upload className="size-9" strokeWidth={2.5} />
-            </span>
-            <span className="block text-3xl font-black">{t.dropTitle}</span>
-            <span className="mx-auto mt-3 block max-w-md text-sm leading-6 text-slate-600">
-              {t.dropText}
-            </span>
-          </span>
-        </label>
-
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Setting label={t.targetSize}>
-            <input
-              min={0}
-              type="number"
-              value={targetKb}
-              onChange={(event) => setTargetKb(Number(event.target.value))}
-              className="mt-2 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 font-bold outline-none focus:border-foreground"
-            />
-          </Setting>
-          <Setting label={t.output}>
-            <select
-              value={format}
-              onChange={(event) => setFormat(event.target.value as OutputFormat)}
-              className="mt-2 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 font-bold outline-none focus:border-foreground"
-            >
-              <option value="auto">Auto</option>
-              <option value="jpeg">JPG</option>
-              <option value="png">PNG</option>
-              <option value="webp">WebP</option>
-            </select>
-          </Setting>
-          <Setting label={t.quality}>
-            <input
-              min={20}
-              max={100}
-              type="range"
-              value={quality}
-              onChange={(event) => setQuality(Number(event.target.value))}
-              className="mt-4 w-full accent-[var(--teal)]"
-            />
-            <span className="mt-1 block font-black">{quality}</span>
-          </Setting>
-          <Setting label={t.maxWidth}>
-            <input
-              min={320}
-              step={100}
-              type="number"
-              value={maxWidth}
-              onChange={(event) => setMaxWidth(Number(event.target.value))}
-              className="mt-2 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 font-bold outline-none focus:border-foreground"
-            />
-          </Setting>
-        </div>
-      </div>
-
-      <p className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-xs leading-5 text-slate-500">
-        {t.targetHint}
-      </p>
-
-
-
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          onClick={() => void compressAll()}
-          disabled={!items.length || isProcessing}
-          className="inline-flex min-h-12 items-center gap-2 rounded-xl border-2 border-foreground bg-[var(--coral)] px-5 font-black text-white shadow-[4px_4px_0_var(--foreground)] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <ImageIcon className="size-5" />
-          {isProcessing ? t.compressing : t.compress}
-        </button>
-          <button
-            type="button"
-            onClick={() => void downloadZip()}
-            data-zip-bytes={lastZipBytes}
-          disabled={!completed.length}
-          className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 font-bold disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <Archive className="size-5" />
-          {t.downloadZip}
-        </button>
-        <button type="button" onClick={clearAll} className="text-sm font-bold text-slate-600 hover:text-foreground">
-          {t.clear}
-        </button>
-      </div>
-
-      {currentProcessing ? (
-        <div className="mt-4 flex items-center gap-3 rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-bold text-teal-800">
-          <Loader2 className="size-5 animate-spin" />
-          <span>
-            {t.processingTitle} · {t.processingDetail} {currentProcessing.index}/
-            {currentProcessing.total}
-          </span>
-        </div>
-      ) : null}
-
-      {items.length > 0 ? (
-        <div className="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white">
-          <div className="grid min-w-[760px] grid-cols-[minmax(0,0.62fr)_minmax(210px,0.38fr)_92px_92px] gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 text-xs font-black uppercase text-slate-500">
-            <span>{t.tableFile}</span>
+        <div className="compressor-workspace">
+          <label
+            onDragOver={event => { event.preventDefault(); setIsDragging(true); }}
+            onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setIsDragging(false); }}
+            onDrop={event => { event.preventDefault(); setIsDragging(false); void addFiles(event.dataTransfer.files); }}
+            className={`dropzone ${isDragging ? "is-dragging" : ""}`}
+          >
+            <input type="file" multiple accept="image/jpeg,image/png,image/webp" className="sr-only" aria-label={t.choose}
+              onChange={event => { if (event.target.files) void addFiles(event.target.files); event.currentTarget.value = ""; }} />
             <span>
-              {t.originalLabel} / {t.outputLabel}
+              <span className="file-art" aria-hidden="true"><ImageIcon strokeWidth={1.1} /><ImageIcon strokeWidth={1.1} /></span>
+              <span className="drop-title">{t.dropTitle}</span>
+              <span className="drop-description">{t.fileTypes}</span>
+              <span className="choose-button"><Plus size={14} />{t.choose}</span>
+              <span className="drop-footnote">{t.fileLimits}</span>
             </span>
-            <span>{t.tableStatus}</span>
-            <span>{t.tableAction}</span>
-          </div>
-          {items.map((item) => (
-            <div key={item.id} className="grid min-w-[760px] grid-cols-[minmax(0,0.62fr)_minmax(210px,0.38fr)_92px_92px] items-center gap-3 border-b border-slate-100 px-4 py-3 text-sm last:border-b-0">
-              <div className="min-w-0">
-                <p className="max-w-[34ch] truncate font-bold" title={item.file.name}>
-                  {item.file.name}
-                </p>
-                {item.error ? <p className="mt-1 text-xs font-semibold text-red-600">{item.error}</p> : null}
-              </div>
-              <div className="grid gap-1 text-xs text-slate-600">
-                <span>
-                  {t.originalLabel}: <strong>{formatBytes(item.file.size)}</strong>
-                </span>
-                <span>
-                  {t.outputLabel}:{" "}
-                  <strong>
-                    <span
-                      data-compressed-bytes={item.result?.compressedBytes}
-                      data-output-mime={item.result?.mimeType}
-                      data-output-width={item.result?.width}
-                      data-output-height={item.result?.height}
-                      title={
-                        item.result
-                          ? `${item.result.compressedBytes.toLocaleString()} bytes`
-                          : undefined
-                      }
-                    >
-                      {item.result ? formatBytes(item.result.compressedBytes) : "-"}
-                    </span>
-                    {item.result ? ` (${formatResult(item.result, t.noReduction)})` : ""}
-                  </strong>
-                </span>
-              </div>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize text-slate-700">
-                {item.status}
-              </span>
-              <div className="flex items-center justify-end gap-2">
-                {item.result ? (
-                  <button
-                    type="button"
-                    onClick={() => item.result && void downloadResult(item.result)}
-                    className="rounded-lg border border-slate-200 p-2 hover:border-foreground"
-                    aria-label={`${t.downloadLabel} ${item.file.name}`}
-                  >
-                    <Download className="size-4" />
-                  </button>
-                ) : null}
-                <button
-                  type="button"
-                  onClick={() => removeItem(item.id)}
-                  className="rounded-lg border border-red-100 bg-red-50 p-2 text-red-600 hover:border-red-300 hover:bg-red-100"
-                  aria-label={`${t.removeLabel} ${item.file.name}`}
-                >
-                  <Trash2 className="size-4" />
-                </button>
+          </label>
+
+          <div className="settings-panel">
+            <h3 className="settings-title">{t.settings}</h3>
+            <div className="setting-line">
+              <label htmlFor="compression-target">{t.targetSize}</label>
+              <div>
+                <div className="number-with-unit"><input id="compression-target" min={0} type="number" value={targetKb} disabled={isProcessing}
+                  onChange={event => setTargetKb(Math.max(0, Number(event.target.value)))} aria-describedby="target-hint" /><span aria-hidden="true">KB</span></div>
+                <span className="field-hint" id="target-hint">{t.targetHint}</span>
+                <div className="target-presets" role="group" aria-label={locale === "zh" ? "目标大小预设" : "Target size presets"}>
+                  {[0, 100, 200, 500].map(value => <button key={value} type="button" disabled={isProcessing} aria-pressed={targetKb === value} onClick={() => setTargetKb(value)}>{value ? `${value} KB` : t.targetOff}</button>)}
+                </div>
               </div>
             </div>
-          ))}
+            <div className="setting-line">
+              <span id="output-label">{t.output}</span>
+              <div role="group" aria-labelledby="output-label" className="format-switch">
+                {(["auto", "jpeg", "png", "webp"] as OutputFormat[]).map(value => (
+                  <button key={value} type="button" disabled={isProcessing} aria-pressed={format === value} onClick={() => setFormat(value)}>
+                    {value === "auto" ? "Auto" : value === "jpeg" ? "JPG" : value === "png" ? "PNG" : "WebP"}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="setting-line">
+              <label htmlFor="compression-quality">{t.quality}</label>
+              <div>
+                <div className="quality-field">
+                  <input id="compression-quality" min={20} max={100} type="range" value={quality} disabled={isProcessing || format === "png"} onChange={event => setQuality(Number(event.target.value))} aria-describedby={format === "png" ? "png-hint" : undefined} />
+                  <output htmlFor="compression-quality">{quality}</output>
+                </div>
+                {format === "png" ? <span className="field-hint" id="png-hint">{t.pngHint}</span> : null}
+              </div>
+            </div>
+            <div className="setting-line">
+              <label htmlFor="compression-width">{t.maxWidth}</label>
+              <div>
+                <div className="number-with-unit"><input id="compression-width" min={0} type="number" value={maxWidth} disabled={isProcessing} onChange={event => setMaxWidth(Math.max(0, Number(event.target.value)))} aria-describedby="width-hint" /><span aria-hidden="true">px</span></div>
+                <span className="field-hint" id="width-hint">{t.widthHint}</span>
+              </div>
+            </div>
+            <div className="compressor-actions">
+              <button type="button" className="primary-button" onClick={() => void compressAll()} disabled={!items.length || isProcessing}>
+                {isProcessing ? <Loader2 size={15} className="animate-spin" /> : <ImageIcon size={15} />}{isProcessing ? t.compressing : t.compress}
+              </button>
+              {isProcessing ? <button type="button" onClick={cancelCompression} className="secondary-button"><X size={14} />{t.cancel}</button> : null}
+              <button type="button" className="secondary-button" onClick={() => void downloadZip()} data-zip-bytes={lastZipBytes} disabled={!completed.length}>
+                <Archive size={14} />{t.downloadZip}
+              </button>
+              {items.length > 0 ? <button type="button" onClick={clearAll} className="quiet-button">{t.clear}</button> : null}
+            </div>
+            {currentProcessing ? <div className="processing-notice" role="status"><Loader2 size={14} className="animate-spin" />{t.processingDetail} {currentProcessing.index} / {currentProcessing.total}</div> : null}
+          </div>
+        </div>
+      </div>
+
+      {items.length > 0 ? (
+        <div className="results-card" aria-label={t.yourImages}>
+          <div className="results-heading">
+            <h3>{t.yourImages}</h3><span className="results-count">{items.length} {items.length === 1 ? t.fileSingular : t.files}</span>
+            {completed.length > 0 ? <span className="savings-pill"><Leaf size={12} />{totalSaved > 0 ? `${t.saved} ${savedPercent}% · ${formatBytes(totalSaved)}` : t.noReduction}</span> : null}
+          </div>
+          {items.map(item => {
+            const aboveTarget = !!(item.result?.targetBytes && item.result.compressedBytes > item.result.targetBytes);
+            const status = item.status === "done" && aboveTarget ? "above" : item.status;
+            const statusText = status === "above" ? t.above : status === "compressing" ? t.compressing : t[status];
+            return (
+              <article key={item.id} className="result-row" data-file-id={item.id}>
+                <div className="result-file">
+                  <span className="result-preview">{item.status === "error" ? <ImageIcon size={20} /> : <Image src={item.previewUrl} alt="" width={54} height={42} unoptimized loading="lazy" />}</span>
+                  <div className="min-w-0">
+                    <p className="result-name" title={item.file.name}>{item.file.name}</p>
+                    <span className="result-meta">{item.result ? `${item.result.mimeType.replace("image/", "").toUpperCase()} · ${item.result.width} × ${item.result.height}` : item.file.type.replace("image/", "").toUpperCase()}</span>
+                    {item.error ? <p className="result-error" role="alert">{item.error}</p> : null}
+                  </div>
+                </div>
+                <div className="result-sizes">
+                  <span aria-label={`${t.originalLabel}: ${formatBytes(item.file.size)}`}>{formatBytes(item.file.size)}</span><ArrowDown size={11} className="-rotate-90" aria-hidden="true" />
+                  <strong><span data-compressed-bytes={item.result?.compressedBytes} data-output-mime={item.result?.mimeType} data-output-width={item.result?.width} data-output-height={item.result?.height}
+                    aria-label={`${t.outputLabel}: ${item.result ? formatBytes(item.result.compressedBytes) : "—"}`} title={item.result ? `${item.result.compressedBytes.toLocaleString()} bytes · ${formatResult(item.result, t.noReduction)}` : undefined}>
+                    {item.result ? formatBytes(item.result.compressedBytes) : "—"}
+                  </span></strong>
+                </div>
+                <span className="result-status" data-state={status}>
+                  {status === "done" ? <CheckCircle2 size={11} /> : status === "above" || status === "error" ? <CircleAlert size={11} /> : status === "compressing" ? <Loader2 size={11} className="animate-spin" /> : null}{statusText}
+                </span>
+                <div className="result-buttons">
+                  {item.result ? <button type="button" className="icon-button" onClick={() => item.result && void downloadResult(item.result)} aria-label={`${t.downloadLabel} ${item.file.name}`}><Download size={15} /></button> : null}
+                  <button type="button" className="icon-button is-remove" onClick={() => removeItem(item.id)} aria-label={`${t.removeLabel} ${item.file.name}`}><Trash2 size={14} /></button>
+                </div>
+                {aboveTarget ? <p className="target-warning">{t.aboveHint}</p> : null}
+              </article>
+            );
+          })}
         </div>
       ) : null}
 
-      {completed.length > 0 ? (
-        <p className="mt-4 text-sm font-bold text-teal-700">
-          {totalSaved > 0 ? `${t.totalSaved}: ${formatBytes(totalSaved)}` : t.noReduction}{" "}
-          {t.across} {completed.length} {completed.length === 1 ? t.imageSingular : t.imagePlural}.
-        </p>
-      ) : null}
-
-      {toast && (
-        <div
-          className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-xl border-2 border-foreground bg-[var(--lime)] px-5 py-3 font-black text-slate-800 shadow-[4px_4px_0_var(--foreground)] transition-all duration-300 ease-out ${
-            isToastVisible
-              ? "opacity-100 translate-y-0 scale-100"
-              : "opacity-0 -translate-y-4 scale-95"
-          }`}
-        >
-          {toast.message}
-        </div>
-      )}
+      {toast ? <div role="status" className={`compressor-toast ${isToastVisible ? "" : "is-hidden"}`}><Check size={15} className="shrink-0" />{toast.message}</div> : null}
     </section>
-  );
-}
-
-function Setting({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <label className="rounded-xl border border-slate-200 bg-white p-4">
-      <span className="text-xs font-black uppercase tracking-wide text-slate-500">{label}</span>
-      {children}
-    </label>
   );
 }
 

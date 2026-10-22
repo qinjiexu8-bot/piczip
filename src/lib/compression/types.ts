@@ -17,6 +17,7 @@ export type CompressionResult = {
   width: number;
   height: number;
   durationMs: number;
+  targetBytes?: number;
   engine: string;
   buffer: ArrayBuffer;
 };

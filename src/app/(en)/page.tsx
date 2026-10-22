@@ -16,7 +16,7 @@ export default function Home() {
         eyebrow: "No upload · No sign-up · Free",
         title: "Free image compressor",
         description:
-          "Compress JPG, PNG, and WebP images directly in your browser. No account, no server upload, exact KB targets, and one ZIP download for batches.",
+          "Smaller files, more peace of mind. Compress JPG, PNG, and WebP right in your browser, with target sizes and batch ZIP downloads.",
         proofs: [
           ["Free", "no sign-up"],
           ["No upload", "files stay local"],

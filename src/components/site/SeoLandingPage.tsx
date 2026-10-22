@@ -90,23 +90,23 @@ export function SeoLandingPage({
       <Header />
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-10 sm:px-8">
         <Breadcrumb locale={locale} items={[{ label: breadcrumbLabel }]} />
-        <section className="pt-7 text-center lg:pt-10">
+        <section className="pt-3 text-center lg:pt-5">
           <div className="mx-auto max-w-4xl">
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/10 bg-[rgba(255,253,247,0.78)] px-3 py-2 text-sm font-black text-slate-700 backdrop-blur">
-              <span className="size-2.5 rounded-full bg-[var(--teal)] shadow-[0_0_0_6px_rgba(15,159,143,0.14)]" />
+            <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#e8f0e5] px-3 py-1.5 text-xs font-medium text-[#315b46]">
+              <span className="size-1.5 rounded-full bg-[var(--teal)]" />
               {labels.eyebrow}
             </p>
-            <h1 className="font-serif text-5xl font-black leading-[0.95] tracking-normal sm:text-6xl lg:text-7xl">
+            <h1 className="font-serif text-4xl font-normal leading-[1.15] tracking-tight sm:text-5xl">
               {title}
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#6b776f]">
               {description}
             </p>
-            <ul className="mx-auto mt-7 grid max-w-3xl gap-3 text-left md:grid-cols-3">
+            <ul className="mx-auto mt-4 flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-1 text-center">
               {bullets.slice(0, 3).map((bullet) => (
                 <li
                   key={bullet}
-                  className="rounded-lg border border-black/10 bg-[rgba(255,253,247,0.66)] p-4 text-sm font-bold leading-6 text-slate-700"
+                  className="text-[11px] leading-6 text-[#6b776f]"
                 >
                   {bullet}
                 </li>
@@ -115,7 +115,7 @@ export function SeoLandingPage({
           </div>
         </section>
 
-        <section className="mt-8">
+        <section className="mt-6">
           <CompressorApp
             locale={locale}
             initialTargetKb={compressorDefaults?.targetKb}
@@ -124,12 +124,12 @@ export function SeoLandingPage({
         </section>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <article className="rounded-xl border border-black/10 bg-[rgba(255,253,247,0.78)] p-6">
-            <h2 className="text-2xl font-black">{guideTitle}</h2>
+          <article className="rounded-xl border border-[var(--line)] bg-white p-6">
+            <h2 className="text-xl font-semibold">{guideTitle}</h2>
             <ol className="mt-5 grid gap-4">
               {guide.map((step, index) => (
                 <li key={step} className="flex gap-3">
-                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-foreground text-sm font-black text-white">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#e8f0e5] text-sm font-medium text-[#315b46]">
                     {index + 1}
                   </span>
                   <span className="leading-7 text-slate-600">{step}</span>
@@ -138,12 +138,12 @@ export function SeoLandingPage({
             </ol>
           </article>
 
-          <article className="rounded-xl border border-black/10 bg-[rgba(255,253,247,0.78)] p-6">
-            <h2 className="text-2xl font-black">{labels.faq}</h2>
+          <article className="rounded-xl border border-[var(--line)] bg-white p-6">
+            <h2 className="text-xl font-semibold">{labels.faq}</h2>
             <div className="mt-5 grid gap-4">
               {faqs.map((faq) => (
                 <details key={faq.question} className="rounded-lg border border-slate-200 bg-white p-4">
-                  <summary className="cursor-pointer font-black">{faq.question}</summary>
+                  <summary className="cursor-pointer text-sm font-medium">{faq.question}</summary>
                   <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
                 </details>
               ))}
@@ -151,7 +151,7 @@ export function SeoLandingPage({
           </article>
         </section>
 
-        <section className="mt-6 rounded-xl border border-black/10 bg-[rgba(255,253,247,0.78)] p-6">
+        <section className="mt-6 rounded-xl border border-[var(--line)] bg-white p-6">
           <h2 className="font-black">{labels.related}</h2>
           <div className="mt-4 flex flex-wrap gap-3">
             {relatedGuides.map(({ label, href }) => (

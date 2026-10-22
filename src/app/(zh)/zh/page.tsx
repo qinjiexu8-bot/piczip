@@ -16,7 +16,7 @@ export default function Page() {
         eyebrow: "不上传 · 无需注册 · 免费使用",
         title: "免费图片压缩工具",
         description:
-          "直接在浏览器中压缩 JPG、PNG、WebP 图片。无需账号，不上传服务器，可指定 KB 大小，也能批量打包 ZIP 下载。",
+          "图片更小，用得更安心。在浏览器中压缩 JPG、PNG、WebP，支持目标大小和批量 ZIP 下载，图片始终留在你的设备上。",
         proofs: [
           ["免费", "无需注册"],
           ["不上传", "文件留在本地"],

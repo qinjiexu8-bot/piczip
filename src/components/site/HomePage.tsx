@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { CheckCircle2, FileArchive, Lock, ShieldCheck, UserRoundX, WalletCards } from "lucide-react";
+import { ArrowUpRight, Check, CheckCircle2, FileArchive, Lock, ShieldCheck, UserRoundX, WalletCards } from "lucide-react";
 import { CompressorApp } from "@/components/compressor/CompressorApp";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
@@ -50,104 +50,57 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
   };
 
   return (
-    <div className="grain flex min-h-screen flex-col">
+    <div className="grain flex min-h-screen flex-col overflow-x-clip">
       <Header />
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-10 sm:px-8">
-        <section className="pt-7 text-center lg:pt-10">
-          <div className="mx-auto max-w-4xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-black/10 bg-[rgba(255,253,247,0.78)] px-3 py-2 text-sm font-black text-slate-700 backdrop-blur">
-              <span className="size-2.5 rounded-full bg-[var(--teal)] shadow-[0_0_0_6px_rgba(15,159,143,0.14)]" />
-              {copy.eyebrow}
-            </div>
-            <h1 className="font-serif text-5xl font-black leading-[0.95] tracking-normal sm:text-6xl lg:text-7xl">
-              {copy.title}
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              {copy.description}
-            </p>
-
-            <div className="mx-auto mt-7 grid max-w-2xl grid-cols-3 gap-3 text-left">
-              {copy.proofs.map(([value, label]) => (
-                <div key={value} className="rounded-lg border border-black/10 bg-[rgba(255,253,247,0.66)] p-4">
-                  <strong className="block text-2xl font-black">{value}</strong>
-                  <span className="mt-1 block text-sm text-slate-600">{label}</span>
-                </div>
-              ))}
-            </div>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-7 sm:px-8">
+        <section className="home-hero">
+          <span className="privacy-eyebrow"><Lock size={11} />{copy.locale === "zh" ? "为你的隐私而设计" : "PRIVATE BY DESIGN"}</span>
+          <h1>{copy.title}</h1>
+          <p>{copy.description}</p>
+          <div className="proof-row">
+            {(copy.locale === "zh" ? ["无需注册", "图片留在本地", "一次最多 50 张"] : ["No sign-up needed", "Files stay on your device", "Up to 50 images at once"]).map(label => (
+              <span key={label}><Check size={12} className="text-emerald-700" />{label}</span>
+            ))}
           </div>
         </section>
 
-        <section className="mt-8">
-          <CompressorApp locale={copy.locale} />
-        </section>
+        <CompressorApp locale={copy.locale} />
 
-        <section className="mt-7 grid gap-3 md:grid-cols-3 lg:grid-cols-6">
-          {copy.features.map((feature, index) => (
-            <Feature
-              key={feature.title}
-              icon={icons[feature.icon]}
-              title={feature.title}
-              text={feature.text}
-              active={index === 0}
-            />
+        <section className="benefit-grid" aria-label={copy.locale === "zh" ? "为什么选择 PicZip" : "Why PicZip"}>
+          {copy.features.filter(feature => ["local", "free", "zip"].includes(feature.icon)).map(feature => (
+            <Feature key={feature.title} icon={icons[feature.icon]} title={feature.title} text={feature.text} />
           ))}
         </section>
 
-        <section className="mt-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-xl border border-black/10 bg-[rgba(255,253,247,0.74)] p-6">
-            <h2 className="font-black">{copy.popularTitle}</h2>
-            <div className="mt-4 flex flex-wrap gap-3">
+        <section className="home-support">
+          <div>
+            <h2>{copy.popularTitle}</h2>
+            <div className="task-links">
               {copy.popularLinks.map(([label, href]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-black hover:border-foreground"
-                >
-                  {label}
-                </Link>
+                <Link key={href} href={href} prefetch={false}>{label}<ArrowUpRight size={11} /></Link>
               ))}
             </div>
           </div>
-          <div className="rounded-xl border border-black/10 bg-[rgba(255,253,247,0.74)] p-6">
-            <h2 className="font-black">{copy.privacyTitle}</h2>
-            <p className="mt-3 leading-7 text-slate-600">{copy.privacyText}</p>
-            <Link href={copy.guideLink[1]} className="mt-4 inline-block text-sm font-black text-teal-700">
-              {copy.guideLink[0]}
+          <div>
+            <h2 className="flex items-center gap-2"><ShieldCheck size={16} />{copy.privacyTitle}</h2>
+            <p>{copy.privacyText}</p>
+            <Link href={copy.guideLink[1]} className="mt-3 inline-flex min-h-8 items-center gap-1.5 text-xs font-medium text-teal-700">
+              {copy.guideLink[0]}<ArrowUpRight size={13} />
             </Link>
           </div>
         </section>
       </main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <Footer />
     </div>
   );
 }
 
-function Feature({
-  icon,
-  title,
-  text,
-  active = false,
-}: {
-  icon: ReactNode;
-  title: string;
-  text: string;
-  active?: boolean;
-}) {
+function Feature({ icon, title, text }: { icon: ReactNode; title: string; text: string }) {
   return (
-    <article
-      className={`min-h-32 rounded-xl border p-5 ${
-        active
-          ? "border-2 border-foreground bg-[var(--lime)] shadow-[4px_4px_0_var(--foreground)]"
-          : "border-black/10 bg-[rgba(255,253,247,0.74)]"
-      }`}
-    >
-      <div className="mb-4">{icon}</div>
-      <h3 className="font-black">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+    <article className="benefit">
+      <span className="benefit-icon">{icon}</span>
+      <div><h3>{title}</h3><p>{text}</p></div>
     </article>
   );
 }

@@ -16,13 +16,13 @@ export function Footer() {
   ];
 
   return (
-    <footer className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-slate-600 sm:px-8 md:flex-row md:items-center md:justify-between">
+    <footer className="mx-auto flex w-full max-w-6xl flex-col gap-4 border-t border-[var(--line)] px-5 py-6 text-[11px] text-[#788373] sm:px-8 md:flex-row md:items-center md:justify-between">
       <p>
         {isChinese
           ? "PicZip 在浏览器本地完成图片压缩。"
           : "PicZip runs image compression locally in your browser."}
       </p>
-      <nav className="flex flex-wrap gap-x-5 gap-y-2 font-bold">
+      <nav className="flex flex-wrap gap-x-5 gap-y-2 font-medium">
         {footerLinks.map(([label, href]) => (
           <Link key={href} href={href} className="hover:text-foreground">
             {label}

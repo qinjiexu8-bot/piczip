@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/compression/*.test.mjs",
+    "test:e2e": "node --test tests/e2e/*.test.mjs"
   },
   "dependencies": {
     "@jsquash/jpeg": "^1.6.0",
@@ -25,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "playwright": "1.63.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
