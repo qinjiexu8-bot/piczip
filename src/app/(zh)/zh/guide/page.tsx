@@ -1,22 +1,24 @@
+import { ToolGuideLinks } from "@/components/guides/ToolGuideLinks";
 import Link from "next/link";
 import { ContentPage } from "@/components/site/ContentPage";
 import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createMetadata({
-  title: "图片压缩指南 - 不上传，压缩到指定大小",
-  description: "了解如何不上传服务器压缩图片，选择 JPG、PNG、WebP，并把图片压缩到指定 KB 大小。",
+  title: "图片处理指南 - 压缩、尺寸调整、格式转换与拼接",
+  description: "从图片压缩到尺寸调整、格式转换和多图拼接，查看操作步骤、参数示例与常见问题。",
   path: "/zh/guide",
 });
 
 export default function Page() {
   return (
     <ContentPage
-      title="图片压缩指南"
-      description="这是一份实用图片压缩指南，帮助你在表单、网站、邮件和社媒场景中减少图片体积，同时保留足够清晰度。"
+      title="图片处理指南"
+      description="从尺寸、格式、排版到文件体积，按你的任务选择指南。每篇都有具体步骤与实际示例。"
       locale="zh"
       breadcrumbLabel="指南"
     >
-      <h2>先选择合适格式</h2>
+      <ToolGuideLinks locale="zh" />
+      <h2 className="text-xl font-semibold text-foreground">图片压缩：先选择合适格式</h2>
       <p>
         照片通常适合 JPG，截图和透明图适合 PNG，网站图片可以优先考虑 WebP。如果目标是尽量减小体积，
         照片可以优先尝试 JPG 或 WebP，需要透明背景时再保留 PNG。

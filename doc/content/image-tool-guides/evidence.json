@@ -1,0 +1,214 @@
+{
+  "verifiedAt": "2026-10-22T13:10:52.336Z",
+  "browser": "153.0.8010.12",
+  "results": [
+    {
+      "locale": "en",
+      "example": "resize-locked-200x200",
+      "width": 200,
+      "height": 100,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "en",
+      "example": "resize-unlocked-200x200",
+      "width": 200,
+      "height": 200,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "en",
+      "example": "resize-50-percent",
+      "width": 200,
+      "height": 100,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "en",
+      "example": "convert-jpeg",
+      "width": 200,
+      "height": 100,
+      "type": "image/jpeg",
+      "corner": [
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "locale": "en",
+      "example": "convert-png",
+      "width": 200,
+      "height": 100,
+      "type": "image/png",
+      "corner": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "locale": "en",
+      "example": "convert-webp",
+      "width": 200,
+      "height": 100,
+      "type": "image/webp",
+      "corner": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "locale": "en",
+      "example": "stitch-vertical-gap16",
+      "width": 200,
+      "height": 516,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "en",
+      "example": "stitch-horizontal-gap16",
+      "width": 516,
+      "height": 200,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "resize-locked-200x200",
+      "width": 200,
+      "height": 100,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "resize-unlocked-200x200",
+      "width": 200,
+      "height": 200,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "resize-50-percent",
+      "width": 200,
+      "height": 100,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "convert-jpeg",
+      "width": 200,
+      "height": 100,
+      "type": "image/jpeg",
+      "corner": [
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "convert-png",
+      "width": 200,
+      "height": 100,
+      "type": "image/png",
+      "corner": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "convert-webp",
+      "width": 200,
+      "height": 100,
+      "type": "image/webp",
+      "corner": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "stitch-vertical-gap16",
+      "width": 200,
+      "height": 516,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    },
+    {
+      "locale": "zh",
+      "example": "stitch-horizontal-gap16",
+      "width": 516,
+      "height": 200,
+      "type": "image/png",
+      "corner": [
+        8,
+        127,
+        107,
+        255
+      ]
+    }
+  ]
+}

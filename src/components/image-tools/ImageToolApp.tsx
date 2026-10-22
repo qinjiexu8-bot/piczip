@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { ArrowDown, ArrowUp, Download, ImagePlus, Lock, Plus, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Download, ImagePlus, Plus, Trash2 } from "lucide-react";
 import { zip } from "fflate";
 import type { ToolFile, ToolKind, ToolOptions, ToolResponse, ToolResult } from "@/lib/image-tools/types";
 import { createZipEntries } from "@/lib/compression/download";
@@ -105,7 +105,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: "en" | 
   const action = tool === "resize" ? t("Resize images", "调整尺寸") : tool === "convert" ? t("Convert images", "开始转换") : t("Stitch images", "开始拼接");
   return <div className="image-tool-shell">
     <section className="compressor-card">
-      <div className="compressor-heading"><h2>{t("Make it yours", "让图片恰到好处")}</h2><span className="privacy-pill"><Lock size={10} />{t("100% on your device", "全程本地处理")}</span></div>
+      <div className="compressor-heading"><h2>{t("Make it yours", "让图片恰到好处")}</h2></div>
       <div className="image-tool-workspace">
         <div className="tool-source">
           <h3 className="settings-title">{t("01 / Your images", "01 / 选择图片")}</h3>

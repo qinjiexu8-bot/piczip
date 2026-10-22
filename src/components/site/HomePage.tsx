@@ -1,37 +1,20 @@
 import { ToolIntro } from "@/components/site/ToolIntro";
 import { ToolLinks } from "@/components/image-tools/ToolLinks";
-import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, FileArchive, Lock, ShieldCheck, UserRoundX, WalletCards } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import { CompressorApp } from "@/components/compressor/CompressorApp";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 
 type HomePageCopy = {
   locale: "en" | "zh";
-  eyebrow: string;
   title: string;
   description: string;
-  proofs: Array<[string, string]>;
-  features: Array<{
-    icon: "local" | "free" | "signup" | "size" | "zip" | "upload";
-    title: string;
-    text: string;
-  }>;
   popularTitle: string;
   popularLinks: Array<[string, string]>;
-  privacyTitle: string;
-  privacyText: string;
+  helpTitle: string;
+  helpText: string;
   guideLink: [string, string];
-};
-
-const icons = {
-  local: <ShieldCheck className="size-5" />,
-  free: <WalletCards className="size-5" />,
-  signup: <UserRoundX className="size-5" />,
-  size: <CheckCircle2 className="size-5" />,
-  zip: <FileArchive className="size-5" />,
-  upload: <Lock className="size-5" />,
 };
 
 export function HomePage({ copy }: { copy: HomePageCopy }) {
@@ -58,17 +41,9 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
         <ToolIntro
           title={copy.title}
           description={copy.description}
-          locale={copy.locale}
-          benefits={copy.locale === "zh" ? ["无需注册", "一次最多 50 张"] : ["No sign-up needed", "Up to 50 images at once"]}
         />
 
         <CompressorApp locale={copy.locale} />
-
-        <section className="benefit-grid" aria-label={copy.locale === "zh" ? "为什么选择 PicZip" : "Why PicZip"}>
-          {copy.features.filter(feature => ["local", "free", "zip"].includes(feature.icon)).map(feature => (
-            <Feature key={feature.title} icon={icons[feature.icon]} title={feature.title} text={feature.text} />
-          ))}
-        </section>
 
         <ToolLinks locale={copy.locale} />
 
@@ -82,8 +57,8 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
             </div>
           </div>
           <div>
-            <h2 className="flex items-center gap-2"><ShieldCheck size={16} />{copy.privacyTitle}</h2>
-            <p>{copy.privacyText}</p>
+            <h2 className="flex items-center gap-2"><BookOpen size={16} />{copy.helpTitle}</h2>
+            <p>{copy.helpText}</p>
             <Link href={copy.guideLink[1]} className="mt-3 inline-flex min-h-8 items-center gap-1.5 text-xs font-medium text-teal-700">
               {copy.guideLink[0]}<ArrowUpRight size={13} />
             </Link>
@@ -93,14 +68,5 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <Footer />
     </div>
-  );
-}
-
-function Feature({ icon, title, text }: { icon: ReactNode; title: string; text: string }) {
-  return (
-    <article className="benefit">
-      <span className="benefit-icon">{icon}</span>
-      <div><h3>{title}</h3><p>{text}</p></div>
-    </article>
   );
 }

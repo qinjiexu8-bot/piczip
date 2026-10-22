@@ -13,59 +13,21 @@ export default function Page() {
     <HomePage
       copy={{
         locale: "zh",
-        eyebrow: "不上传 · 无需注册 · 免费使用",
         title: "免费图片压缩工具",
         description:
-          "图片更小，用得更安心。在浏览器中压缩 JPG、PNG、WebP，支持目标大小和批量 ZIP 下载，图片始终留在你的设备上。",
-        proofs: [
-          ["免费", "无需注册"],
-          ["不上传", "文件留在本地"],
-          ["100KB", "指定大小预设"],
-        ],
-        features: [
-          {
-            icon: "local",
-            title: "本地处理",
-            text: "图片在浏览器中解码、压缩并导出。",
-          },
-          {
-            icon: "free",
-            title: "免费使用",
-            text: "核心压缩功能无需订阅、无需积分、无需试用限制。",
-          },
-          {
-            icon: "signup",
-            title: "无需注册",
-            text: "无需账号或邮箱，打开页面即可开始压缩。",
-          },
-          {
-            icon: "size",
-            title: "指定文件大小",
-            text: "可设置 50KB、100KB、200KB 或自定义上传限制。",
-          },
-          {
-            icon: "zip",
-            title: "批量 ZIP",
-            text: "多张图片压缩后可打包成一个 ZIP 下载。",
-          },
-          {
-            icon: "upload",
-            title: "不上传",
-            text: "PicZip 不会把你的图片文件发送到服务器。",
-          },
-        ],
+          "压缩 JPG、PNG、WebP，按需设置目标大小和画质，支持单张或批量 ZIP 下载。",
         popularTitle: "常用图片压缩任务",
         popularLinks: [
           ["图片压缩到 100KB", "/zh/compress-image-to-100kb"],
           ["图片压缩到 200KB", "/zh/compress-image-to-200kb"],
           ["压缩 JPG", "/zh/compress-jpg"],
           ["批量图片压缩", "/zh/batch-image-compressor"],
-          ["图片压缩不上传", "/zh/compress-image-without-upload"],
-          ["本地图片压缩", "/zh/local-image-compressor"],
+          ["压缩 PNG", "/zh/compress-png"],
+          ["压缩 WebP", "/zh/compress-webp"],
         ],
-        privacyTitle: "图片留在你的设备上",
-        privacyText:
-          "PicZip 在浏览器中处理你选择的图片，不会为了压缩把图片文件上传到服务器，也不保存图片内容或处理历史。",
+        helpTitle: "怎样获得更小的图片？",
+        helpText:
+          "先设置目标大小；若结果仍偏大，可以调低最大宽度或更换格式。指南中有各项设置的说明与示例。",
         guideLink: ["阅读图片压缩指南", "/zh/guide"],
       }}
     />

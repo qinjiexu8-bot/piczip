@@ -30,7 +30,6 @@ type SeoLandingPageProps = {
 export function SeoLandingPage({
   title,
   description,
-  bullets,
   guideTitle,
   guide,
   faqs,
@@ -90,7 +89,7 @@ export function SeoLandingPage({
       <Header />
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-10 sm:px-8">
         <div className="tool-breadcrumb"><Breadcrumb locale={locale} items={[{ label: breadcrumbLabel }]} /></div>
-        <ToolIntro title={title} description={description} locale={locale} benefits={bullets.slice(0, 3)} />
+        <ToolIntro title={title} description={description} />
 
         <section>
           <CompressorApp

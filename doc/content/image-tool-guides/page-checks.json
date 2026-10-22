@@ -1,0 +1,226 @@
+{
+  "results": [
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/guide",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/zh/guide",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/guides/resize-images-by-pixels-or-percentage",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/guides/convert-jpg-png-webp",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/zh/guides/convert-jpg-png-webp",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/guides/stitch-images-horizontally-vertically",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/guide",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/zh/guide",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/guides/resize-images-by-pixels-or-percentage",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/guides/convert-jpg-png-webp",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/zh/guides/convert-jpg-png-webp",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/guides/stitch-images-horizontally-vertically",
+      "ok": true
+    },
+    {
+      "engine": "webkit",
+      "width": 375,
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "ok": true
+    }
+  ],
+  "preloadWarnings": [
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/resize-image?_rsc=jdbQSOfve3yX_x_D due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/resize-image?_rsc=5oDec07LYHj8FXuv due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/resize-image?_rsc=ci2cHbAcZSsJvRZc due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/about?_rsc=iAlfZiHIxsKwOO1S due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/about?_rsc=M1sdCYBO0KBN-dwF due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/about?_rsc=sgAgJRFlswCrvRkH due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/guide?_rsc=iAlfZiHIxsKwOO1S due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/guide?_rsc=UhfTeLv_L2bhk2Fb due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh/guide?_rsc=2GsGv8QyEUdxz3_C due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh?_rsc=iAlfZiHIxsKwOO1S due to access control checks."
+    },
+    {
+      "path": "/zh/guides/resize-images-by-pixels-or-percentage",
+      "message": "/localhost:3101/zh?_rsc=9MI1fu6e74BpqiRn due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/stitch-images?_rsc=lX7gita8INn0BoXG due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/stitch-images?_rsc=YfmwnI6c-29X63us due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/stitch-images?_rsc=AHvUB_lBuf6v9E9w due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/about?_rsc=qjFevBWRsILTj8hm due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/about?_rsc=Zw0uxBL_yL-Y0aUT due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/about?_rsc=Y1PO3VTqnkjwNoUJ due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/guide?_rsc=qjFevBWRsILTj8hm due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/guide?_rsc=k9l9ZiYxZAZdbNJ3 due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh/guide?_rsc=aqGXXVJLwC5RnlPe due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh?_rsc=qjFevBWRsILTj8hm due to access control checks."
+    },
+    {
+      "path": "/zh/guides/stitch-images-horizontally-vertically",
+      "message": "/localhost:3101/zh?_rsc=YxSteBLz4ZtCer3x due to access control checks."
+    }
+  ],
+  "checkedInternalURLs": [
+    "/",
+    "/guides/resize-images-by-pixels-or-percentage",
+    "/guides/convert-jpg-png-webp",
+    "/guides/stitch-images-horizontally-vertically",
+    "/guides/jpg-vs-png-vs-webp-file-size",
+    "/guides/compress-image-to-100kb-without-uploading",
+    "/guides/compress-image-to-200kb-for-online-forms",
+    "/guides/reduce-image-size-without-changing-dimensions",
+    "/guides/why-compressed-image-is-still-too-large",
+    "/guides/compress-screenshot-without-blurry-text",
+    "/guides/compress-png-without-losing-transparency",
+    "/guides/reduce-png-size-for-email-signature",
+    "/guides/reduce-image-size-for-email-attachments",
+    "/zh",
+    "/zh/guides/resize-images-by-pixels-or-percentage",
+    "/zh/guides/convert-jpg-png-webp",
+    "/zh/guides/stitch-images-horizontally-vertically",
+    "/zh/guides/compress-image-to-100kb-without-uploading",
+    "/guide",
+    "/about",
+    "/resize-image",
+    "/guides/resize-images-by-pixels-or-percentage/en.png",
+    "/zh/guide",
+    "/zh/about",
+    "/zh/resize-image",
+    "/guides/resize-images-by-pixels-or-percentage/zh.png",
+    "/convert-image",
+    "/guides/convert-jpg-png-webp/en.png",
+    "/zh/convert-image",
+    "/guides/convert-jpg-png-webp/zh.png",
+    "/stitch-images",
+    "/guides/stitch-images-horizontally-vertically/en.png",
+    "/zh/stitch-images",
+    "/guides/stitch-images-horizontally-vertically/zh.png"
+  ]
+}

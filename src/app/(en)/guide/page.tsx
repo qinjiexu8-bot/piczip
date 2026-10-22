@@ -1,23 +1,25 @@
+import { ToolGuideLinks } from "@/components/guides/ToolGuideLinks";
 import Link from "next/link";
 import { ContentPage } from "@/components/site/ContentPage";
 import { createMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createMetadata({
-  title: "Image Compression Guide - Reduce File Size Without Uploading",
+  title: "Image Guides - Compress, Resize, Convert and Stitch",
   description:
-    "Learn how to compress images without uploading, choose JPG, PNG, or WebP, and reduce files to exact KB targets for forms, email, and websites.",
+    "Practical guides to compressing, resizing, converting and stitching images, with step-by-step instructions, tested examples and answers to common questions.",
   path: "/guide",
 });
 
 export default function Page() {
   return (
     <ContentPage
-      title="Image compression guide"
-      description="A practical guide to reducing image file size while keeping enough quality for forms, websites, email, and social media."
+      title="Image editing guides"
+      description="Choose a guide for your task: dimensions, formats, layouts or file size. Follow clear steps and tested examples."
       locale="en"
       breadcrumbLabel="Guide"
     >
-      <h2>Start with the right format</h2>
+      <ToolGuideLinks locale="en" />
+      <h2 className="text-xl font-semibold text-foreground">Compression: start with the right format</h2>
       <p>
         Use JPG for photos, PNG for screenshots and transparent graphics, and WebP when you want a
         modern web-friendly format. If the goal is a smaller upload, try JPG or WebP for photos and

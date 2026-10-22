@@ -13,59 +13,21 @@ export default function Home() {
     <HomePage
       copy={{
         locale: "en",
-        eyebrow: "No upload · No sign-up · Free",
         title: "Free image compressor",
         description:
-          "Smaller files, more peace of mind. Compress JPG, PNG, and WebP right in your browser, with target sizes and batch ZIP downloads.",
-        proofs: [
-          ["Free", "no sign-up"],
-          ["No upload", "files stay local"],
-          ["100KB", "exact-size presets"],
-        ],
-        features: [
-          {
-            icon: "local",
-            title: "Local processing",
-            text: "Images are decoded, compressed, and exported inside your browser.",
-          },
-          {
-            icon: "free",
-            title: "Free to use",
-            text: "Use the core compressor without subscriptions, credits, or trial limits.",
-          },
-          {
-            icon: "signup",
-            title: "No sign-up",
-            text: "Start compressing immediately without an account or email.",
-          },
-          {
-            icon: "size",
-            title: "Target file size",
-            text: "Aim for 50KB, 100KB, 200KB, or your own upload limit.",
-          },
-          {
-            icon: "zip",
-            title: "Batch ZIP",
-            text: "Compress multiple images and download one ZIP file.",
-          },
-          {
-            icon: "upload",
-            title: "No upload",
-            text: "PicZip does not send your image files to a server.",
-          },
-        ],
+          "Compress JPG, PNG and WebP to a target size, adjust quality, and download your results individually or as a ZIP.",
         popularTitle: "Popular compression tasks",
         popularLinks: [
           ["Compress image to 100KB", "/compress-image-to-100kb"],
           ["Compress image to 200KB", "/compress-image-to-200kb"],
           ["Compress JPG", "/compress-jpg"],
           ["Batch image compressor", "/batch-image-compressor"],
-          ["Compress image without upload", "/compress-image-without-upload"],
-          ["Local image compressor", "/local-image-compressor"],
+          ["Compress PNG", "/compress-png"],
+          ["Compress WebP", "/compress-webp"],
         ],
-        privacyTitle: "Files stay on your device",
-        privacyText:
-          "PicZip compresses selected images in the browser. It does not upload image files for processing, store image content, or keep a compression history.",
+        helpTitle: "Need a smaller file?",
+        helpText:
+          "Start with a target size. If the result is still too large, try reducing the width or switching formats; the guide explains each setting.",
         guideLink: ["Read the compression guide", "/guide"],
       }}
     />

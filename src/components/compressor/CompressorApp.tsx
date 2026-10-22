@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { Archive, ArrowDown, Check, CheckCircle2, CircleAlert, Download, ImageIcon, Leaf, Loader2, Lock, Plus, Trash2, X } from "lucide-react";
+import { Archive, ArrowDown, Check, CheckCircle2, CircleAlert, Download, ImageIcon, Leaf, Loader2, Plus, Trash2, X } from "lucide-react";
 import { zipSync } from "fflate";
 import type {
   CompressionOptions,
@@ -63,10 +63,7 @@ const compressorCopy = {
     widthHint: "0 keeps the original width. Images are never enlarged.",
     targetOff: "No limit",
     saved: "Saved",
-    subtitle: "Free JPG, PNG, and WebP compression in your browser.",
-    noUpload: "No upload",
     dropTitle: "Drop images here",
-    dropText: "Choose up to 50 images. No account is required and files are not uploaded.",
     targetSize: "Target size",
     targetHint: "Best effort in KB. Use 0 for no size limit.",
     output: "Output",
@@ -118,10 +115,7 @@ const compressorCopy = {
     widthHint: "填 0 保留原始宽度，图片不会被放大。",
     targetOff: "不限制",
     saved: "已节省",
-    subtitle: "免费压缩 JPG、PNG、WebP，直接在浏览器中完成。",
-    noUpload: "不上传",
     dropTitle: "拖入图片",
-    dropText: "一次最多选择 50 张图片。无需账号，图片文件不会上传。",
     targetSize: "目标大小",
     targetHint: "尽量达到指定 KB。填 0 不限制；必要时降低最大宽度。",
     output: "输出格式",
@@ -372,7 +366,6 @@ export function CompressorApp({
       <div className="compressor-card">
         <div className="compressor-heading">
           <h2>{t.title}</h2>
-          <span className="privacy-pill"><Lock size={11} aria-hidden="true" />{t.noUpload}</span>
         </div>
         <div className="compressor-workspace">
           <label
