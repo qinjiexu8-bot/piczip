@@ -1,0 +1,332 @@
+{
+  "en": {
+    "aboutTitle": "About PicZip",
+    "aboutDescription": "Six image tools for everyday work: compress, resize, crop, convert, stitch and watermark, with continuous processing and reusable batch presets.",
+    "faqTitle": "Image tools FAQ",
+    "faqDescription": "Help with image tools, continuous processing, batch presets, export naming and downloads.",
+    "toolsTitle": "Choose a tool",
+    "tools": [
+      "Compress images",
+      "Resize images",
+      "Crop, rotate and flip",
+      "Convert image formats",
+      "Stitch images",
+      "Batch watermark"
+    ],
+    "aboutSections": [
+      [
+        "What you can do",
+        "Compress JPG, PNG and WebP with a target file size; resize by pixels or percentage; crop, rotate and flip; convert formats; join images horizontally or vertically; and add text or logo watermarks. Choose the tool that matches the next step in your work."
+      ],
+      [
+        "Keep working with your results",
+        "Use Continue processing to send completed results to another tool without downloading and selecting them again. For example, crop a product photo, resize it, add a watermark and then compress it. Review settings and start processing at every step; this is not an unattended multi-step pipeline."
+      ],
+      [
+        "Reuse your batch settings",
+        "Save up to 20 presets per tool in the current browser. A preset stores settings, not your photos, and applying it does not run the tool automatically. Presets do not sync across browsers or devices; clearing site data can remove them. Watermark presets also save the resized logo in this browser."
+      ],
+      [
+        "Export files ready to use",
+        "Shared export settings let you keep original names or choose a naming pattern and sequence. Download finished images individually or as a ZIP where available. Renaming also applies to results sent to the next tool."
+      ],
+      [
+        "Free to use, with clear limits",
+        "The tools work without registration and process images on your device. Most tools accept up to 50 images; stitching accepts 2–20. Check the limits shown in each tool, preview the result and keep your originals. Full offline operation is not guaranteed."
+      ]
+    ],
+    "contactTitle": "Contact",
+    "contact": "Questions, feedback or support:",
+    "guideLink": "Read the guides",
+    "extraFaqs": [
+      [
+        "Which tools are available?",
+        "PicZip offers compression, resizing, JPG/PNG/WebP conversion, horizontal or vertical stitching, cropping with rotation and flipping, and text or logo watermarks. Use the links below to open a tool or its guide."
+      ],
+      [
+        "How do I continue in another tool?",
+        "Finish the current operation, then choose a destination under Continue processing. Completed results are passed to that tool without a download. Review its settings and start processing. If you change settings or images, process them again before continuing. Temporary transfers expire after 10 minutes and are cleared when received."
+      ],
+      [
+        "What is saved in a batch preset?",
+        "A preset saves the current tool settings in this browser, not the input images. You can save up to 20 presets per tool. Apply a preset, review the settings and run the tool. Presets do not sync to another device, and clearing browser site data may remove them. Watermark presets also save the resized logo in this browser."
+      ],
+      [
+        "Can I rename downloads and ZIP contents?",
+        "Yes. Use the shared export settings to choose original names or a custom naming pattern and starting number. The names apply to individual downloads, files inside ZIP archives and results passed to the next tool."
+      ],
+      [
+        "Why did a transfer fail or expire?",
+        "Transfers require browser storage and must fit the destination limits: up to 50 images, or 2–20 for stitching, with at most 50 MB per image and 200 MB in total. If a transfer expires or fails, return to the previous tool to send it again or download the results and select them manually."
+      ],
+      [
+        "Do I need an account, and can I work offline?",
+        "No account is required. Presets and temporary transfers use browser storage rather than an account. Load the site with an internet connection; complete offline availability is not guaranteed."
+      ]
+    ]
+  },
+  "zh": {
+    "aboutTitle": "关于 PicZip",
+    "aboutDescription": "压缩、调整尺寸、裁剪、格式转换、拼接与水印，配合连续处理和批量预设，完成日常图片工作。",
+    "faqTitle": "图片工具常见问题",
+    "faqDescription": "了解图片工具、连续处理、批量预设、导出重命名和下载的使用方法。",
+    "toolsTitle": "选择图片工具",
+    "tools": [
+      "图片压缩",
+      "调整尺寸",
+      "裁剪、旋转与翻转",
+      "格式转换",
+      "图片拼接",
+      "批量水印"
+    ],
+    "aboutSections": [
+      [
+        "现在可以做什么",
+        "为 JPG、PNG 和 WebP 设置目标大小并压缩；按像素或比例调整尺寸；裁剪、旋转与翻转；转换格式；横向或纵向拼接；添加文字或 Logo 水印。根据当前任务选择工具即可。"
+      ],
+      [
+        "用处理结果继续下一步",
+        "完成操作后，使用“继续处理”将结果送到下一个工具，无需先下载再选择图片。例如先裁剪商品图，再调整尺寸、添加水印，最后压缩。每一步都需要确认设置并开始处理，不会自动执行整套流程。"
+      ],
+      [
+        "重复任务使用批量预设",
+        "每个工具最多保存 20 个预设，存储于当前浏览器。预设保存参数，不保存照片，应用后仍需手动开始处理。预设不会跨浏览器或设备同步，清除站点数据可能会将其删除。 水印预设还会将缩小后的 Logo 保存在当前浏览器。"
+      ],
+      [
+        "按需要导出文件",
+        "在公共导出设置中保留原文件名，或设置命名规则和起始序号。可以单独下载结果，支持时也可打包为 ZIP；传给下一个工具的图片同样使用新的导出名称。"
+      ],
+      [
+        "免费使用，留意处理限制",
+        "工具无需注册，图片在设备上处理。大多数工具最多接收 50 张图片，拼接需要 2–20 张。请查看各工具的具体限制，检查输出效果并保留原图；目前不保证完整离线使用。"
+      ]
+    ],
+    "contactTitle": "联系我们",
+    "contact": "问题反馈、功能建议或使用支持：",
+    "guideLink": "阅读使用指南",
+    "extraFaqs": [
+      [
+        "目前有哪些图片工具？",
+        "支持图片压缩、尺寸调整、JPG/PNG/WebP 格式转换、横向或纵向拼接、裁剪及旋转翻转，以及文字或 Logo 水印。可通过下方链接进入工具或查看指南。"
+      ],
+      [
+        "如何在工具之间连续处理？",
+        "完成当前操作后，在“继续处理”中选择目标工具，即可直接传递已完成的结果，无需下载。进入下一步后确认设置并开始处理。如果修改了图片或参数，请先重新处理。临时传递在 10 分钟后过期，接收后即清理。"
+      ],
+      [
+        "批量预设会保存什么？",
+        "预设在当前浏览器保存该工具的参数，不包含输入图片。每个工具最多 20 个预设，应用后请确认设置并开始处理。预设不会同步到其他设备，清除浏览器站点数据可能会将其删除。水印预设还会将缩小后的 Logo 保存在当前浏览器。"
+      ],
+      [
+        "可以重命名单张下载和 ZIP 内的图片吗？",
+        "可以。在公共导出设置中选择保留原文件名或自定义命名规则与起始序号。名称适用于单张下载、ZIP 内的文件以及传给下一个工具的结果。"
+      ],
+      [
+        "为什么连续处理会失败或过期？",
+        "传递需要浏览器存储可用，并满足目标工具的限制：最多 50 张，拼接为 2–20 张，每张不超过 50 MB、合计不超过 200 MB。传递失败或过期时，可返回上一个工具重新发送，或先下载结果再手动选择。"
+      ],
+      [
+        "需要账号吗？可以离线使用吗？",
+        "无需账号。预设和临时传递使用浏览器存储，不依赖账号。请联网加载站点，目前不保证完整离线使用。"
+      ]
+    ]
+  },
+  "es": {
+    "aboutTitle": "Acerca de PicZip",
+    "aboutDescription": "Comprime, redimensiona, recorta, convierte, une y añade marcas de agua a tus imágenes, con edición entre herramientas y ajustes por lotes reutilizables.",
+    "faqTitle": "Preguntas sobre las herramientas de imagen",
+    "faqDescription": "Ayuda sobre herramientas, edición entre pasos, ajustes por lotes, nombres de exportación y descargas.",
+    "toolsTitle": "Elige una herramienta",
+    "tools": [
+      "Comprimir imágenes",
+      "Redimensionar imágenes",
+      "Recortar, girar y voltear",
+      "Convertir formatos",
+      "Unir imágenes",
+      "Marcas de agua por lotes"
+    ],
+    "aboutSections": [
+      [
+        "Qué puedes hacer",
+        "Comprime JPG, PNG y WebP con un tamaño de archivo objetivo; redimensiona por píxeles o porcentaje; recorta, gira y voltea; convierte formatos; une imágenes horizontal o verticalmente; y añade texto o un logotipo como marca de agua. Elige la herramienta que necesites para cada paso."
+      ],
+      [
+        "Continúa con tus resultados",
+        "Usa Seguir editando para enviar los resultados terminados a otra herramienta sin descargarlos y volver a seleccionarlos. Por ejemplo, recorta una foto de producto, redimensiónala, añade una marca de agua y comprímela. Revisa los ajustes e inicia cada paso: no se ejecuta toda la secuencia automáticamente."
+      ],
+      [
+        "Reutiliza ajustes por lotes",
+        "Guarda hasta 20 ajustes por herramienta en este navegador. Se guardan parámetros, no fotos; aplicar un ajuste no inicia el proceso. No se sincronizan entre navegadores o dispositivos y pueden perderse al borrar los datos del sitio. Los ajustes de marca de agua también guardan el logotipo redimensionado en este navegador."
+      ],
+      [
+        "Exporta archivos listos para usar",
+        "La configuración común de exportación permite conservar los nombres originales o elegir un patrón y una numeración. Descarga resultados individuales o un ZIP cuando esté disponible. Los nuevos nombres también se aplican a los resultados enviados a otra herramienta."
+      ],
+      [
+        "Gratis, con límites claros",
+        "No necesitas registrarte y las imágenes se procesan en tu dispositivo. La mayoría de las herramientas acepta hasta 50 imágenes; para unir se necesitan entre 2 y 20. Comprueba los límites de cada herramienta, revisa los resultados y conserva los originales. No se garantiza el funcionamiento completo sin conexión."
+      ]
+    ],
+    "contactTitle": "Contacto",
+    "contact": "Consultas, comentarios o ayuda:",
+    "guideLink": "Leer las guías",
+    "extraFaqs": [
+      [
+        "¿Qué herramientas están disponibles?",
+        "Puedes comprimir, redimensionar, convertir JPG/PNG/WebP, unir horizontal o verticalmente, recortar, girar, voltear y añadir marcas de agua de texto o logotipo. Abre una herramienta o su guía con los enlaces de abajo."
+      ],
+      [
+        "¿Cómo continúo en otra herramienta?",
+        "Termina la operación y elige un destino en Seguir editando. Los resultados terminados se transfieren sin descargarlos. Revisa los ajustes de la siguiente herramienta e inicia el proceso. Si cambias imágenes o parámetros, vuelve a procesar antes de continuar. Las transferencias temporales caducan a los 10 minutos y se eliminan al recibirlas."
+      ],
+      [
+        "¿Qué se guarda en un ajuste por lotes?",
+        "Se guardan los parámetros de la herramienta en este navegador, no las imágenes. Puedes guardar hasta 20 ajustes por herramienta. Aplica uno, revisa los parámetros y ejecuta el proceso. No se sincronizan con otros dispositivos y pueden eliminarse al borrar los datos del sitio. Los ajustes de marca de agua también guardan el logotipo redimensionado en este navegador."
+      ],
+      [
+        "¿Puedo cambiar los nombres de las descargas y del ZIP?",
+        "Sí. En la configuración común de exportación puedes conservar los nombres originales o elegir un patrón y un número inicial. Se aplica a las descargas individuales, a los archivos del ZIP y a los resultados transferidos a otra herramienta."
+      ],
+      [
+        "¿Por qué falla o caduca una transferencia?",
+        "La transferencia requiere almacenamiento del navegador y debe respetar los límites de destino: hasta 50 imágenes, o entre 2 y 20 para unir, con un máximo de 50 MB por imagen y 200 MB en total. Si falla o caduca, vuelve a enviarla desde la herramienta anterior o descarga los resultados y selecciónalos manualmente."
+      ],
+      [
+        "¿Necesito una cuenta? ¿Funciona sin conexión?",
+        "No necesitas una cuenta. Los ajustes y las transferencias temporales usan el almacenamiento del navegador. Carga el sitio con conexión a internet; no se garantiza su funcionamiento completo sin conexión."
+      ]
+    ]
+  },
+  "pt-br": {
+    "aboutTitle": "Sobre o PicZip",
+    "aboutDescription": "Comprima, redimensione, recorte, converta, junte e adicione marcas-d’água às imagens, com edição entre ferramentas e predefinições em lote reutilizáveis.",
+    "faqTitle": "Perguntas sobre as ferramentas de imagem",
+    "faqDescription": "Ajuda sobre ferramentas, edição contínua, predefinições em lote, nomes de exportação e downloads.",
+    "toolsTitle": "Escolha uma ferramenta",
+    "tools": [
+      "Comprimir imagens",
+      "Redimensionar imagens",
+      "Recortar, girar e espelhar",
+      "Converter formatos",
+      "Juntar imagens",
+      "Marca-d’água em lote"
+    ],
+    "aboutSections": [
+      [
+        "O que você pode fazer",
+        "Comprima JPG, PNG e WebP com um tamanho de arquivo desejado; redimensione por pixels ou porcentagem; recorte, gire e espelhe; converta formatos; junte imagens na horizontal ou vertical; e adicione texto ou um logotipo como marca-d’água. Escolha a ferramenta adequada para cada etapa."
+      ],
+      [
+        "Continue com os resultados",
+        "Use Continuar edição para enviar os resultados concluídos a outra ferramenta sem baixar e selecionar tudo novamente. Por exemplo, recorte uma foto de produto, redimensione, adicione uma marca-d’água e comprima. Confira os ajustes e inicie cada etapa; a sequência inteira não é executada automaticamente."
+      ],
+      [
+        "Reutilize predefinições em lote",
+        "Salve até 20 predefinições por ferramenta neste navegador. Elas guardam configurações, não fotos; aplicar uma predefinição não inicia o processamento. Não há sincronização entre navegadores ou dispositivos, e limpar os dados do site pode removê-las. As predefinições de marca-d’água também salvam o logotipo redimensionado neste navegador."
+      ],
+      [
+        "Exporte arquivos prontos para usar",
+        "As configurações comuns de exportação permitem manter os nomes originais ou definir um padrão e uma sequência numérica. Baixe resultados individuais ou um ZIP quando disponível. Os novos nomes também são usados nos resultados enviados à próxima ferramenta."
+      ],
+      [
+        "Grátis, com limites claros",
+        "Não é preciso se cadastrar, e as imagens são processadas no seu dispositivo. A maioria das ferramentas aceita até 50 imagens; a junção exige de 2 a 20. Confira os limites de cada ferramenta, revise os resultados e guarde os originais. O funcionamento completo offline não é garantido."
+      ]
+    ],
+    "contactTitle": "Contato",
+    "contact": "Dúvidas, sugestões ou suporte:",
+    "guideLink": "Ler os guias",
+    "extraFaqs": [
+      [
+        "Quais ferramentas estão disponíveis?",
+        "Você pode comprimir, redimensionar, converter JPG/PNG/WebP, juntar na horizontal ou vertical, recortar, girar, espelhar e adicionar marcas-d’água de texto ou logotipo. Use os links abaixo para abrir uma ferramenta ou seu guia."
+      ],
+      [
+        "Como continuo em outra ferramenta?",
+        "Conclua a operação e escolha um destino em Continuar edição. Os resultados prontos são transferidos sem download. Confira os ajustes da próxima ferramenta e inicie o processamento. Se mudar as imagens ou os parâmetros, processe novamente antes de continuar. As transferências temporárias expiram em 10 minutos e são removidas ao serem recebidas."
+      ],
+      [
+        "O que uma predefinição em lote salva?",
+        "Ela salva os parâmetros da ferramenta neste navegador, sem incluir as imagens. São até 20 predefinições por ferramenta. Aplique uma, confira os ajustes e execute o processamento. Não há sincronização com outros dispositivos, e limpar os dados do site pode removê-las. As predefinições de marca-d’água também salvam o logotipo redimensionado neste navegador."
+      ],
+      [
+        "Posso renomear os downloads e os arquivos do ZIP?",
+        "Sim. Nas configurações comuns de exportação, mantenha os nomes originais ou escolha um padrão e um número inicial. Os nomes valem para downloads individuais, arquivos dentro do ZIP e resultados enviados à próxima ferramenta."
+      ],
+      [
+        "Por que uma transferência falha ou expira?",
+        "A transferência exige armazenamento do navegador e deve respeitar os limites do destino: até 50 imagens, ou de 2 a 20 para juntar, com no máximo 50 MB por imagem e 200 MB no total. Se falhar ou expirar, envie novamente pela ferramenta anterior ou baixe os resultados e selecione-os manualmente."
+      ],
+      [
+        "Preciso de uma conta? Posso usar offline?",
+        "Não é necessário ter conta. As predefinições e as transferências temporárias usam o armazenamento do navegador. Carregue o site com internet; o funcionamento completo offline não é garantido."
+      ]
+    ]
+  },
+  "ja": {
+    "aboutTitle": "PicZip について",
+    "aboutDescription": "圧縮、サイズ変更、切り抜き、形式変換、結合、透かし。ツール間の連続処理と一括処理プリセットで、日々の画像作業を進められます。",
+    "faqTitle": "画像ツールのよくある質問",
+    "faqDescription": "画像ツール、連続処理、一括処理プリセット、出力ファイル名、ダウンロードについてのご案内です。",
+    "toolsTitle": "ツールを選ぶ",
+    "tools": [
+      "画像圧縮",
+      "サイズ変更",
+      "切り抜き・回転・反転",
+      "形式変換",
+      "画像結合",
+      "透かしの一括追加"
+    ],
+    "aboutSections": [
+      [
+        "できること",
+        "JPG・PNG・WebPを目標ファイルサイズに合わせて圧縮し、ピクセル数や割合でサイズを変更できます。切り抜き・回転・反転、形式変換、横方向や縦方向の結合、文字やロゴの透かしにも対応しています。作業に合わせてツールを選んでください。"
+      ],
+      [
+        "結果を次のツールへ",
+        "処理が終わったら「続けて処理」で次のツールへ送れます。ダウンロードして選び直す必要はありません。例えば商品写真を切り抜き、サイズを変更し、透かしを入れてから圧縮できます。各段階で設定を確認して処理を開始してください。一連の操作が自動実行されるわけではありません。"
+      ],
+      [
+        "一括処理の設定を再利用",
+        "ツールごとに最大20件のプリセットを現在のブラウザーに保存できます。保存するのは設定であり、写真は含まれません。適用後は処理を開始してください。別のブラウザーや端末とは同期されず、サイトデータを消去すると失われる場合があります。 透かしのプリセットには、縮小したロゴもこのブラウザー内に保存されます。"
+      ],
+      [
+        "使いやすい名前で出力",
+        "共通の出力設定で元のファイル名を維持するか、命名パターンと開始番号を指定できます。結果を個別にダウンロードし、対応する場合はZIPにまとめられます。次のツールへ渡す画像にも出力名が適用されます。"
+      ],
+      [
+        "無料で利用する際の制限",
+        "登録は不要で、画像は端末上で処理されます。多くのツールは最大50枚、結合は2〜20枚に対応しています。各ツールの制限を確認し、結果をチェックして元画像も保管してください。完全なオフライン動作は保証していません。"
+      ]
+    ],
+    "contactTitle": "お問い合わせ",
+    "contact": "ご質問、ご意見、サポートのご相談：",
+    "guideLink": "使い方ガイドを読む",
+    "extraFaqs": [
+      [
+        "どのようなツールがありますか？",
+        "圧縮、サイズ変更、JPG・PNG・WebPの形式変換、横・縦方向の結合、切り抜き・回転・反転、文字やロゴの透かしに対応しています。下のリンクからツールやガイドを開けます。"
+      ],
+      [
+        "別のツールで続けるには？",
+        "処理を完了してから「続けて処理」で送り先を選びます。結果をダウンロードせずに渡せます。次のツールで設定を確認し、処理を開始してください。画像や設定を変更した場合は、再処理してから続けてください。一時的な転送データは10分で期限切れとなり、受信後に削除されます。"
+      ],
+      [
+        "一括処理プリセットには何が保存されますか？",
+        "現在のブラウザーにツールの設定を保存します。入力画像は含まれません。各ツールで最大20件保存でき、適用後に設定を確認して処理を開始します。他の端末には同期されず、サイトデータの消去で失われる場合があります。透かしのプリセットには、縮小したロゴもこのブラウザー内に保存されます。"
+      ],
+      [
+        "ダウンロードやZIP内のファイル名を変更できますか？",
+        "はい。共通の出力設定で元の名前を維持するか、命名パターンと開始番号を指定します。個別ダウンロード、ZIP内のファイル、次のツールへ渡す結果に適用されます。"
+      ],
+      [
+        "転送が失敗したり期限切れになるのはなぜですか？",
+        "ブラウザーの保存領域が必要です。また、送り先の制限として最大50枚、結合では2〜20枚、1枚50 MB以下、合計200 MB以下である必要があります。失敗や期限切れの場合は前のツールから再送するか、結果をダウンロードして手動で選択してください。"
+      ],
+      [
+        "アカウントは必要ですか？オフラインで使えますか？",
+        "アカウントは不要です。プリセットと一時的な転送にはブラウザーの保存領域を使います。インターネットに接続してサイトを読み込んでください。完全なオフライン動作は保証していません。"
+      ]
+    ]
+  }
+}
