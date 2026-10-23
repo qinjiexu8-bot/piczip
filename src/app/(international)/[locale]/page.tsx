@@ -18,6 +18,6 @@ export default async function Page({ params }: Props) {
   const { home, common } = siteMessages[locale];
   return <HomePage copy={{ locale, ...home,
     popularLinks: [[common.resize, localePath("/resize-image", locale)], [common.convert, localePath("/convert-image", locale)], [common.stitch, localePath("/stitch-images", locale)], [common.faq, localePath("/faq", locale)]],
-    guideLink: [home.guideLabel, "/guide"],
+    guideLink: [home.guideLabel, localePath("/guide", locale)],
   }} />;
 }

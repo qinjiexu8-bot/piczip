@@ -1,0 +1,98 @@
+{
+  "resize-images-by-pixels-or-percentage": {
+    "publishedAt": "2026-10-22",
+    "verifiedAt": "2026-10-22",
+    "tool": "/resize-image",
+    "image": "/guides/resize-images-by-pixels-or-percentage/en.png",
+    "width": 1088,
+    "height": 978
+  },
+  "convert-jpg-png-webp": {
+    "publishedAt": "2026-10-22",
+    "verifiedAt": "2026-10-22",
+    "tool": "/convert-image",
+    "image": "/guides/convert-jpg-png-webp/en.png",
+    "width": 1088,
+    "height": 916
+  },
+  "stitch-images-horizontally-vertically": {
+    "publishedAt": "2026-10-22",
+    "verifiedAt": "2026-10-22",
+    "tool": "/stitch-images",
+    "image": "/guides/stitch-images-horizontally-vertically/en.png",
+    "width": 1088,
+    "height": 1219
+  },
+  "compress-image-to-100kb-without-uploading": {
+    "publishedAt": "2026-07-29",
+    "verifiedAt": "2026-07-29",
+    "tool": "/",
+    "image": "/guides/compress-image-to-100kb-without-uploading/piczip-100kb-result.jpg",
+    "width": 1265,
+    "height": 712
+  },
+  "compress-image-to-200kb-for-online-forms": {
+    "publishedAt": "2026-07-30",
+    "verifiedAt": "2026-07-30",
+    "tool": "/",
+    "image": "/guides/compress-image-to-200kb-for-online-forms/piczip-200kb-comparison-result.jpg",
+    "width": 1265,
+    "height": 712
+  },
+  "reduce-image-size-for-email-attachments": {
+    "publishedAt": "2026-07-30",
+    "verifiedAt": "2026-07-30",
+    "tool": "/",
+    "image": "/guides/reduce-image-size-for-email-attachments/piczip-email-batch-result.jpg",
+    "width": 1265,
+    "height": 712
+  },
+  "jpg-vs-png-vs-webp-file-size": {
+    "publishedAt": "2026-07-30",
+    "verifiedAt": "2026-07-30",
+    "tool": "/",
+    "image": "/guides/jpg-vs-png-vs-webp-file-size/piczip-webp-result.jpg",
+    "width": 1265,
+    "height": 712
+  },
+  "compress-screenshot-without-blurry-text": {
+    "publishedAt": "2026-07-30",
+    "verifiedAt": "2026-07-30",
+    "tool": "/",
+    "image": "/guides/compress-screenshot-without-blurry-text/piczip-screenshot-full-size-result.jpg",
+    "width": 1265,
+    "height": 712
+  },
+  "reduce-image-size-without-changing-dimensions": {
+    "publishedAt": "2026-07-31",
+    "verifiedAt": "2026-07-31",
+    "tool": "/",
+    "image": "/guides/jpg-vs-png-vs-webp-file-size/piczip-webp-result.jpg",
+    "width": 1265,
+    "height": 712
+  },
+  "why-compressed-image-is-still-too-large": {
+    "publishedAt": "2026-07-31",
+    "verifiedAt": "2026-07-31",
+    "tool": "/",
+    "image": "/guides/jpg-vs-png-vs-webp-file-size/piczip-png-result.jpg",
+    "width": 1265,
+    "height": 712
+  },
+  "compress-png-without-losing-transparency": {
+    "publishedAt": "2026-08-01",
+    "verifiedAt": "2026-08-01",
+    "tool": "/",
+    "image": "/guides/compress-png-without-losing-transparency/transparent-png-result.png",
+    "width": 1280,
+    "height": 720
+  },
+  "reduce-png-size-for-email-signature": {
+    "publishedAt": "2026-08-01",
+    "verifiedAt": "2026-08-01",
+    "tool": "/",
+    "image": "/guides/reduce-png-size-for-email-signature/png-320-result.png",
+    "width": 1280,
+    "height": 720
+  }
+}

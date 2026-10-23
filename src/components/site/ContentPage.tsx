@@ -1,12 +1,13 @@
+import type { Locale } from "@/lib/i18n/config";
 import type { ReactNode } from "react";
 import { Breadcrumb } from "@/components/site/Breadcrumb";
-import { Footer } from "@/components/site/Footer";
+import { SiteFooter } from "@/components/site/SiteFooter";
 import { Header } from "@/components/site/Header";
 
 type ContentPageProps = {
   title: string;
   description: string;
-  locale?: "en" | "zh";
+  locale?: Locale;
   breadcrumbLabel: string;
   children: ReactNode;
 };
@@ -25,7 +26,7 @@ export function ContentPage({ title, description, locale = "en", breadcrumbLabel
           </div>
         </article>
       </main>
-      <Footer />
+      <SiteFooter locale={locale} />
     </div>
   );
 }

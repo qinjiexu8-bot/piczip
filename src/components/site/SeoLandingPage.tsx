@@ -2,7 +2,7 @@ import { ToolIntro } from "@/components/site/ToolIntro";
 import Link from "next/link";
 import { CompressorApp } from "@/components/compressor/CompressorApp";
 import { Breadcrumb } from "@/components/site/Breadcrumb";
-import { Footer } from "@/components/site/Footer";
+import { SiteFooter } from "@/components/site/SiteFooter";
 import { Header } from "@/components/site/Header";
 
 type SeoLandingPageProps = {
@@ -159,7 +159,7 @@ export function SeoLandingPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <Footer />
+      <SiteFooter locale={locale} />
     </div>
   );
 }

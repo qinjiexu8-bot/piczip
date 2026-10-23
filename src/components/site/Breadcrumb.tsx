@@ -1,4 +1,7 @@
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n/config";
+import { localePath } from "@/lib/i18n/routes";
+import { siteMessages } from "@/lib/i18n/messages";
 
 type BreadcrumbItem = {
   label: string;
@@ -6,14 +9,13 @@ type BreadcrumbItem = {
 };
 
 type BreadcrumbProps = {
-  locale?: "en" | "zh";
+  locale?: Locale;
   items: BreadcrumbItem[];
 };
 
 export function Breadcrumb({ locale = "en", items }: BreadcrumbProps) {
-  const isChinese = locale === "zh";
-  const homeLabel = isChinese ? "首页" : "Home";
-  const homeHref = isChinese ? "/zh" : "/";
+  const homeLabel = siteMessages[locale].common.home;
+  const homeHref = localePath("/", locale);
 
   const allItems: BreadcrumbItem[] = [
     { label: homeLabel, href: homeHref },
@@ -33,7 +35,7 @@ export function Breadcrumb({ locale = "en", items }: BreadcrumbProps) {
 
   return (
     <>
-      <nav className="mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
+      <nav className="mb-6 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
         {allItems.map((item, idx) => {
           const isLast = idx === allItems.length - 1;
           return (

@@ -70,8 +70,8 @@ for (const locale of locales) {
     await page.waitForLoadState('networkidle');
     await page.goto(`${base}/guides/convert-jpg-png-webp`);
     await page.locator('.language-menu summary').click();
-    assert.equal(await page.locator('.language-options [aria-disabled=true]').count(), 3);
-    assert.equal(await page.locator('.language-options a').count(), 2);
+    assert.equal(await page.locator('.language-options [aria-disabled=true]').count(), 0);
+    assert.equal(await page.locator('.language-options a').count(), 5);
     assert.deepEqual(errors, []);
   });
 

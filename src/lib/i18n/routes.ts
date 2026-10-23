@@ -1,6 +1,7 @@
+import { guideSlugs } from "@/lib/guides/guide-slugs";
 import { addedLocales, isLocale, type Locale } from "./config";
-/** These pages are translated in every supported language. */
-export const multilingualRoutes = ["/", "/resize-image", "/convert-image", "/stitch-images", "/faq"] as const;
+/** Pages available in Spanish, Brazilian Portuguese and Japanese. Chinese availability is listed separately below. */
+export const multilingualRoutes = ["/", "/resize-image", "/convert-image", "/stitch-images", "/faq", "/guide", ...guideSlugs.map(slug => `/guides/${slug}`)] as const;
 
 
 export const localizedEnglishRoutes = [

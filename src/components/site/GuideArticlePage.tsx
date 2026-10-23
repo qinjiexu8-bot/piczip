@@ -1,12 +1,16 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/site/Breadcrumb";
-import { Footer } from "@/components/site/Footer";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { articleCopy } from "@/lib/guides/article-copy";
+import { languageTags, type Locale } from "@/lib/i18n/config";
+import { localePath, localizedHref } from "@/lib/i18n/routes";
+import { siteMessages } from "@/lib/i18n/messages";
 import { Header } from "@/components/site/Header";
 import { absoluteUrl } from "@/lib/seo/site";
 
 type GuideArticlePageProps = {
-  locale?: "en" | "zh";
+  locale?: Locale;
   title: string;
   description: string;
   path: string;
@@ -33,12 +37,14 @@ export function GuideArticlePage({
   children,
 }: GuideArticlePageProps) {
   const isChinese = locale === "zh";
-  const aboutPath = isChinese ? "/zh/about" : "/about";
-  const homePath = isChinese ? "/zh" : "/";
+  const t = articleCopy[locale];
+  const aboutPath = localizedHref(localePath("/", locale), "/about");
+  const homePath = localePath("/", locale);
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: title,
+    inLanguage: languageTags[locale],
     description,
     url: absoluteUrl(path),
     datePublished: publishedAt,
@@ -65,7 +71,7 @@ export function GuideArticlePage({
     step: howToSteps.map((text, index) => ({
       "@type": "HowToStep",
       position: index + 1,
-      name: isChinese ? `步骤 ${index + 1}` : `Step ${index + 1}`,
+      name: `${t.step} ${index + 1}`,
       text,
     })),
   };
@@ -77,7 +83,7 @@ export function GuideArticlePage({
         <Breadcrumb
           locale={locale}
           items={[
-            { label: isChinese ? "指南" : "Guide", href: isChinese ? "/zh/guide" : "/guide" },
+            { label: siteMessages[locale].common.guides, href: localePath("/guide", locale) },
             { label: breadcrumbLabel },
           ]}
         />
@@ -85,7 +91,7 @@ export function GuideArticlePage({
         <article>
           <header className="border-b border-black/10 pb-8">
             <p className="text-sm font-black uppercase text-teal-700">
-              {isChinese ? "PicZip 实测指南" : "Tested PicZip guide"}
+              {t.tested}
             </p>
             <h1 className="mt-4 font-sans text-3xl font-semibold leading-[1.25] tracking-tight sm:text-5xl sm:leading-[1.15]">
               {title}
@@ -93,23 +99,21 @@ export function GuideArticlePage({
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{description}</p>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
               <span>
-                {isChinese ? "作者：" : "By "}
+                {t.by}
                 <Link className="font-bold text-foreground" href={aboutPath}>PicZip</Link>
               </span>
               <span>
-                {isChinese ? "发布于 " : "Published "}
+                {t.published}
                 {formatDate(publishedAt, locale)}
               </span>
               <span>
-                {isChinese ? "复测于 " : "Verified "}
+                {t.verified}
                 {formatDate(verifiedAt, locale)}
               </span>
               <span>{readingTime}</span>
             </div>
             <p className="mt-5 rounded-lg bg-teal-50 px-4 py-3 text-sm leading-6 text-teal-900">
-              {isChinese
-                ? "测试说明：本文数据和截图来自可重复执行的 PicZip 浏览器测试，测试图片不含个人隐私。"
-                : "Testing note: the figures and screenshots on this page come from a reproducible PicZip browser test using a privacy-safe image fixture."}
+              {t.note}
             </p>
           </header>
 
@@ -119,9 +123,7 @@ export function GuideArticlePage({
 
           <footer className="mt-10 border-t border-black/10 pt-6 text-sm leading-7 text-slate-600">
             <p>
-              {isChinese
-                ? "发现错误，或无法复现文中的结果？请联系 "
-                : "Found an error or a result you cannot reproduce? Contact "}
+              {t.contact}
               <a className="font-bold text-teal-700" href="mailto:support@piczip.app">
                 support@piczip.app
               </a>
@@ -138,13 +140,13 @@ export function GuideArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <Footer />
+      <SiteFooter locale={locale} />
     </div>
   );
 }
 
-function formatDate(value: string, locale: "en" | "zh") {
-  return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en", {
+function formatDate(value: string, locale: Locale) {
+  return new Intl.DateTimeFormat(languageTags[locale], {
     year: "numeric",
     month: locale === "zh" ? "long" : "short",
     day: "numeric",
