@@ -1,13 +1,15 @@
+import { GuidePublication } from "./GuidePublication";
 import Link from "next/link";
 import { ContentPage } from "@/components/site/ContentPage";
 import { cropGuides } from "@/lib/guides/crop-guide";
-import { watermarkGuides } from "@/lib/guides/watermark-guide";
+import { watermarkGuides, watermarkGuideDescriptions } from "@/lib/guides/watermark-guide";
 import { watermarkMessages } from "@/lib/image-tools/watermark-messages";
 import type { Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/routes";
 export function WatermarkGuideArticle({locale}:{locale:Locale}) {
  const t=watermarkGuides[locale], ui=cropGuides[locale], w=watermarkMessages[locale];const link="font-medium text-teal-700 underline underline-offset-4";
- return <ContentPage title={w.guide} description={w.description} locale={locale} breadcrumbLabel={w.guide}><div className="space-y-8 text-base leading-8 text-slate-700">
+ return <ContentPage title={w.guide} description={watermarkGuideDescriptions[locale]} locale={locale} breadcrumbLabel={w.guide}><div className="space-y-8 text-base leading-8 text-slate-700">
+ <GuidePublication locale={locale} path="/guides/batch-watermark-and-rename-images" title={w.guide} description={watermarkGuideDescriptions[locale]} />
  <Link className={link} href={localePath("/watermark-image",locale)}>{w.title} →</Link>
  <section><h2 className="mb-4 text-2xl font-semibold text-foreground">{ui.stepsTitle}</h2><ol className="list-decimal space-y-3 pl-6">{t.steps.map(step=><li key={step}>{step}</li>)}</ol></section>
  {t.sections.map(([heading,text])=><section key={heading}><h2 className="mb-3 text-xl font-semibold text-foreground">{heading}</h2><p>{text}</p></section>)}

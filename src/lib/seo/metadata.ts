@@ -1,6 +1,7 @@
-import { locales, languageTags, type Locale } from "@/lib/i18n/config";
+import { languageAlternates } from "./languages";
+import { locales, type Locale } from "@/lib/i18n/config";
 import type { Metadata } from "next";
-import { stripLocale, getLocale, hasLocalePage, localePath } from "@/lib/i18n/routes";
+import { getLocale, hasLocalePage } from "@/lib/i18n/routes";
 import { absoluteUrl, siteConfig } from "./site";
 
 type PageMetadata = {
@@ -34,10 +35,7 @@ export function createMetadata({
     robots,
     alternates: {
       canonical: absoluteUrl(canonicalPath),
-      languages: {
-        ...Object.fromEntries(translatedLocales.map(value => [value === "zh" ? "zh" : languageTags[value], absoluteUrl(localePath(path, value))])),
-        "x-default": absoluteUrl(stripLocale(path)),
-      },
+      languages: languageAlternates(path, hasChineseVersion),
     },
     openGraph: {
       title,

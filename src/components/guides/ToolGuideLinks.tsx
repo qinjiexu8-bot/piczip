@@ -1,5 +1,5 @@
 import { watermarkMessages } from "@/lib/image-tools/watermark-messages";
-import { watermarkGuidePath } from "@/lib/guides/watermark-guide";
+import { watermarkGuidePath, watermarkGuideDescriptions } from "@/lib/guides/watermark-guide";
 import { cropGuides, cropGuidePath } from "@/lib/guides/crop-guide";
 import { localePath } from "@/lib/i18n/routes";
 import Link from "next/link";
@@ -19,7 +19,7 @@ export function ToolGuideLinks({ locale }: { locale: GuideLocale }) {
         <h3 className="font-semibold leading-7 text-foreground">{cropGuides[locale].title} ↗</h3>
         <p className="mt-1 text-sm leading-6 text-slate-600">{cropGuides[locale].description}</p>
       </Link>
-      <Link href={localePath(watermarkGuidePath,locale)} className="rounded-xl border border-black/10 bg-white px-5 py-4 hover:border-teal-500"><h3 className="font-semibold leading-7 text-foreground">{watermarkMessages[locale].guide} ↗</h3><p className="mt-1 text-sm leading-6 text-slate-600">{watermarkMessages[locale].description}</p></Link>
+      <Link href={localePath(watermarkGuidePath,locale)} className="rounded-xl border border-black/10 bg-white px-5 py-4 hover:border-teal-500"><h3 className="font-semibold leading-7 text-foreground">{watermarkMessages[locale].guide} ↗</h3><p className="mt-1 text-sm leading-6 text-slate-600">{watermarkGuideDescriptions[locale]}</p></Link>
     </div>
   </section>;
 }
