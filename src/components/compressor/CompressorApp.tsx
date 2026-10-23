@@ -10,6 +10,8 @@ import type {
   OutputFormat,
 } from "@/lib/compression/types";
 import { CompressionBatch } from "@/lib/compression/batch";
+import { compressorMessages as compressorCopy } from "@/lib/i18n/messages";
+import { interpolate, type Locale } from "@/lib/i18n/config";
 import { createZipEntries } from "@/lib/compression/download";
 import { CompressionWorkerClient, CompressionWorkerError } from "@/lib/compression/worker-client";
 
@@ -42,117 +44,8 @@ const maxPixels = 40_000_000;
 const maxFileBytes = 50 * 1024 * 1024;
 const acceptedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 
-type CompressorLocale = "en" | "zh";
-
-const compressorCopy = {
-  en: {
-    title: "Image compressor",
-    settings: "Compression settings",
-    choose: "Choose images",
-    fileTypes: "JPG, PNG, WebP · Up to 50 images",
-    fileLimits: "50 MB per image · 40 MP maximum",
-    yourImages: "Your images",
-    files: "files",
-    fileSingular: "file",
-    queued: "Queued",
-    done: "Ready",
-    error: "Failed",
-    above: "Above target",
-    aboveHint: "Above the selected target. Try a smaller width or a different format.",
-    pngHint: "PNG keeps its color data; the quality slider does not apply.",
-    widthHint: "0 keeps the original width. Images are never enlarged.",
-    targetOff: "No limit",
-    saved: "Saved",
-    dropTitle: "Drop images here",
-    targetSize: "Target size",
-    targetHint: "Best effort in KB. Use 0 for no size limit.",
-    output: "Output",
-    quality: "Quality",
-    maxWidth: "Max width",
-    compressing: "Compressing...",
-    compress: "Compress images",
-    downloadZip: "Download ZIP",
-    clear: "Clear",
-    cancel: "Cancel",
-    cancelled: "Cancelled",
-    timeout: "This image took too long. Try a smaller image or retry.",
-    workerFailed: "The image processor stopped. Please retry.",
-    fileTooLarge: "Image exceeds the 50MB file size limit.",
-    processingTitle: "Compressing images",
-    processingDetail: "Processing",
-    tableFile: "File",
-    tableStatus: "Status",
-    tableSaved: "Result",
-    tableAction: "Action",
-    downloadLabel: "Download",
-    removeLabel: "Remove",
-    totalSaved: "Total saved",
-    noReduction: "No reduction",
-    originalLabel: "Original",
-    outputLabel: "Output",
-    across: "across",
-    imageSingular: "image",
-    imagePlural: "images",
-    tooLarge: "Image is larger than the 40MP safety limit.",
-    workerNotReady: "Compression worker is not ready.",
-    failed: "Compression failed.",
-  },
-  zh: {
-    title: "图片压缩",
-    settings: "压缩设置",
-    choose: "选择图片",
-    fileTypes: "JPG、PNG、WebP · 最多 50 张",
-    fileLimits: "每张不超过 50 MB · 最大 40 MP",
-    yourImages: "你的图片",
-    files: "张图片",
-    fileSingular: "张图片",
-    queued: "待处理",
-    done: "已完成",
-    error: "处理失败",
-    above: "超出目标",
-    aboveHint: "仍超出指定大小，可尝试降低宽度或更换输出格式。",
-    pngHint: "PNG 保留颜色数据，质量滑杆不影响 PNG 输出。",
-    widthHint: "填 0 保留原始宽度，图片不会被放大。",
-    targetOff: "不限制",
-    saved: "已节省",
-    dropTitle: "拖入图片",
-    targetSize: "目标大小",
-    targetHint: "尽量达到指定 KB。填 0 不限制；必要时降低最大宽度。",
-    output: "输出格式",
-    quality: "质量",
-    maxWidth: "最大宽度",
-    compressing: "压缩中...",
-    compress: "开始压缩",
-    downloadZip: "下载 ZIP",
-    clear: "清空",
-    cancel: "取消压缩",
-    cancelled: "已取消",
-    timeout: "此图片处理超时，请尝试较小的图片或重试。",
-    workerFailed: "图片处理器意外停止，请重试。",
-    fileTooLarge: "图片超过 50MB 文件大小限制。",
-    processingTitle: "正在压缩图片",
-    processingDetail: "处理中",
-    tableFile: "文件",
-    tableStatus: "状态",
-    tableSaved: "结果",
-    tableAction: "操作",
-    downloadLabel: "下载",
-    removeLabel: "移除",
-    totalSaved: "共节省",
-    noReduction: "未变小",
-    originalLabel: "原图",
-    outputLabel: "输出",
-    across: "共处理",
-    imageSingular: "张图片",
-    imagePlural: "张图片",
-    tooLarge: "图片超过 40MP 安全限制。",
-    workerNotReady: "压缩 worker 尚未就绪。",
-    failed: "压缩失败。",
-  },
-};
-
 type CompressorAppProps = {
-  locale?: CompressorLocale;
+  locale?: Locale;
   initialTargetKb?: number;
   initialFormat?: OutputFormat;
 };
@@ -244,11 +137,7 @@ export function CompressorApp({
 
     if (accepted.length > 0) {
       setItems((current) => [...current, ...accepted]);
-      const message = locale === "zh"
-        ? `已成功添加 ${accepted.length} 张图片！请点击“开始压缩”。`
-        : `Successfully added ${accepted.length} ${
-            accepted.length === 1 ? t.imageSingular : t.imagePlural
-          }! Click "Compress images" to start.`;
+      const message = interpolate(t.added, { count: accepted.length, unit: accepted.length === 1 ? t.imageSingular : t.imagePlural });
       setToast({ message, type: "success" });
       setIsToastVisible(true);
     }
@@ -277,7 +166,7 @@ export function CompressorApp({
         failure: (item, error) => {
           const message = error instanceof CompressionWorkerError
             ? error.code === "timeout" ? t.timeout : t.workerFailed
-            : error instanceof Error ? error.message : t.failed;
+            : error instanceof Error && [t.fileTooLarge, t.tooLarge, t.workerNotReady, t.decode].includes(error.message) ? error.message : t.failed;
           setItems((current) => current.map((entry) => entry.id === item.id
             ? { ...entry, status: "error", error: message }
             : entry));
@@ -296,7 +185,7 @@ export function CompressorApp({
   async function runCompression(item: FileItem, compressionOptions: CompressionOptions, signal: AbortSignal) {
     signal.throwIfAborted();
     if (item.file.size > maxFileBytes) throw new Error(t.fileTooLarge);
-    const bitmap = await createImageBitmap(item.file);
+    const bitmap = await createImageBitmap(item.file).catch(() => { throw new Error(t.decode); });
     const pixels = bitmap.width * bitmap.height;
     bitmap.close();
     signal.throwIfAborted();
@@ -347,7 +236,7 @@ export function CompressorApp({
 
   async function downloadResult(result: CompressionResult) {
     const blob = new Blob([result.buffer], { type: result.mimeType });
-    await saveBlob(blob, result.outputName, "Image file");
+    await saveBlob(blob, result.outputName, t.imageFile);
   }
 
   async function downloadZip() {
@@ -357,7 +246,7 @@ export function CompressorApp({
     await saveBlob(
       new Blob([zipped], { type: "application/zip" }),
       "piczip-compressed-images.zip",
-      "ZIP archive",
+      t.zipFile,
     );
   }
 
@@ -393,7 +282,7 @@ export function CompressorApp({
                 <div className="number-with-unit"><input id="compression-target" min={0} type="number" value={targetKb} disabled={isProcessing}
                   onChange={event => setTargetKb(Math.max(0, Number(event.target.value)))} aria-describedby="target-hint" /><span aria-hidden="true">KB</span></div>
                 <span className="field-hint" id="target-hint">{t.targetHint}</span>
-                <div className="target-presets" role="group" aria-label={locale === "zh" ? "目标大小预设" : "Target size presets"}>
+                <div className="target-presets" role="group" aria-label={t.presets}>
                   {[0, 100, 200, 500].map(value => <button key={value} type="button" disabled={isProcessing} aria-pressed={targetKb === value} onClick={() => setTargetKb(value)}>{value ? `${value} KB` : t.targetOff}</button>)}
                 </div>
               </div>
@@ -403,7 +292,7 @@ export function CompressorApp({
               <div role="group" aria-labelledby="output-label" className="format-switch">
                 {(["auto", "jpeg", "png", "webp"] as OutputFormat[]).map(value => (
                   <button key={value} type="button" disabled={isProcessing} aria-pressed={format === value} onClick={() => setFormat(value)}>
-                    {value === "auto" ? "Auto" : value === "jpeg" ? "JPG" : value === "png" ? "PNG" : "WebP"}
+                    {value === "auto" ? t.auto : value === "jpeg" ? "JPG" : value === "png" ? "PNG" : "WebP"}
                   </button>
                 ))}
               </div>
@@ -463,7 +352,7 @@ export function CompressorApp({
                 <div className="result-sizes">
                   <span aria-label={`${t.originalLabel}: ${formatBytes(item.file.size)}`}>{formatBytes(item.file.size)}</span><ArrowDown size={11} className="-rotate-90" aria-hidden="true" />
                   <strong><span data-compressed-bytes={item.result?.compressedBytes} data-output-mime={item.result?.mimeType} data-output-width={item.result?.width} data-output-height={item.result?.height}
-                    aria-label={`${t.outputLabel}: ${item.result ? formatBytes(item.result.compressedBytes) : "—"}`} title={item.result ? `${item.result.compressedBytes.toLocaleString()} bytes · ${formatResult(item.result, t.noReduction)}` : undefined}>
+                    aria-label={`${t.outputLabel}: ${item.result ? formatBytes(item.result.compressedBytes) : "—"}`} title={item.result ? `${item.result.compressedBytes.toLocaleString(locale)} ${t.bytes} · ${formatResult(item.result, t.noReduction)}` : undefined}>
                     {item.result ? formatBytes(item.result.compressedBytes) : "—"}
                   </span></strong>
                 </div>

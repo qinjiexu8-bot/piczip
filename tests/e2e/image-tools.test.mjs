@@ -131,9 +131,10 @@ test('Chinese tools, active navigation, locale switching and mobile layout', asy
   await page.getByLabel('宽度（像素）', { exact: true }).fill('100'); await page.locator('input[type=file]').setInputFiles(await file('mobile.png'));
   await run(page, '调整尺寸'); assert.equal((await pixels(page)).width, 100);
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
-  await page.getByRole('link', { name: 'Switch to English' }).click(); await page.waitForURL(url => url.pathname === '/resize-image');
+  await page.locator('.language-menu summary').click();
+  await page.locator('.language-options').getByRole('link', { name: 'English', exact: true }).click(); await page.waitForURL(url => url.pathname === '/resize-image');
   assert.equal(new URL(page.url()).pathname, '/resize-image');
-  await page.setViewportSize({ width: 820, height: 1000 });
+  await page.setViewportSize({ width: 1440, height: 1000 });
   const active = page.getByRole('navigation', { name: 'Main navigation', exact: true }).locator('[aria-current=page]');
   assert.equal(await active.innerText(), 'Resize');
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));

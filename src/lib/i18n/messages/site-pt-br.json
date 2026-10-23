@@ -1,0 +1,61 @@
+{
+  "common": {
+    "compress": "Comprimir",
+    "resize": "Redimensionar",
+    "convert": "Converter",
+    "stitch": "Juntar",
+    "guides": "Guias",
+    "faq": "Perguntas frequentes",
+    "mainNav": "Navegação principal",
+    "mobileNav": "Navegação móvel",
+    "openMenu": "Abrir menu de navegação",
+    "language": "Selecionar idioma",
+    "unavailable": "Indisponível para esta página",
+    "home": "Início",
+    "moreTools": "Mais ferramentas de imagem",
+    "discovery": "Mais possibilidades para suas imagens",
+    "footer": "O PicZip comprime suas imagens no navegador.",
+    "about": "Sobre",
+    "privacy": "Privacidade",
+    "terms": "Termos",
+    "english": "inglês",
+    "allQuestions": "Ver todas as perguntas",
+    "tips": "DICAS RÁPIDAS"
+  },
+  "catalog": {
+    "resize": [
+      "Redimensionar imagens",
+      "Ajuste o tamanho em pixels ou porcentagem, de uma imagem ou de um lote inteiro."
+    ],
+    "convert": [
+      "Converter formatos de imagem",
+      "Converta entre JPG, PNG e WebP. Ajuste a qualidade, escolha o fundo e baixe suas imagens."
+    ],
+    "stitch": [
+      "Juntar imagens",
+      "Combine várias imagens em uma só. Organize, ajuste o espaço e junte na horizontal ou vertical."
+    ]
+  },
+  "comparison": {
+    "eyebrow": "COMPARE O RESULTADO",
+    "title": "Menor arquivo. Imagem nítida.",
+    "description": "Arraste o divisor para comparar os detalhes da mesma foto antes e depois.",
+    "saved": "a menos no tamanho deste exemplo",
+    "note": "Exemplo real · JPG → WebP · qualidade {quality}. As duas imagens têm {width} × {height}. O resultado varia conforme a imagem e as configurações.",
+    "original": "Original",
+    "compressed": "Comprimida",
+    "alt": "Comparação de uma baía com montanhas e casas de telhados vermelhos",
+    "label": "Comparação antes e depois da compressão",
+    "value": "{position}% da imagem original visível",
+    "caption": "JPG {before} → WebP {after}. Arraste para os lados ou use as setas do teclado."
+  },
+  "home": {
+    "title": "Compressor de imagens grátis",
+    "description": "Comprima JPG, PNG e WebP com tamanho desejado e qualidade ajustável. Baixe cada imagem ou um ZIP.",
+    "popularTitle": "Ferramentas para suas imagens",
+    "helpTitle": "Precisa de um arquivo menor?",
+    "helpText": "Comece definindo o tamanho desejado. Se o arquivo ainda ficar grande, reduza a largura ou mude o formato. O guia explica cada configuração.",
+    "guideLabel": "Ler o guia de compressão (inglês)",
+    "faqDescription": "Respostas sobre tamanho, qualidade, formatos e download de imagens."
+  }
+}

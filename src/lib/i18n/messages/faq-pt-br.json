@@ -1,0 +1,11 @@
+[
+ ["Como comprimir uma imagem para 100KB ou 200KB?", "Adicione a imagem, digite 100 ou 200 em Tamanho desejado e inicie a compressão. O limite é uma meta, não uma garantia de tamanho exato. Se o resultado ainda for grande, reduza a largura máxima ou tente WebP."],
+ ["A compressão muda a qualidade ou as dimensões?", "A compressão com perdas de JPG e WebP pode reduzir detalhes, principalmente em qualidades mais baixas. Largura máxima limita as dimensões; use 0 para mantê-las. Defina Tamanho desejado como 0 para escolher a qualidade sem tentar cumprir um limite de tamanho."],
+ ["Devo escolher JPG, PNG ou WebP?", "JPG costuma ser indicado para fotos e formulários. PNG é útil para imagens transparentes e capturas de tela. Experimente WebP para imagens de sites. O ajuste de qualidade não se aplica a PNG, e JPG não preserva transparência. Mudar o formato nem sempre reduz o arquivo."],
+ ["Posso comprimir várias imagens de uma vez?", "Sim, até 50 imagens JPG, PNG ou WebP por lote. Baixe os resultados individualmente ou juntos com Baixar ZIP. Cada imagem pode ter até 50 MB e 40 megapixels."],
+ ["Por que o arquivo quase não diminuiu?", "O original pode já estar otimizado, ou o formato escolhido pode gerar um arquivo maior. Tente uma qualidade menor, uma largura máxima menor ou WebP. Confira os detalhes de capturas com texto e imagens transparentes antes de comprimir mais."],
+ ["Também posso redimensionar, converter ou juntar imagens?", "Sim. Redimensionar permite ajustar em pixels ou porcentagem. Converter alterna entre JPG, PNG e WebP. Juntar combina várias imagens na horizontal ou vertical."],
+ ["O PicZip é grátis?", "Sim. As ferramentas de compressão, redimensionamento, conversão e junção de imagens podem ser usadas sem cadastro."],
+ ["Minhas imagens são enviadas a um servidor?", "Não. O processamento acontece no seu navegador; os arquivos de imagem não são enviados ao servidor para serem processados."],
+ ["Quais são os limites das outras ferramentas?", "Redimensionar e Converter aceitam até 50 imagens; Juntar exige de 2 a 20. Cada entrada pode ter até 50 MB e 40 megapixels, com um total de 200 MB por lote. A saída pode ter até 16 megapixels e 8192 pixels por lado. Animações são exportadas como uma imagem estática."]
+]

@@ -1,3 +1,8 @@
+import { addedLocales, isLocale, type Locale } from "./config";
+/** These pages are translated in every supported language. */
+export const multilingualRoutes = ["/", "/resize-image", "/convert-image", "/stitch-images", "/faq"] as const;
+
+
 export const localizedEnglishRoutes = [
   "/",
   "/resize-image",
@@ -35,7 +40,10 @@ export const englishOnlyRoutes = [
 
 export const englishRoutes = [...localizedEnglishRoutes, ...englishOnlyRoutes] as const;
 
-export const localizedRoutes = localizedEnglishRoutes.map((route) => toLocalizedPath(route));
+export const localizedRoutes = [
+  ...localizedEnglishRoutes.map((route) => toLocalizedPath(route)),
+  ...addedLocales.flatMap(locale => multilingualRoutes.map(route => localePath(route, locale))),
+];
 
 export function hasLocalizedVersion(pathname: string) {
   const normalized = stripLocale(pathname);
@@ -47,8 +55,8 @@ export function isChinesePath(pathname: string) {
 }
 
 export function stripLocale(pathname: string) {
-  if (pathname === "/zh") return "/";
-  if (pathname.startsWith("/zh/")) return pathname.slice(3) || "/";
+  const segment = pathname.split("/")[1];
+  if (isLocale(segment) && segment !== "en") return pathname.slice(segment.length + 1) || "/";
   return pathname || "/";
 }
 
@@ -67,5 +75,23 @@ export function alternateLanguagePath(pathname: string) {
 }
 
 export function localizedHref(pathname: string, englishHref: string) {
-  return isChinesePath(pathname) ? toLocalizedPath(englishHref) : englishHref;
+  const locale = getLocale(pathname);
+  return hasLocalePage(englishHref, locale) ? localePath(englishHref, locale) : englishHref;
+}
+
+export function getLocale(pathname: string): Locale {
+  const segment = pathname.split("/")[1];
+  return isLocale(segment) ? segment : "en";
+}
+
+export function hasLocalePage(pathname: string, locale: Locale) {
+  const path = stripLocale(pathname);
+  if (locale === "en") return (englishRoutes as readonly string[]).includes(path);
+  if (locale === "zh") return hasLocalizedVersion(path);
+  return (multilingualRoutes as readonly string[]).includes(path);
+}
+
+export function localePath(pathname: string, locale: Locale) {
+  const path = stripLocale(pathname);
+  return locale === "en" ? path : path === "/" ? `/${locale}` : `/${locale}${path}`;
 }

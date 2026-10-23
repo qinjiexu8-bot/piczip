@@ -1,0 +1,61 @@
+{
+  "common": {
+    "compress": "图片压缩",
+    "resize": "尺寸调整",
+    "convert": "格式转换",
+    "stitch": "图片拼接",
+    "guides": "使用指南",
+    "faq": "常见问题",
+    "mainNav": "主导航",
+    "mobileNav": "手机导航",
+    "openMenu": "打开导航菜单",
+    "language": "选择语言",
+    "unavailable": "此页面暂无此语言版本",
+    "home": "首页",
+    "moreTools": "更多图片工具",
+    "discovery": "图片处理，再多一点可能",
+    "footer": "PicZip 在浏览器本地完成图片压缩。",
+    "about": "关于",
+    "privacy": "隐私",
+    "terms": "条款",
+    "english": "英文",
+    "allQuestions": "查看全部问题",
+    "tips": "使用小贴士"
+  },
+  "catalog": {
+    "resize": [
+      "图片尺寸调整",
+      "按像素或百分比调整尺寸，一张图片或一整批，都能轻松处理。"
+    ],
+    "convert": [
+      "图片格式转换",
+      "在 JPG、PNG 和 WebP 之间转换，可调整画质、选择背景，批量导出图片。"
+    ],
+    "stitch": [
+      "图片拼接",
+      "把几张图片，连成一个故事。自由排序、设置间距，横向或纵向拼成一张。"
+    ]
+  },
+  "comparison": {
+    "eyebrow": "压缩效果，一眼看见",
+    "title": "小一点，也看得清",
+    "description": "拖动分隔线，看看同一张照片压缩前后的细节。",
+    "saved": "本例文件体积",
+    "note": "真实样例 · JPG → WebP · 质量 {quality}。两张图片均为 {width} × {height}，实际效果因图片和设置而异。",
+    "original": "压缩前",
+    "compressed": "压缩后",
+    "alt": "海湾、山脉和红顶房屋的压缩前后对比",
+    "label": "压缩前后对比",
+    "value": "显示 {position}% 原图",
+    "caption": "JPG {before} → WebP {after}。左右拖动，或使用键盘方向键对比。"
+  },
+  "home": {
+    "title": "免费图片压缩工具",
+    "description": "压缩 JPG、PNG、WebP，按需设置目标大小和画质，支持单张或批量 ZIP 下载。",
+    "popularTitle": "图片处理工具",
+    "helpTitle": "怎样获得更小的图片？",
+    "helpText": "先设置目标大小；若结果仍偏大，可以调低最大宽度或更换格式。",
+    "guideLabel": "阅读图片压缩指南",
+    "faqDescription": "关于大小、画质、格式和下载的常见问题。"
+  }
+}

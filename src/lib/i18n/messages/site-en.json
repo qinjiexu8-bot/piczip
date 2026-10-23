@@ -1,0 +1,61 @@
+{
+  "common": {
+    "compress": "Compress",
+    "resize": "Resize",
+    "convert": "Convert",
+    "stitch": "Stitch",
+    "guides": "Guides",
+    "faq": "FAQ",
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "openMenu": "Open navigation menu",
+    "language": "Choose language",
+    "unavailable": "Not available for this page",
+    "home": "Home",
+    "moreTools": "More image tools",
+    "discovery": "A little more room to create",
+    "footer": "PicZip runs image compression locally in your browser.",
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "english": "English",
+    "allQuestions": "View all questions",
+    "tips": "A LITTLE HELP"
+  },
+  "catalog": {
+    "resize": [
+      "Resize images",
+      "The right dimensions, every time. Resize by pixels or percentage, one image or a whole batch."
+    ],
+    "convert": [
+      "Convert image formats",
+      "Convert between JPG, PNG and WebP. Set image quality, choose a background and download your batch."
+    ],
+    "stitch": [
+      "Stitch images together",
+      "Turn a few images into one story. Arrange, space and join them horizontally or vertically."
+    ]
+  },
+  "comparison": {
+    "eyebrow": "SEE THE DIFFERENCE",
+    "title": "Less size. Still a clear view.",
+    "description": "Drag the divider to explore the same photo before and after compression.",
+    "saved": "file size in this example",
+    "note": "Real sample · JPG → WebP · quality {quality}. Both images are {width} × {height}. Results vary by image and settings.",
+    "original": "Original",
+    "compressed": "Compressed",
+    "alt": "Before and after comparison of a bay, mountains and red-roofed houses",
+    "label": "Before and after compression",
+    "value": "{position}% of original visible",
+    "caption": "JPG {before} → WebP {after}. Drag left or right, or use the arrow keys."
+  },
+  "home": {
+    "title": "Free image compressor",
+    "description": "Compress JPG, PNG and WebP to a target size, adjust quality, and download your results individually or as a ZIP.",
+    "popularTitle": "Tools for your images",
+    "helpTitle": "Need a smaller file?",
+    "helpText": "Start with a target size. If the result is still too large, try reducing the width or switching formats.",
+    "guideLabel": "Read the compression guide",
+    "faqDescription": "Answers about file size, quality, formats and downloads."
+  }
+}

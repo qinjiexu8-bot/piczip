@@ -1,5 +1,6 @@
+import { locales, languageTags, type Locale } from "@/lib/i18n/config";
 import type { Metadata } from "next";
-import { stripLocale, toEnglishPath, toLocalizedPath } from "@/lib/i18n/routes";
+import { stripLocale, getLocale, hasLocalePage, localePath } from "@/lib/i18n/routes";
 import { absoluteUrl, siteConfig } from "./site";
 
 type PageMetadata = {
@@ -20,10 +21,10 @@ export function createMetadata({
   type = "website",
 }: PageMetadata): Metadata {
   const url = absoluteUrl(path);
-  const englishPath = toEnglishPath(path);
-  const chinesePath = toLocalizedPath(path);
   const canonicalPath = path === "/zh" ? "/zh" : path;
-  const isChinesePage = path === "/zh" || path.startsWith("/zh/");
+  const locale = getLocale(path);
+  const ogLocales: Record<Locale, string> = { en: "en_US", zh: "zh_CN", es: "es_ES", "pt-br": "pt_BR", ja: "ja_JP" };
+  const translatedLocales = locales.filter(value => hasLocalePage(path, value) && (hasChineseVersion || value !== "zh"));
 
   const ogImageUrl = absoluteUrl("/og-image.jpg");
 
@@ -33,24 +34,18 @@ export function createMetadata({
     robots,
     alternates: {
       canonical: absoluteUrl(canonicalPath),
-      languages: hasChineseVersion
-        ? {
-            en: absoluteUrl(englishPath),
-            zh: absoluteUrl(chinesePath),
-            "x-default": absoluteUrl(stripLocale(path)),
-          }
-        : {
-            en: absoluteUrl(englishPath),
-            "x-default": absoluteUrl(stripLocale(path)),
-          },
+      languages: {
+        ...Object.fromEntries(translatedLocales.map(value => [value === "zh" ? "zh" : languageTags[value], absoluteUrl(localePath(path, value))])),
+        "x-default": absoluteUrl(stripLocale(path)),
+      },
     },
     openGraph: {
       title,
       description,
       url,
       siteName: siteConfig.name,
-      locale: isChinesePage ? "zh_CN" : siteConfig.locale,
-      alternateLocale: isChinesePage ? ["en_US"] : ["zh_CN"],
+      locale: ogLocales[locale],
+      alternateLocale: translatedLocales.filter(value => value !== locale).map(value => ogLocales[value]),
       type,
       images: [
         {

@@ -1,13 +1,17 @@
+import { languageTags, type Locale } from "@/lib/i18n/config";
+import { localePath } from "@/lib/i18n/routes";
+import { CompressionComparison } from "@/components/site/CompressionComparison";
+import { HomeFaq } from "@/components/site/HomeFaq";
 import { ToolIntro } from "@/components/site/ToolIntro";
 import { ToolLinks } from "@/components/image-tools/ToolLinks";
 import Link from "next/link";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 import { CompressorApp } from "@/components/compressor/CompressorApp";
-import { Footer } from "@/components/site/Footer";
+import { SiteFooter } from "@/components/site/SiteFooter";
 import { Header } from "@/components/site/Header";
 
 type HomePageCopy = {
-  locale: "en" | "zh";
+  locale: Locale;
   title: string;
   description: string;
   popularTitle: string;
@@ -24,8 +28,8 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
     name: "PicZip",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Any",
-    inLanguage: copy.locale === "zh" ? "zh-CN" : "en",
-    url: copy.locale === "zh" ? "https://piczip.app/zh" : "https://piczip.app/",
+    inLanguage: languageTags[copy.locale],
+    url: `https://piczip.app${localePath("/", copy.locale)}`,
     description: copy.description,
     offers: {
       "@type": "Offer",
@@ -45,7 +49,11 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
 
         <CompressorApp locale={copy.locale} />
 
+        <CompressionComparison locale={copy.locale} />
+
         <ToolLinks locale={copy.locale} />
+
+        <HomeFaq locale={copy.locale} />
 
         <section className="home-support">
           <div>
@@ -66,7 +74,7 @@ export function HomePage({ copy }: { copy: HomePageCopy }) {
         </section>
       </main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
-      <Footer />
+      <SiteFooter locale={copy.locale} />
     </div>
   );
 }

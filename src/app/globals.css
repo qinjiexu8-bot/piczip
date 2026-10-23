@@ -263,3 +263,66 @@ a, button, input, select, summary { -webkit-tap-highlight-color: transparent; }
 /* Chinese UI uses native sans glyphs with natural spacing; numeric results align. */
 :lang(zh-CN) :is(h1, h2, h3, .drop-title) { letter-spacing: 0; }
 .number-with-unit input, .quality-field output, .result-sizes, .result-meta, .tool-output-details span { font-variant-numeric: tabular-nums; }
+
+/* Homepage sample: original encodings stay intact for an honest comparison. */
+.home-comparison { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.45fr); gap: 42px; align-items: center; margin-top: 32px; padding: 28px; background: white; border: 1px solid var(--line); border-radius: 18px; }
+.home-section-eyebrow { display: block; margin-bottom: 10px; font-size: 10px; font-weight: 600; letter-spacing: .1em; color: var(--teal); }
+.comparison-copy h2, .home-faq h2 { font-size: clamp(22px, 2.3vw, 28px); font-weight: 600; line-height: 1.35; letter-spacing: -.025em; text-wrap: balance; }
+.comparison-copy > p { margin-top: 12px; font-size: 13px; color: var(--muted); line-height: 1.9; }
+.comparison-saving { display: flex; flex-direction: column; gap: 3px; margin: 24px 0 18px; }
+.comparison-saving strong { font-size: 48px; font-weight: 600; line-height: 1.1; letter-spacing: -.05em; color: var(--teal); font-variant-numeric: tabular-nums; }
+.comparison-saving span { font-size: 11px; color: var(--muted); }
+.comparison-copy > .comparison-note { font-size: 11px; max-width: 300px; }
+.comparison-figure { min-width: 0; }
+.comparison-labels { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-size: 11px; color: var(--muted); }
+.comparison-labels span { display: grid; gap: 3px; }
+.comparison-labels span:last-child { text-align: right; }
+.comparison-labels strong { font-size: 12px; font-weight: 600; color: var(--foreground); }
+.comparison-image { position: relative; isolation: isolate; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 10px; background: #e7eeea; }
+.comparison-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; }
+.comparison-original { clip-path: inset(0 calc(100% - var(--comparison-position)) 0 0); }
+.comparison-divider { position: absolute; top: 0; bottom: 0; left: var(--comparison-position); width: 2px; transform: translateX(-50%); background: white; box-shadow: 0 0 8px #173c3650; pointer-events: none; }
+.comparison-handle { position: absolute; left: clamp(23px, var(--comparison-position), calc(100% - 23px)); top: 50%; display: grid; place-items: center; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; background: white; box-shadow: 0 2px 12px #173c3640; pointer-events: none; }
+.comparison-image input { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; margin: 0; opacity: 0; appearance: none; cursor: ew-resize; touch-action: pan-y; }
+.comparison-image input::-webkit-slider-thumb { appearance: none; width: 0; height: 0; border: 0; }
+.comparison-image input::-moz-range-thumb { width: 0; height: 0; border: 0; }
+.comparison-image:has(input:focus-visible:not([data-pointer-focus="true"])) { outline: 3px solid var(--teal); outline-offset: 4px; }
+.comparison-image:has(input:focus-visible:not([data-pointer-focus="true"])) .comparison-handle { box-shadow: 0 0 0 3px var(--teal); }
+.comparison-figure figcaption { margin-top: 10px; font-size: 10px; color: var(--muted); line-height: 1.7; }
+.home-faq { display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 1.55fr); gap: 42px; margin: 28px 0; padding: 30px 0 12px; border-top: 1px solid var(--line); }
+.home-faq-intro a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; margin-top: 12px; font-size: 12px; color: var(--teal); }
+.home-faq-list { border-top: 1px solid var(--line); }
+.home-faq-list details { border-bottom: 1px solid var(--line); }
+.home-faq-list summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 60px; padding: 15px 2px; font-size: 13px; font-weight: 550; cursor: pointer; list-style: none; }
+.home-faq-list summary::-webkit-details-marker { display: none; }
+.home-faq-list summary svg { flex-shrink: 0; color: var(--teal); transition: transform .15s; }
+.home-faq-list details[open] summary svg { transform: rotate(45deg); }
+.home-faq-list details p { padding: 0 30px 20px 2px; font-size: 12px; line-height: 1.9; color: var(--muted); }
+@media (max-width: 767px) {
+  .home-comparison { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 24px; padding: 20px; }
+  .comparison-saving { flex-direction: row; align-items: baseline; gap: 10px; margin: 16px 0 12px; }
+  .comparison-saving strong { font-size: 36px; }
+  .comparison-copy > .comparison-note { max-width: none; }
+  .home-faq { grid-template-columns: minmax(0, 1fr); gap: 18px; margin: 22px 0; padding-top: 24px; }
+  .home-faq-intro a { margin-top: 4px; }
+  .home-faq-list summary { min-height: 60px; }
+}
+
+/* Locale names stay readable without crowding the tool navigation. */
+.language-menu { position: relative; flex-shrink: 0; }
+.language-menu summary { cursor: pointer; list-style: none; min-height: 40px; }
+.language-menu summary::-webkit-details-marker { display: none; }
+.language-options { position: absolute; top: calc(100% + 8px); right: 0; z-index: 20; width: 220px; max-width: calc(100vw - 40px); padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: white; box-shadow: 0 12px 32px #153e3214; }
+.language-options > a, .language-options > span { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; padding: 10px 12px; border-radius: 7px; font-size: 13px; }
+.language-options a:hover, .language-options a[aria-current] { background: #edf4ed; color: var(--teal); }
+.language-options > span { display: grid; gap: 3px; color: var(--muted); }
+.language-options small { font-size: 10px; line-height: 1.5; }
+:lang(es) .setting-line, :lang(pt-BR) .setting-line { grid-template-columns: 115px minmax(0, 1fr); }
+:lang(es) .compressor-actions, :lang(pt-BR) .compressor-actions { gap: 7px; }
+:lang(es) .compressor-actions .primary-button, :lang(pt-BR) .compressor-actions .primary-button { white-space: normal; }
+@media (max-width: 420px) {
+  .language-menu summary { gap: 5px; padding: 0 8px; }
+  .language-menu summary > svg:first-child { display: none; }
+  :lang(es) .setting-line, :lang(pt-BR) .setting-line { grid-template-columns: 95px minmax(0, 1fr); }
+}
+html[lang="ja"] { --font-sans: var(--font-noto-sans), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif; }

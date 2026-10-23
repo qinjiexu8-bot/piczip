@@ -1,0 +1,11 @@
+[
+ ["¿Cómo comprimo una imagen a 100KB o 200KB?", "Añade la imagen, escribe 100 o 200 en Tamaño objetivo e inicia la compresión. Es un límite que se intentará alcanzar, no un tamaño exacto garantizado. Si el resultado sigue siendo grande, reduce el ancho máximo o prueba WebP."],
+ ["¿La compresión cambia la calidad o las dimensiones?", "La compresión con pérdidas de JPG y WebP puede reducir detalles, especialmente con una calidad baja. Ancho máximo limita las dimensiones; usa 0 para conservarlas. Pon Tamaño objetivo en 0 para ajustar la calidad sin intentar cumplir un límite de tamaño."],
+ ["¿Elijo JPG, PNG o WebP?", "JPG suele ser adecuado para fotos y formularios. PNG resulta útil para gráficos transparentes y capturas de pantalla. Prueba WebP para imágenes de sitios web. El ajuste de calidad no se aplica a PNG y JPG no conserva la transparencia. Cambiar de formato no siempre reduce el tamaño."],
+ ["¿Puedo comprimir varias imágenes a la vez?", "Sí, hasta 50 imágenes JPG, PNG o WebP por lote. Descarga los resultados por separado o juntos con Descargar ZIP. Cada imagen admite hasta 50 MB y 40 megapíxeles."],
+ ["¿Por qué el archivo apenas se ha reducido?", "Puede que el original ya esté optimizado o que el formato elegido genere un archivo mayor. Prueba una calidad más baja, un ancho máximo menor o WebP. Revisa los detalles de capturas con texto y gráficos transparentes antes de comprimir más."],
+ ["¿También puedo redimensionar, convertir o unir imágenes?", "Sí. Redimensionar permite ajustar por píxeles o porcentaje. Convertir cambia entre JPG, PNG y WebP. Unir combina varias imágenes en horizontal o vertical."],
+ ["¿PicZip es gratis?", "Sí. Las herramientas de compresión, redimensionado, conversión y unión de imágenes se pueden usar sin registrarse."],
+ ["¿Mis imágenes se envían a un servidor?", "No. El procesamiento se realiza en tu navegador; los archivos de imagen no se envían al servidor para procesarlos."],
+ ["¿Qué límites tienen las otras herramientas?", "Redimensionar y Convertir admiten hasta 50 imágenes; Unir requiere entre 2 y 20. Cada entrada puede tener hasta 50 MB y 40 megapíxeles, con un total de 200 MB por lote. La salida admite hasta 16 megapíxeles y 8192 píxeles por lado. Las animaciones se exportan como una imagen estática."]
+]

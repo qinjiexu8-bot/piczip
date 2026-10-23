@@ -1,0 +1,26 @@
+[
+  [
+    "How do I compress an image to 100KB or 200KB?",
+    "Add your image, enter 100 or 200 in Target size, then start compression. The target is a best-effort limit, not an exact file size. If the result is still too large, lower the maximum width or try WebP."
+  ],
+  [
+    "Will compression change image quality or dimensions?",
+    "Lossy JPG and WebP compression can reduce detail, especially at lower quality settings. Max width limits the output dimensions; set it to 0 to keep the original dimensions. Set Target size to 0 if you want to choose quality without trying to meet a file-size limit."
+  ],
+  [
+    "Should I choose JPG, PNG or WebP?",
+    "JPG suits photos and many online forms. PNG is useful for transparent graphics and screenshots. Try WebP for website images. The quality slider does not apply to PNG, and JPG cannot preserve transparency. File size depends on the image; converting formats does not always make it smaller."
+  ],
+  [
+    "Can I compress several images at once?",
+    "Yes. Add up to 50 JPG, PNG or WebP images per batch. Download results individually or save them together with Download ZIP. Each image can be up to 50MB and 40 megapixels."
+  ],
+  [
+    "Why is my compressed file barely smaller?",
+    "The original may already be optimized, or your output format may produce a larger file. Try a lower quality setting, a smaller maximum width or WebP. For text screenshots and transparent graphics, check the details before compressing further."
+  ],
+  [
+    "Can I also resize, convert or stitch images?",
+    "Yes. Resize in the navigation supports pixel dimensions and percentages. Convert switches between JPG, PNG and WebP. Stitch combines multiple images horizontally or vertically."
+  ]
+]
