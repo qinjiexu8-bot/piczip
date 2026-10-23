@@ -1,3 +1,4 @@
+import { cropGuides, cropGuidePath } from "@/lib/guides/crop-guide";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/routes";
@@ -13,6 +14,7 @@ const copy: Record<Locale, [string, string, string, string]> = {
 export function CropRelatedLinks({ locale, fromTool = false }: { locale: Locale; fromTool?: boolean }) {
   const t = copy[locale];
   return <aside className="my-6 rounded-xl border border-teal-800/15 bg-white px-5 py-4 text-sm leading-7">
+    {fromTool && <p><Link className="font-medium text-teal-700 underline underline-offset-4" href={localePath(cropGuidePath, locale)}>{cropGuides[locale].title} →</Link></p>}
     <p className="text-slate-600">{t[fromTool ? 2 : 0]}</p>
     <Link className="font-medium text-teal-700 underline decoration-teal-700/30 underline-offset-4 hover:decoration-teal-700" href={localePath(fromTool ? "/guides/resize-images-by-pixels-or-percentage" : "/crop-image", locale)}>{t[fromTool ? 3 : 1]} →</Link>
   </aside>;

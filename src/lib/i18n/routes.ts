@@ -18,6 +18,7 @@ export const localizedEnglishRoutes = [
   "/local-image-compressor",
   "/batch-image-compressor",
   "/guide",
+  "/guides/crop-rotate-flip-images",
   "/guides/resize-images-by-pixels-or-percentage",
   "/guides/convert-jpg-png-webp",
   "/guides/stitch-images-horizontally-vertically",

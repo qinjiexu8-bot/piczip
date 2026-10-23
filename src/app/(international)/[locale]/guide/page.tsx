@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   if (!isAddedLocale(locale)) notFound();
   const t = guideUi[locale];
-  const groups = [{ title: t.tools, slugs: guideSlugs.slice(0, 3) }, { title: t.compression, slugs: guideSlugs.slice(3) }];
+  const groups = [{ title: t.tools, slugs: guideSlugs.slice(0, 4) }, { title: t.compression, slugs: guideSlugs.slice(4) }];
   return <ContentPage title={t.title} description={t.description} locale={locale} breadcrumbLabel={siteMessages[locale].common.guides}>
     {groups.map(group => <section key={group.title} className="pb-4">
       <h2 className="mb-4 text-xl font-semibold text-foreground">{group.title}</h2>

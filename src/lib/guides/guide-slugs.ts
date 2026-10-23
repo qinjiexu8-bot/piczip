@@ -3,6 +3,7 @@ export const guideSlugs = [
   "resize-images-by-pixels-or-percentage",
   "convert-jpg-png-webp",
   "stitch-images-horizontally-vertically",
+  "crop-rotate-flip-images",
   "compress-image-to-100kb-without-uploading",
   "compress-image-to-200kb-for-online-forms",
   "reduce-image-size-for-email-attachments",
