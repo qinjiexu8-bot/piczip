@@ -23,29 +23,31 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <Link href={localizedHref(pathname, "/")} className="brand" aria-label={`PicZip · ${t.home}`}>
-        <span className="brand-mark"><ImageIcon size={23} strokeWidth={1.8} /></span>
-        PicZip<span className="brand-dot">.</span>
-      </Link>
-      <div className="flex items-center gap-3 sm:gap-7">
-        <nav aria-label={t.mainNav} className="hidden items-center gap-5 xl:gap-5 xl:flex">
-          {items.map(item => (
-            <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} className={`site-nav-link ${item.active ? "is-active" : ""}`}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <LanguageMenu key={pathname} locale={locale} pathname={pathname} />
-        <details className="mobile-menu xl:hidden">
-          <summary aria-label={t.openMenu}><Menu size={22} /></summary>
-          <nav aria-label={t.mobileNav}>
+      <div className="site-header-inner">
+        <Link href={localizedHref(pathname, "/")} className="brand" aria-label={`PicZip · ${t.home}`}>
+          <span className="brand-mark"><ImageIcon size={23} strokeWidth={1.8} /></span>
+          PicZip<span className="brand-dot">.</span>
+        </Link>
+        <div className="flex items-center gap-3 sm:gap-7">
+          <nav aria-label={t.mainNav} className="hidden items-center gap-5 xl:gap-5 xl:flex">
             {items.map(item => (
-              <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} onClick={event => event.currentTarget.closest("details")?.removeAttribute("open")}>
+              <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} className={`site-nav-link ${item.active ? "is-active" : ""}`}>
                 {item.label}
               </Link>
             ))}
           </nav>
-        </details>
+          <LanguageMenu key={pathname} locale={locale} pathname={pathname} />
+          <details className="mobile-menu xl:hidden">
+            <summary aria-label={t.openMenu}><Menu size={22} /></summary>
+            <nav aria-label={t.mobileNav}>
+              {items.map(item => (
+                <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} onClick={event => event.currentTarget.closest("details")?.removeAttribute("open")}>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </details>
+        </div>
       </div>
     </header>
   );
