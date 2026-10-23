@@ -7,7 +7,7 @@ import { ImageToolPage } from "@/components/image-tools/ImageToolPage";
 import { LocalizedFaqPage } from "@/components/site/LocalizedFaqPage";
 
 import { toolCatalog } from "@/lib/image-tools/catalog";
-const tools = { "crop-image": "crop", "resize-image": "resize", "convert-image": "convert", "stitch-images": "stitch" } as const;
+const tools = { "watermark-image": "watermark", "crop-image": "crop", "resize-image": "resize", "convert-image": "convert", "stitch-images": "stitch" } as const;
 type Props = { params: Promise<{ locale: string; tool: string }> };
 export const dynamicParams = false;
 export function generateStaticParams() { return [...Object.keys(tools), "faq"].map(tool => ({ tool })); }

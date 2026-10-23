@@ -333,10 +333,10 @@ main [id] { scroll-margin-top: calc(var(--site-header-height) + 16px); }
 html[lang="ja"] { --font-sans: var(--font-noto-sans), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif; }
 
 /* Compact controls for repeatable batches and the next processing step. */
-.batch-presets { margin: 0 0 22px; border: 1px solid var(--line); border-radius: 10px; background: #f7faf7; font-size: 13px; }
-.batch-presets > summary { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 12px; cursor: pointer; color: var(--teal); font-weight: 600; list-style: none; }
-.batch-presets > summary::-webkit-details-marker { display: none; }
-.batch-presets > summary > span { margin-left: auto; min-width: 24px; padding: 1px 7px; border-radius: 20px; background: #e7f0e8; text-align: center; font-size: 11px; }
+:is(.batch-presets, .export-settings) { margin: 0 0 22px; border: 1px solid var(--line); border-radius: 10px; background: #f7faf7; font-size: 13px; }
+:is(.batch-presets, .export-settings) > summary { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 12px; cursor: pointer; color: var(--teal); font-weight: 600; list-style: none; }
+:is(.batch-presets, .export-settings) > summary::-webkit-details-marker { display: none; }
+:is(.batch-presets, .export-settings) > summary > span { margin-left: auto; min-width: 24px; padding: 1px 7px; border-radius: 20px; background: #e7f0e8; text-align: center; font-size: 11px; }
 .preset-content { padding: 0 12px 12px; }
 .preset-content > p { color: var(--muted); font-size: 12px; line-height: 1.7; }
 .preset-content label, .continue-controls > label { display: block; margin: 10px 0 6px; font-size: 12px; color: var(--muted); }
@@ -388,3 +388,20 @@ html[lang="ja"] { --font-sans: var(--font-noto-sans), "Hiragino Sans", "Hiragino
 .crop-result-preview p { color: #9b442e; font-size: 12px; line-height: 1.8; margin-top: 12px; }
 .tool-links-grid:has(> :nth-child(4)) { grid-template-columns: repeat(2,minmax(0,1fr)); }
 @media (max-width: 767px) { .tool-links-grid:has(> :nth-child(4)) { grid-template-columns: minmax(0,1fr); } }
+
+/* Shared export controls and watermark previews follow the existing tool cards. */
+.export-settings { margin-top: 20px; }
+.export-name-preview { display: grid; gap: 4px; min-width: 0; }
+.export-name-preview code { display: block; overflow-wrap: anywhere; color: var(--foreground); font-size: 12px; }
+.watermark-controls { display: grid; gap: 4px; margin-bottom: 20px; }
+.watermark-preview { margin-top: 24px; }
+.watermark-preview select { width: 100%; margin: 12px 0; padding: 10px; border: 1px solid #d8e3dc; border-radius: 8px; }
+.watermark-preview canvas { display: block; max-width: 100%; height: auto; margin: 12px auto; border-radius: 10px; background: repeating-conic-gradient(#edf1ec 0% 25%, #fff 0% 50%) 0 / 16px 16px; }
+.watermark-controls input[type=file] { max-width: 100%; font-size: 13px; }
+
+.watermark-controls .tool-field { margin-bottom: 10px; }
+.watermark-controls input[type=text] { width: 100%; min-width: 0; padding: 10px 11px; min-height: 41px; border: 1px solid #dce4dc; border-radius: 7px; background: #fff; color: #24473b; }
+.export-settings .tool-checkbox { display: flex; align-items: center; gap: 9px; }
+.export-settings .tool-checkbox input[type=checkbox] { width: 16px; height: 16px; min-height: 16px; padding: 0; flex: 0 0 16px; }
+.export-settings > summary::after { content: "⌄"; margin-left: auto; }
+.export-settings[open] > summary::after { transform: rotate(180deg); }

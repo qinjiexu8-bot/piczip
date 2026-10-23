@@ -16,12 +16,17 @@ import { CropControls, CropEditor } from "./CropEditor";
 import { defaultCrop } from "@/lib/image-tools/crop";
 import { cropMessages } from "@/lib/image-tools/crop-messages";
 
+import { WatermarkControls, WatermarkPreview } from "./WatermarkEditor";
+import { defaultWatermark, validWatermark } from "@/lib/image-tools/watermark";
+import { watermarkMessages } from "@/lib/image-tools/watermark-messages";
+import { ExportSettings } from "@/components/export/ExportSettings";
+import { defaultRename, exportNames } from "@/lib/export/names";
 const subscribeToHydration = () => () => {};
 
 type Input = ToolFile & { url: string };
 type Result = ToolResult & { url: string };
 const sizeLabel = (n: number) => n < 1024 * 1024 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1024 / 1024).toFixed(1)} MB`;
-const initialOptions = (tool: ToolKind): ToolOptions => ({ tool, ...(tool === "crop" ? { crop: { ...defaultCrop } } : {}), resize: { mode: "pixels", width: 1200, height: 0, percent: 50, lock: true }, format: (tool === "resize" || tool === "crop") ? "original" : tool === "stitch" ? "png" : "webp", quality: 90, background: "#ffffff", transparent: false, direction: "vertical", edge: 800, gap: 16 });
+const initialOptions = (tool: ToolKind): ToolOptions => ({ tool, rename: { ...defaultRename }, ...(tool === "watermark" ? { watermark: { ...defaultWatermark } } : {}), ...(tool === "crop" ? { crop: { ...defaultCrop } } : {}), resize: { mode: "pixels", width: 1200, height: 0, percent: 50, lock: true }, format: (tool === "resize" || tool === "crop" || tool === "watermark") ? "original" : tool === "stitch" ? "png" : "webp", quality: 90, background: "#ffffff", transparent: false, direction: "vertical", edge: 800, gap: 16 });
 
 export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale }) {
   const ready = useSyncExternalStore(subscribeToHydration, () => true, () => false);
@@ -30,6 +35,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   const [results, setResults] = useState<Result[]>([]);
   const [options, setOptions] = useState(() => initialOptions(tool));
   const [receiving, setReceiving] = useState(true);
+  const [watermarkLoading,setWatermarkLoading] = useState(false);
   const [busy, setBusy] = useState(false);
   const [zipping, setZipping] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -49,8 +55,10 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
     const ownedUrls = urls.current;
     return () => { mounted.current = false; worker.current?.terminate(); worker.current = null; if (timer.current) clearTimeout(timer.current); ownedUrls.forEach(URL.revokeObjectURL); ownedUrls.clear(); };
   }, []);
+  const names = exportNames(results.map(r => r.name), options.rename ?? defaultRename);
+  const outputResults = results.map((r,i) => ({...r,name:names[i]}));
   function stop() { worker.current?.terminate(); worker.current = null; if (timer.current) clearTimeout(timer.current); timer.current = null; setBusy(false); }
-  function change(patch: Partial<ToolOptions>) { setOptions(value => ({ ...value, ...patch })); if (results.length) setStale(true); }
+  function change(patch: Partial<ToolOptions>) { setOptions(value => ({ ...value, ...patch })); if (results.length && Object.keys(patch).some(key => key !== "rename")) setStale(true); }
   function clearResults() { results.forEach(result => revoke(result.url)); setResults([]); setStale(false); }
   function addFiles(incoming: File[], transferred = false) {
     if (!transferred && (!ready || busy || receiving)) return;
@@ -69,6 +77,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   function move(index: number, offset: number) { const next = [...files]; [next[index], next[index + offset]] = [next[index + offset], next[index]]; setFiles(next); if (results.length) setStale(true); }
   function clear() { stop(); files.forEach(item => revoke(item.url)); setFiles([]); clearResults(); setErrors([]); setStatus(""); }
   function describeError(code: string) {
+    if (code === "invalid-watermark") return watermarkMessages[locale].invalid;
     if (code === "invalid-crop") return cropMessages[locale].invalid;
     const messages: Record<string, [string, string]> = {
       "output-limit": ["Output exceeds 8192 px per side or 16 megapixels. Reduce the dimensions.", "输出超过单边 8192 像素或 1600 万像素，请调小尺寸。"],
@@ -105,7 +114,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   async function downloadZip() {
     setZipping(true);
     try {
-      const entries = createZipEntries(await Promise.all(results.map(async result => ({ outputName: result.name, buffer: await result.blob.arrayBuffer() }))));
+      const entries = createZipEntries(await Promise.all(outputResults.map(async result => ({ outputName: result.name, buffer: await result.blob.arrayBuffer() }))));
       const bytes = await new Promise<Uint8Array<ArrayBuffer>>((resolve, reject) => zip(entries, { level: 0 }, (error, data) => error ? reject(error) : resolve(data as Uint8Array<ArrayBuffer>)));
       if (!mounted.current) return;
       const url = ownUrl(new Blob([bytes], { type: "application/zip" }));
@@ -114,7 +123,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
     } catch { if (mounted.current) setErrors(previous => [...previous, t("ZIP download failed. Try individual downloads.")]); }
     finally { if (mounted.current) setZipping(false); }
   }
-  const action = tool === "crop" ? cropMessages[locale].action : tool === "resize" ? t("Resize images") : tool === "convert" ? t("Convert images") : t("Stitch images");
+  const action = tool === "watermark" ? watermarkMessages[locale].action : tool === "crop" ? cropMessages[locale].action : tool === "resize" ? t("Resize images") : tool === "convert" ? t("Convert images") : t("Stitch images");
   return <div className={`image-tool-shell ${tool === "crop" ? "is-crop-tool" : ""}`}>
     <ReceiveTransfer tool={tool} locale={locale} onBusyChange={setReceiving} onReceive={incoming => addFiles(incoming, true)} />
     <section className="compressor-card">
@@ -133,12 +142,14 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
             <img src={item.url} alt="" width={48} height={48} /><div className="tool-file-info"><strong title={item.file.name}>{item.file.name}</strong><span>{sizeLabel(item.file.size)}</span></div>
             <div className="tool-row-actions">{tool === "stitch" && <><button className="icon-button" disabled={busy || index === 0} aria-label={t("moveUp", { name: item.file.name })} onClick={() => move(index, -1)}><ArrowUp size={14} /></button><button className="icon-button" disabled={busy || index === files.length - 1} aria-label={t("moveDown", { name: item.file.name })} onClick={() => move(index, 1)}><ArrowDown size={14} /></button></>}<button className="icon-button is-remove" disabled={busy} aria-label={t("remove", { name: item.file.name })} onClick={() => remove(item.id)}><Trash2 size={14} /></button></div>
           </li>)}</ol></>}
+          {tool === "watermark" && <WatermarkPreview files={files} value={options.watermark ?? defaultWatermark} locale={locale} background={options.background} format={options.format} />}
           {tool === "crop" && <CropEditor files={files} value={options.crop ?? defaultCrop} onChange={crop => change({ crop })} locale={locale} disabled={busy || receiving} format={options.format} background={options.background} />}
           <p className="tool-footnote">{t("Up to 50 MB / 40 MP per input. Output: up to 16 MP and 8192 px per side. Animated images export a still frame.")}</p>
         </div>
         <div className="settings-panel tool-settings">
-          <fieldset disabled={!ready || busy || receiving}><legend className="settings-title">{t("02 / Your settings")}</legend>
-            <BatchPresets tool={tool} locale={locale} settings={options} disabled={!ready || busy || receiving} onApply={value => change(value as ToolOptions)} />
+          <fieldset disabled={!ready || busy || receiving || watermarkLoading}><legend className="settings-title">{t("02 / Your settings")}</legend>
+            <BatchPresets tool={tool} locale={locale} settings={options} disabled={!ready || busy || receiving} onApply={value => change({ ...value as ToolOptions, rename: (value as ToolOptions).rename ?? { ...defaultRename } })} />
+            {tool === "watermark" && <WatermarkControls onLoadingChange={setWatermarkLoading} locale={locale} value={options.watermark ?? defaultWatermark} onChange={watermark => change({watermark})} />}
             {tool === "crop" && <CropControls value={options.crop ?? defaultCrop} onChange={crop => change({ crop })} locale={locale} />}
             {tool === "resize" && <>
               <label className="tool-field">{t("Resize by")}<select value={options.resize.mode} onChange={event => change({ resize: { ...options.resize, mode: event.target.value as "pixels" | "percent" } })}><option value="pixels">{t("Pixels")}</option><option value="percent">{t("Percentage")}</option></select></label>
@@ -148,26 +159,27 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
               <label className="tool-field">{t("Direction")}<select value={options.direction} onChange={event => change({ direction: event.target.value as "vertical" | "horizontal" })}><option value="vertical">{t("Vertical")}</option><option value="horizontal">{t("Horizontal")}</option></select></label>
               <div className="tool-field-pair"><label className="tool-field">{options.direction === "vertical" ? t("Shared width (px)") : t("Shared height (px)")}<input type="number" min="1" max="8192" value={options.edge || ""} onChange={event => change({ edge: Number(event.target.value) })} /></label><label className="tool-field">{t("Spacing (px)")}<input type="number" min="0" max="200" value={options.gap} onChange={event => change({ gap: Number(event.target.value) })} /></label></div><p className="field-hint">{t("Images scale proportionally to a shared edge. Use the arrows to reorder them.")}</p>
             </>}
-            <label className="tool-field">{t("Output format")}<select value={options.format} onChange={event => change({ format: event.target.value as ToolOptions["format"] })}>{(tool === "resize" || tool === "crop") && <option value="original">{t("Keep original format")}</option>}<option value="jpeg">JPG</option><option value="png">PNG</option><option value="webp">WebP</option></select></label>
+            <label className="tool-field">{t("Output format")}<select value={options.format} onChange={event => change({ format: event.target.value as ToolOptions["format"] })}>{(tool === "resize" || tool === "crop" || tool === "watermark") && <option value="original">{t("Keep original format")}</option>}<option value="jpeg">JPG</option><option value="png">PNG</option><option value="webp">WebP</option></select></label>
             <label className="tool-field">{t("Quality")} <span className="quality-field"><input type="range" min="20" max="100" value={options.quality} disabled={options.format === "png"} onChange={event => change({ quality: Number(event.target.value) })} /><output>{options.quality}%</output></span></label>
             {options.format === "png" && <p className="field-hint">{t("PNG is lossless; the quality setting does not apply.")}</p>}
             {(options.format === "jpeg" || tool === "stitch") && <><label className="tool-field tool-color">{t("Background color")}<input type="color" value={options.background} disabled={options.transparent && options.format !== "jpeg"} onChange={event => change({ background: event.target.value })} /></label>{tool === "stitch" && options.format !== "jpeg" ? <label className="tool-checkbox"><input type="checkbox" checked={options.transparent} onChange={event => change({ transparent: event.target.checked })} />{t("Transparent background")}</label> : <p className="field-hint">{t("JPG has no transparency. Transparent areas use this color.")}</p>}</>}
             {tool === "convert" && <p className="tool-format-note">{t("PNG keeps transparency without lossy encoding. JPG suits photos. WebP balances file size and quality. Conversion may increase file size.")}</p>}
+            <ExportSettings locale={locale} value={options.rename ?? defaultRename} onChange={rename => change({rename})} names={results.length ? results.map(r=>r.name) : tool === "stitch" ? (files.length ? [`piczip-stitched.${options.format === "jpeg" ? "jpg" : options.format === "original" ? "png" : options.format}`] : []) : files.map(f=>f.file.name.replace(/\.[^.]+$/, "") + `-${tool}.${options.format === "original" ? f.file.name.split(".").pop() : options.format === "jpeg" ? "jpg" : options.format}`)} disabled={!ready || busy || receiving} />
           </fieldset>
-          <div className="compressor-actions">{busy ? <button className="secondary-button" onClick={() => { stop(); setStatus(t("Cancelled. Completed results are kept.")); }}>{t("Cancel")}</button> : <button className="primary-button" disabled={receiving || !ready || files.length < (tool === "stitch" ? 2 : 1)} onClick={start}>{action}<ArrowDown size={14} /></button>}</div>
+          <div className="compressor-actions">{busy ? <button className="secondary-button" onClick={() => { stop(); setStatus(t("Cancelled. Completed results are kept.")); }}>{t("Cancel")}</button> : <button className="primary-button" disabled={watermarkLoading || (tool === "watermark" && !validWatermark(options.watermark)) || receiving || !ready || files.length < (tool === "stitch" ? 2 : 1)} onClick={start}>{action}<ArrowDown size={14} /></button>}</div>
           <p className="tool-status" role="status">{status || (tool === "stitch" ? t("Select at least 2 images to begin.") : t("Your original files stay untouched."))}</p>
         </div>
       </div>
     </section>
     {errors.length > 0 && <div className="tool-errors" role="alert">{errors.map((error, index) => <p key={index}>{error}</p>)}</div>}
     {results.length > 0 && <section className="results-card tool-results"><div className="results-heading"><h3>{t("Ready to download")}</h3><span className="results-count">{results.length} {t("images")}</span>{results.length > 1 && <button className="secondary-button" disabled={busy || zipping} onClick={downloadZip}><Download size={14} />{zipping ? t("Preparing ZIP…") : t("Download ZIP")}</button>}</div>{stale && <p className="tool-stale" role="status">{t("Settings or images changed. Run again to update these results.")}</p>}
-      <div className={tool === "stitch" ? "tool-output-grid is-stitched" : "tool-output-grid"}>{results.map(result => <article className="tool-output" key={result.id} data-output-width={result.width} data-output-height={result.height} data-output-type={result.blob.type}>
+      <div className={tool === "stitch" ? "tool-output-grid is-stitched" : "tool-output-grid"}>{outputResults.map(result => <article className="tool-output" key={result.id} data-output-width={result.width} data-output-height={result.height} data-output-type={result.blob.type}>
         <a href={result.url} target="_blank" rel="noreferrer" className="tool-output-preview" aria-label={t("preview", { name: result.name })}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={result.url} alt={result.name} />
         </a><div className="tool-output-details"><div><strong title={result.name}>{result.name}</strong><span>{result.width} × {result.height} · {sizeLabel(result.blob.size)}</span></div><a className="icon-button" href={result.url} download={result.name} aria-label={t("download", { name: result.name })}><Download size={16} /></a></div>
       </article>)}</div>
-      <ContinueProcessing tool={tool} locale={locale} count={results.length} getImages={() => results.map(result => ({ name: result.name, blob: result.blob }))} disabled={busy || zipping} stale={stale} />
+      <ContinueProcessing tool={tool} locale={locale} count={results.length} getImages={() => outputResults.map(result => ({ name: result.name, blob: result.blob }))} disabled={busy || zipping} stale={stale} />
     </section>}
   </div>;
 }

@@ -20,6 +20,9 @@ import { ContinueProcessing } from "@/components/workflow/ContinueProcessing";
 import { ReceiveTransfer } from "@/components/workflow/ReceiveTransfer";
 import type { CompressionPreset } from "@/lib/workflow/settings";
 
+import { ExportSettings } from "@/components/export/ExportSettings";
+import { defaultRename, exportNames } from "@/lib/export/names";
+
 type FileItem = {
   id: string;
   file: File;
@@ -66,6 +69,7 @@ export function CompressorApp({
   const previewUrls = useRef(new Map<string, string>());
   const [isDragging, setIsDragging] = useState(false);
   const [items, setItems] = useState<FileItem[]>([]);
+  const [rename, setRename] = useState({ ...defaultRename });
   const [format, setFormat] = useState<OutputFormat>(initialFormat);
   const [quality, setQuality] = useState(82);
   const [targetKb, setTargetKb] = useState(initialTargetKb);
@@ -98,6 +102,8 @@ export function CompressorApp({
   }, [toast]);
 
   const completed = items.filter((item) => item.status === "done" && item.result);
+  const names = exportNames(completed.map(item => item.result!.outputName), rename);
+  const namedResults = new Map(completed.map((item,i) => [item.id, {...item.result!, outputName:names[i]}]));
   const totalSaved = Math.max(0, completed.reduce((sum, item) => {
     const result = item.result;
     return result ? sum + result.originalBytes - result.compressedBytes : sum;
@@ -150,7 +156,8 @@ export function CompressorApp({
     }
   }
 
-  const presetSettings: CompressionPreset = { format, quality, targetKb, maxWidth };
+  const presetSettings: CompressionPreset = { format, quality, targetKb, maxWidth, rename };
+  const processingSignature = JSON.stringify({ format, quality, targetKb, maxWidth });
 
   async function compressAll() {
     if (!workerRef.current || batchRef.current || !items.length) return;
@@ -158,7 +165,7 @@ export function CompressorApp({
     const batch = new CompressionBatch();
     batchRef.current = batch;
     setIsProcessing(true);
-    setResultSettings(JSON.stringify(presetSettings));
+    setResultSettings(processingSignature);
     setItems(current => current.map(item => ({ ...item, status: "queued", result: undefined, error: undefined })));
     setLastZipBytes(undefined);
     try {
@@ -251,7 +258,7 @@ export function CompressorApp({
   }
 
   async function downloadZip() {
-    const files = createZipEntries(completed.flatMap((item) => item.result ? [item.result] : []));
+    const files = createZipEntries(Array.from(namedResults.values()));
     const zipped = zipSync(files);
     setLastZipBytes(zipped.byteLength);
     await saveBlob(
@@ -293,7 +300,7 @@ export function CompressorApp({
             <h3 className="settings-title">{t.settings}</h3>
             <BatchPresets tool="compress" locale={locale} settings={presetSettings} disabled={isProcessing || receiving} onApply={value => {
               const preset = value as CompressionPreset;
-              setFormat(preset.format); setQuality(preset.quality); setTargetKb(preset.targetKb); setMaxWidth(preset.maxWidth);
+              setRename(preset.rename ?? { ...defaultRename }); setFormat(preset.format); setQuality(preset.quality); setTargetKb(preset.targetKb); setMaxWidth(preset.maxWidth);
             }} />
             <div className="setting-line">
               <label htmlFor="compression-target">{t.targetSize}</label>
@@ -333,6 +340,7 @@ export function CompressorApp({
                 <span className="field-hint" id="width-hint">{t.widthHint}</span>
               </div>
             </div>
+            <ExportSettings locale={locale} value={rename} onChange={setRename} names={completed.length ? completed.map(item => item.result!.outputName) : (format === "auto" ? [] : items.map(item=>item.file.name.replace(/\.[^.]+$/, "") + `-piczip.${format === "jpeg" ? "jpg" : format}`))} disabled={isProcessing || receiving} />
             <div className="compressor-actions">
               <button type="button" className="primary-button" onClick={() => void compressAll()} disabled={receiving || !items.length || isProcessing}>
                 {isProcessing ? <Loader2 size={15} className="animate-spin" /> : <ImageIcon size={15} />}{isProcessing ? t.compressing : t.compress}
@@ -363,7 +371,7 @@ export function CompressorApp({
                 <div className="result-file">
                   <span className="result-preview">{item.status === "error" ? <ImageIcon size={20} /> : <Image src={item.previewUrl} alt="" width={54} height={42} unoptimized loading="lazy" />}</span>
                   <div className="min-w-0">
-                    <p className="result-name" title={item.file.name}>{item.file.name}</p>
+                    <p className="result-name" title={item.file.name}>{namedResults.get(item.id)?.outputName ?? item.file.name}</p>
                     <span className="result-meta">{item.result ? `${item.result.mimeType.replace("image/", "").toUpperCase()} · ${item.result.width} × ${item.result.height}` : item.file.type.replace("image/", "").toUpperCase()}</span>
                     {item.error ? <p className="result-error" role="alert">{item.error}</p> : null}
                   </div>
@@ -379,14 +387,14 @@ export function CompressorApp({
                   {status === "done" ? <CheckCircle2 size={11} /> : status === "above" || status === "error" ? <CircleAlert size={11} /> : status === "compressing" ? <Loader2 size={11} className="animate-spin" /> : null}{statusText}
                 </span>
                 <div className="result-buttons">
-                  {item.result ? <button type="button" className="icon-button" onClick={() => item.result && void downloadResult(item.result)} aria-label={`${t.downloadLabel} ${item.file.name}`}><Download size={15} /></button> : null}
+                  {item.result ? <button type="button" className="icon-button" onClick={() => item.result && void downloadResult(namedResults.get(item.id)!)} aria-label={`${t.downloadLabel} ${item.file.name}`}><Download size={15} /></button> : null}
                   <button type="button" className="icon-button is-remove" onClick={() => removeItem(item.id)} aria-label={`${t.removeLabel} ${item.file.name}`}><Trash2 size={14} /></button>
                 </div>
                 {aboveTarget ? <p className="target-warning">{t.aboveHint}</p> : null}
               </article>
             );
           })}
-          {completed.length > 0 && <ContinueProcessing tool="compress" locale={locale} count={completed.length} disabled={isProcessing} stale={resultSettings !== JSON.stringify(presetSettings)} getImages={() => completed.flatMap(item => item.result ? [{ name: item.result.outputName, blob: new Blob([item.result.buffer], { type: item.result.mimeType }) }] : [])} />}
+          {completed.length > 0 && <ContinueProcessing tool="compress" locale={locale} count={completed.length} disabled={isProcessing} stale={resultSettings !== processingSignature} getImages={() => completed.flatMap(item => item.result ? [{ name: namedResults.get(item.id)!.outputName, blob: new Blob([item.result.buffer], { type: item.result.mimeType }) }] : [])} />}
         </div>
       ) : null}
 

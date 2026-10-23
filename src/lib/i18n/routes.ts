@@ -1,11 +1,12 @@
 import { guideSlugs } from "@/lib/guides/guide-slugs";
 import { addedLocales, isLocale, type Locale } from "./config";
 /** Pages available in Spanish, Brazilian Portuguese and Japanese. Chinese availability is listed separately below. */
-export const multilingualRoutes = ["/", "/resize-image", "/crop-image", "/convert-image", "/stitch-images", "/faq", "/guide", ...guideSlugs.map(slug => `/guides/${slug}`)] as const;
+export const multilingualRoutes = ["/", "/watermark-image", "/resize-image", "/crop-image", "/convert-image", "/stitch-images", "/faq", "/guide", ...guideSlugs.map(slug => `/guides/${slug}`)] as const;
 
 
 export const localizedEnglishRoutes = [
   "/",
+  "/watermark-image",
   "/resize-image", "/crop-image",
   "/convert-image",
   "/stitch-images",
@@ -18,6 +19,7 @@ export const localizedEnglishRoutes = [
   "/local-image-compressor",
   "/batch-image-compressor",
   "/guide",
+  "/guides/batch-watermark-and-rename-images",
   "/guides/crop-rotate-flip-images",
   "/guides/resize-images-by-pixels-or-percentage",
   "/guides/convert-jpg-png-webp",

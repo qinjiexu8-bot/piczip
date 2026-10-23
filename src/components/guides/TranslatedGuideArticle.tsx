@@ -1,3 +1,4 @@
+import { WatermarkGuideArticle } from "./WatermarkGuideArticle";
 import { CropGuideArticle } from "./CropGuideArticle";
 import { CropRelatedLinks } from "@/components/image-tools/CropRelatedLinks";
 import Image from "next/image";
@@ -14,6 +15,7 @@ const headingClass = "mb-4 text-2xl font-semibold leading-snug text-foreground";
 const linkClass = "font-medium text-teal-700 underline decoration-teal-700/30 underline-offset-4 hover:decoration-teal-700";
 
 export function TranslatedGuideArticle({ locale, slug }: { locale: AddedLocale; slug: GuideSlug }) {
+  if (slug === "batch-watermark-and-rename-images") return <WatermarkGuideArticle locale={locale} />;
   if (slug === "crop-rotate-flip-images") return <CropGuideArticle locale={locale} />;
   const guide = getTranslatedGuide(locale, slug);
   const t = guideUi[locale];

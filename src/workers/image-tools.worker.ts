@@ -2,6 +2,7 @@
 import { resizeDimensions, stitchLayout, validateOutput } from "@/lib/image-tools/geometry";
 import type { Format, ToolFile, ToolOptions, ToolResponse } from "@/lib/image-tools/types";
 import { cropOutput, defaultCrop, drawCrop } from "@/lib/image-tools/crop";
+import { drawWatermark, validWatermark } from "@/lib/image-tools/watermark";
 const ctx = self as unknown as DedicatedWorkerGlobalScope;
 const send = (message: ToolResponse) => ctx.postMessage(message);
 async function decode(file: File) {
@@ -43,7 +44,12 @@ function formatFor(file: File, options: ToolOptions): Format {
 const outputName = (name: string, tool: string, format: Format) => `${name.replace(/\.[^.]+$/, "")}-${tool}.${format === "jpeg" ? "jpg" : format}`;
 ctx.onmessage = async (event: MessageEvent<{ files: ToolFile[]; options: ToolOptions }>) => {
   const { files, options } = event.data;
+  let logo: ImageBitmap | undefined;
   try {
+    if (options.tool === "watermark") {
+      if (!validWatermark(options.watermark)) throw new Error("invalid-watermark");
+      if (options.watermark.kind === "logo") logo = await createImageBitmap(await (await fetch(options.watermark.logo)).blob());
+    }
     if (options.tool === "stitch") {
       const sizes = [];
       for (const { file } of files) {
@@ -79,6 +85,7 @@ ctx.onmessage = async (event: MessageEvent<{ files: ToolFile[]; options: ToolOpt
             const { canvas, context } = canvasFor(size.width, size.height, options, format);
             if (options.tool === "crop") drawCrop(context, image, image, options.crop ?? defaultCrop);
             else context.drawImage(image, 0, 0, size.width, size.height);
+            if (options.tool === "watermark") drawWatermark(context, size.width, size.height, options.watermark!, logo);
             const blob = await encode(canvas, format, options.quality);
             send({ type: "result", result: { id, name: outputName(file.name, options.tool, format), blob, ...{ width: size.width, height: size.height } } });
           } finally { image.close(); }
@@ -86,5 +93,5 @@ ctx.onmessage = async (event: MessageEvent<{ files: ToolFile[]; options: ToolOpt
       }
     }
   } catch (error) { send({ type: "error", name: "", error: error instanceof Error ? error.message : "failed" }); }
-  finally { send({ type: "done" }); }
+  finally { logo?.close(); send({ type: "done" }); }
 };
