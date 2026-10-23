@@ -6,7 +6,7 @@ The workflow checks out `main`, verifies that its revision matches the deploymen
 
 It verifies the online key file, reads all canonical URLs in the production sitemap, and requires all five homepages (English, Chinese, Spanish, Brazilian Portuguese, Japanese). Four concurrent requests fingerprint rendered HTML including descriptions, canonical/language links and JSON-LD. Build-only scripts and hashed Next resource links are excluded. Shared tool component/runtime changes conservatively invalidate all pages, so functionality changes are also notified.
 
-The first run submits all sitemap URLs. Subsequent runs submit only new or changed fingerprints. State is stored in GitHub Actions cache under `indexnow-v1-`, only after all batches receive HTTP 200 or 202. Cache expiration/eviction causes a safe full submission. Concurrent runs are serialized; duplicate successful events find unchanged fingerprints. Removed sitemap URLs are not currently submitted.
+The first run submits all sitemap URLs. Subsequent runs submit only new or changed fingerprints. State is stored in GitHub Actions artifacts named `indexnow-state`, only after all batches receive HTTP 200 or 202. Artifact expiration/deletion causes a safe full submission. Concurrent runs are serialized; duplicate successful events find unchanged fingerprints. Removed sitemap URLs are not currently submitted.
 
 Requests go to Bing's IndexNow endpoint in batches of at most 10,000 URLs. Network errors, HTTP 429 and server errors have bounded retries. A rejected batch fails the action without advancing state. HTTP 202 means key verification is pending; neither 200 nor 202 guarantees indexing. See [IndexNow documentation](https://www.indexnow.org/documentation).
 
@@ -17,6 +17,6 @@ node --test tests/indexnow/*.test.mjs
 node scripts/indexnow/submit.mjs --dry-run
 ```
 
-Dry-run reads production pages but never submits to Bing or writes state. It does not require the new marker/key file to be deployed. Review the workflow's GitHub Actions summary for submitted counts. Retry a failed run after resolving the error, or use **Run workflow** on `main` to notify the current deployment. To intentionally resubmit all URLs, delete the `indexnow-v1-` caches before running again.
+Dry-run reads production pages but never submits to Bing or writes state. It does not require the new marker/key file to be deployed. Review the workflow's GitHub Actions summary for submitted counts. Retry a failed run after resolving the error, or use **Run workflow** on `main` to notify the current deployment. To intentionally resubmit all URLs, delete the `indexnow-state` artifacts before running again.
 
 The workflow becomes active after these files reach `main` and Vercel successfully deploys them. Existing uncommitted SEO edits are not needed for this integration.
