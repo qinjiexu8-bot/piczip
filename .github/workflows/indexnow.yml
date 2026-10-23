@@ -1,0 +1,46 @@
+name: IndexNow after production deployment
+
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-production
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    if: >-
+      github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' ||
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production' &&
+      github.event.deployment.creator.login == 'vercel[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Restore last accepted page fingerprints
+        id: state
+        uses: actions/cache/restore@v4
+        with:
+          path: .indexnow-state
+          key: indexnow-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: indexnow-v1-
+      - name: Verify production and notify Bing
+        env:
+          DEPLOYMENT_SHA: ${{ github.event.deployment.sha || github.sha }}
+        run: node scripts/indexnow/submit.mjs
+      - name: Save fingerprints only after successful submission
+        uses: actions/cache/save@v4
+        with:
+          path: .indexnow-state
+          key: indexnow-v1-${{ github.run_id }}-${{ github.run_attempt }}
