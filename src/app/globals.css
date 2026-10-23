@@ -32,21 +32,27 @@ a, button, input, select, summary { -webkit-tap-highlight-color: transparent; }
 .grain { position: relative; }
 
 /* Keep navigation available while preserving its space in the document flow. */
-.site-header { position: sticky; top: 0; z-index: 40; flex-shrink: 0; width: 100%; margin-bottom: 8px; border-bottom: 1px solid var(--line); background: var(--background); }
-.site-header-inner { position: relative; display: flex; align-items: center; justify-content: space-between; width: min(100%, 1152px); min-height: calc(var(--site-header-height) - 1px); margin-inline: auto; padding: 12px 32px; }
+.site-header { position: sticky; top: 0; z-index: 40; flex-shrink: 0; width: 100%; margin-bottom: 8px; border-bottom: 1px solid var(--line); background: #f6f8f3ed; backdrop-filter: blur(16px); }
+.site-header-inner { position: relative; display: flex; align-items: center; justify-content: space-between; width: min(100%, 1320px); min-height: calc(var(--site-header-height) - 1px); margin-inline: auto; padding: 12px 32px; }
 main [id] { scroll-margin-top: calc(var(--site-header-height) + 16px); }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 750; font-size: 25px; letter-spacing: -1px; color: #133e35; }
 .brand-dot { color: #138371; margin-left: -8px; }
 .brand-mark { display: grid; place-items: center; width: 34px; height: 36px; color: #0b816b; background: #e7f0e8; border: 1px solid #c7ded1; border-radius: 9px; }
-.site-nav-link { position: relative; display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; color: #65736c; transition: color .2s; }
-.site-nav-link:hover, .site-nav-link.is-active { color: #174c3e; }
-.site-nav-link.is-active { font-weight: 650; }
-.site-nav-link.is-active::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #19866c; }
+.site-desktop-nav { gap: 3px; }
+.site-nav-link { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 10px; border-radius: 12px; white-space: nowrap; font-size: 15px; font-weight: 500; color: #65736c; transition: color .18s, background .18s, box-shadow .18s; }
+.site-nav-link > svg { display: none; flex-shrink: 0; }
+.site-nav-link:hover { color: #174c3e; background: #e8eee7; }
+.site-nav-link.is-active { color: #096b59; background: #e1eee5; font-weight: 650; box-shadow: inset 0 0 0 1px #c7dfcf; }
+.site-nav-link.is-active > svg { display: block; }
+.site-nav-link.nav-secondary-start { margin-left: 12px; }
+@media (prefers-reduced-motion: reduce) { .site-nav-link { transition: none; } }
 .language-link { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; font-size: 14px; border: 1px solid var(--line); border-radius: 8px; background: #fff9; color: #455b51; }
 .mobile-menu summary { display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer; list-style: none; border: 1px solid var(--line); border-radius: 8px; background: white; }
 .mobile-menu summary::-webkit-details-marker { display: none; }
-.mobile-menu nav { position: absolute; top: calc(100% + 8px); right: 20px; display: grid; min-width: 220px; max-width: calc(100vw - 40px); max-height: calc(100dvh - var(--site-header-height) - 24px); overflow-y: auto; overscroll-behavior: contain; padding: 8px; background: white; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px #153e3214; }
-.mobile-menu nav a { padding: 13px; font-size: 16px; border-radius: 6px; }
+.mobile-menu nav { position: absolute; top: calc(100% + 8px); right: 20px; display: grid; width: 360px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; max-width: calc(100vw - 40px); max-height: calc(100dvh - var(--site-header-height) - 24px); overflow-y: auto; overscroll-behavior: contain; padding: 8px; background: white; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px #153e3214; }
+.mobile-menu nav a { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 12px; font-size: 14px; border-radius: 10px; }
+.mobile-menu nav a svg { flex-shrink: 0; color: #42836e; }
+.mobile-menu nav a[aria-current] { color: #096b59; font-weight: 650; box-shadow: inset 0 0 0 1px #c7dfcf; }
 .mobile-menu nav a:hover, .mobile-menu nav a[aria-current] { background: #edf4ed; }
 
 

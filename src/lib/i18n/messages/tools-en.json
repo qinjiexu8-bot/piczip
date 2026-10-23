@@ -68,5 +68,6 @@
   "moveDown": "Move down {name}",
   "remove": "Remove {name}",
   "preview": "Preview {name}",
-  "download": "Download {name}"
+  "download": "Download {name}",
+  "Use 0 for no gap, or enter a spacing from 1 to 200 px.": "Use 0 for no gap, or enter a spacing from 1 to 200 px."
 }

@@ -68,5 +68,6 @@
   "moveDown": "Bajar {name}",
   "remove": "Eliminar {name}",
   "preview": "Vista previa de {name}",
-  "download": "Descargar {name}"
+  "download": "Descargar {name}",
+  "Use 0 for no gap, or enter a spacing from 1 to 200 px.": "Usa 0 para unir sin separación o indica un espacio de 1 a 200 px."
 }

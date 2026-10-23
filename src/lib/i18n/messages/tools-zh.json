@@ -68,5 +68,6 @@
   "moveDown": "下移 {name}",
   "remove": "移除 {name}",
   "preview": "预览 {name}",
-  "download": "下载 {name}"
+  "download": "下载 {name}",
+  "Use 0 for no gap, or enter a spacing from 1 to 200 px.": "0 表示无间隔，也可输入 1–200 像素的间隔。"
 }

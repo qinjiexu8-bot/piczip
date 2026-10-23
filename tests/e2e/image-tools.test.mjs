@@ -79,7 +79,11 @@ test('convert: JPG matte, PNG alpha and real WebP encoding', async t => {
 test('stitch: dimensions, ordering, spacing and transparent horizontal output', async t => {
   const { page, file } = await setup(t, '/stitch-images');
   await page.locator('input[type=file]').setInputFiles([await file('red.png'), await file('blue.png', '#0000ff', 100, 100)]);
-  await page.getByLabel('Shared width (px)').fill('100'); await page.getByLabel('Spacing (px)').fill('10');
+  assert.equal(await page.getByLabel('Spacing (px)').inputValue(), '0');
+  await page.getByLabel('Shared width (px)').fill('100');
+  await run(page, 'Stitch images');
+  assert.deepEqual([(await pixels(page)).width, (await pixels(page)).height], [100, 150]);
+  await page.getByLabel('Spacing (px)').fill('10');
   await run(page, 'Stitch images'); let result = await pixels(page);
   assert.deepEqual([result.width, result.height, result.first, result.last], [100, 160, [255, 0, 0, 255], [0, 0, 255, 255]]);
   const gap = await page.locator('.tool-output-preview img').evaluate(img => { const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0); return [...ctx.getImageData(5, 55, 1, 1).data]; });

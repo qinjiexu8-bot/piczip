@@ -68,5 +68,6 @@
   "moveDown": "{name}を下へ",
   "remove": "{name}を削除",
   "preview": "{name}をプレビュー",
-  "download": "{name}をダウンロード"
+  "download": "{name}をダウンロード",
+  "Use 0 for no gap, or enter a spacing from 1 to 200 px.": "0 で隙間なし、1〜200 px で間隔を指定できます。"
 }
