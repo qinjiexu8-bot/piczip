@@ -8,6 +8,10 @@ import { toolsMessages, type ToolMessageKey } from "@/lib/i18n/messages";
 import { interpolate, type Locale } from "@/lib/i18n/config";
 import { createZipEntries } from "@/lib/compression/download";
 
+import { BatchPresets } from "@/components/workflow/BatchPresets";
+import { ContinueProcessing } from "@/components/workflow/ContinueProcessing";
+import { ReceiveTransfer } from "@/components/workflow/ReceiveTransfer";
+
 const subscribeToHydration = () => () => {};
 
 type Input = ToolFile & { url: string };
@@ -21,6 +25,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   const [files, setFiles] = useState<Input[]>([]);
   const [results, setResults] = useState<Result[]>([]);
   const [options, setOptions] = useState(() => initialOptions(tool));
+  const [receiving, setReceiving] = useState(true);
   const [busy, setBusy] = useState(false);
   const [zipping, setZipping] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -43,8 +48,9 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   function stop() { worker.current?.terminate(); worker.current = null; if (timer.current) clearTimeout(timer.current); timer.current = null; setBusy(false); }
   function change(patch: Partial<ToolOptions>) { setOptions(value => ({ ...value, ...patch })); if (results.length) setStale(true); }
   function clearResults() { results.forEach(result => revoke(result.url)); setResults([]); setStale(false); }
-  function addFiles(incoming: File[]) {
-    if (!ready || busy) return;
+  function addFiles(incoming: File[], transferred = false) {
+    if (!transferred && (!ready || busy || receiving)) return;
+    if (transferred && (busy || files.length + incoming.length > limit || [...files.map(item => item.file), ...incoming].reduce((sum, file) => sum + file.size, 0) > 200 * 1024 * 1024)) throw new Error("transfer-limit");
     let total = files.reduce((sum, item) => sum + item.file.size, 0);
     const accepted: Input[] = []; const rejected: string[] = [];
     for (const file of incoming) {
@@ -105,13 +111,14 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   }
   const action = tool === "resize" ? t("Resize images") : tool === "convert" ? t("Convert images") : t("Stitch images");
   return <div className="image-tool-shell">
+    <ReceiveTransfer tool={tool} locale={locale} onBusyChange={setReceiving} onReceive={incoming => addFiles(incoming, true)} />
     <section className="compressor-card">
       <div className="compressor-heading"><h2>{t("Make it yours")}</h2></div>
       <div className="image-tool-workspace">
         <div className="tool-source">
           <h3 className="settings-title">{t("01 / Your images")}</h3>
-          <input ref={input} className="sr-only" type="file" multiple accept="image/jpeg,image/png,image/webp" disabled={!ready || busy} aria-label={t("Choose images")} onChange={event => { addFiles(Array.from(event.target.files || [])); event.target.value = ""; }} />
-          <button type="button" disabled={!ready || busy} className={`dropzone tool-dropzone ${dragging ? "is-dragging" : ""} ${files.length ? "has-files" : ""}`} onClick={() => input.current?.click()} onDragOver={event => { event.preventDefault(); if (!busy) setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={event => { event.preventDefault(); setDragging(false); addFiles(Array.from(event.dataTransfer.files)); }}>
+          <input ref={input} className="sr-only" type="file" multiple accept="image/jpeg,image/png,image/webp" disabled={!ready || busy || receiving} aria-label={t("Choose images")} onChange={event => { addFiles(Array.from(event.target.files || [])); event.target.value = ""; }} />
+          <button type="button" disabled={!ready || busy || receiving} className={`dropzone tool-dropzone ${dragging ? "is-dragging" : ""} ${files.length ? "has-files" : ""}`} onClick={() => input.current?.click()} onDragOver={event => { event.preventDefault(); if (!busy) setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={event => { event.preventDefault(); setDragging(false); addFiles(Array.from(event.dataTransfer.files)); }}>
             <span><span className="tool-upload-icon">{files.length ? <Plus size={22} /> : <ImagePlus size={36} strokeWidth={1.3} />}</span><span className="drop-title">{files.length ? t("Add more images") : t("Drop your images here")}</span><span className="drop-description">{t("types", { count: limit })}</span>{!files.length && <span className="choose-button">{t("Choose images")}</span>}</span>
           </button>
           {files.length > 0 && <><div className="tool-queue-heading"><strong>{t("selected", { count: files.length })}</strong><button className="quiet-button" onClick={clear}>{t("Clear all")}</button></div><ol className="tool-queue">{files.map((item, index) => <li key={item.id} data-input-name={item.file.name}>
@@ -124,7 +131,8 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
           <p className="tool-footnote">{t("Up to 50 MB / 40 MP per input. Output: up to 16 MP and 8192 px per side. Animated images export a still frame.")}</p>
         </div>
         <div className="settings-panel tool-settings">
-          <fieldset disabled={!ready || busy}><legend className="settings-title">{t("02 / Your settings")}</legend>
+          <fieldset disabled={!ready || busy || receiving}><legend className="settings-title">{t("02 / Your settings")}</legend>
+            <BatchPresets tool={tool} locale={locale} settings={options} disabled={!ready || busy || receiving} onApply={value => change(value as ToolOptions)} />
             {tool === "resize" && <>
               <label className="tool-field">{t("Resize by")}<select value={options.resize.mode} onChange={event => change({ resize: { ...options.resize, mode: event.target.value as "pixels" | "percent" } })}><option value="pixels">{t("Pixels")}</option><option value="percent">{t("Percentage")}</option></select></label>
               {options.resize.mode === "pixels" ? <><div className="tool-field-pair"><label className="tool-field">{t("Width (px)")}<input type="number" min="0" max="8192" value={options.resize.width || ""} placeholder={t("Auto")} onChange={event => change({ resize: { ...options.resize, width: Number(event.target.value) } })} /></label><label className="tool-field">{t("Height (px)")}<input type="number" min="0" max="8192" value={options.resize.height || ""} placeholder={t("Auto")} onChange={event => change({ resize: { ...options.resize, height: Number(event.target.value) } })} /></label></div><label className="tool-checkbox"><input type="checkbox" checked={options.resize.lock} onChange={event => change({ resize: { ...options.resize, lock: event.target.checked } })} />{t("Keep aspect ratio")}</label><p className="field-hint">{t("With ratio locked, images fit within these bounds. Leave one side empty to calculate it automatically.")}</p></> : <label className="tool-field">{t("Scale (%)")}<input type="number" min="1" max="400" value={options.resize.percent || ""} onChange={event => change({ resize: { ...options.resize, percent: Number(event.target.value) } })} /></label>}
@@ -139,7 +147,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
             {(options.format === "jpeg" || tool === "stitch") && <><label className="tool-field tool-color">{t("Background color")}<input type="color" value={options.background} disabled={options.transparent && options.format !== "jpeg"} onChange={event => change({ background: event.target.value })} /></label>{tool === "stitch" && options.format !== "jpeg" ? <label className="tool-checkbox"><input type="checkbox" checked={options.transparent} onChange={event => change({ transparent: event.target.checked })} />{t("Transparent background")}</label> : <p className="field-hint">{t("JPG has no transparency. Transparent areas use this color.")}</p>}</>}
             {tool === "convert" && <p className="tool-format-note">{t("PNG keeps transparency without lossy encoding. JPG suits photos. WebP balances file size and quality. Conversion may increase file size.")}</p>}
           </fieldset>
-          <div className="compressor-actions">{busy ? <button className="secondary-button" onClick={() => { stop(); setStatus(t("Cancelled. Completed results are kept.")); }}>{t("Cancel")}</button> : <button className="primary-button" disabled={files.length < (tool === "stitch" ? 2 : 1)} onClick={start}>{action}<ArrowDown size={14} /></button>}</div>
+          <div className="compressor-actions">{busy ? <button className="secondary-button" onClick={() => { stop(); setStatus(t("Cancelled. Completed results are kept.")); }}>{t("Cancel")}</button> : <button className="primary-button" disabled={receiving || !ready || files.length < (tool === "stitch" ? 2 : 1)} onClick={start}>{action}<ArrowDown size={14} /></button>}</div>
           <p className="tool-status" role="status">{status || (tool === "stitch" ? t("Select at least 2 images to begin.") : t("Your original files stay untouched."))}</p>
         </div>
       </div>
@@ -152,6 +160,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
           <img src={result.url} alt={result.name} />
         </a><div className="tool-output-details"><div><strong title={result.name}>{result.name}</strong><span>{result.width} × {result.height} · {sizeLabel(result.blob.size)}</span></div><a className="icon-button" href={result.url} download={result.name} aria-label={t("download", { name: result.name })}><Download size={16} /></a></div>
       </article>)}</div>
+      <ContinueProcessing tool={tool} locale={locale} count={results.length} getImages={() => results.map(result => ({ name: result.name, blob: result.blob }))} disabled={busy || zipping} stale={stale} />
     </section>}
   </div>;
 }

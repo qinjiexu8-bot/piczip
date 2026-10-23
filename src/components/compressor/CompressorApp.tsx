@@ -15,6 +15,11 @@ import { interpolate, type Locale } from "@/lib/i18n/config";
 import { createZipEntries } from "@/lib/compression/download";
 import { CompressionWorkerClient, CompressionWorkerError } from "@/lib/compression/worker-client";
 
+import { BatchPresets } from "@/components/workflow/BatchPresets";
+import { ContinueProcessing } from "@/components/workflow/ContinueProcessing";
+import { ReceiveTransfer } from "@/components/workflow/ReceiveTransfer";
+import type { CompressionPreset } from "@/lib/workflow/settings";
+
 type FileItem = {
   id: string;
   file: File;
@@ -65,6 +70,8 @@ export function CompressorApp({
   const [quality, setQuality] = useState(82);
   const [targetKb, setTargetKb] = useState(initialTargetKb);
   const [maxWidth, setMaxWidth] = useState(2400);
+  const [receiving, setReceiving] = useState(true);
+  const [resultSettings, setResultSettings] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentProcessing, setCurrentProcessing] = useState<{ index: number; total: number } | null>(
     null,
@@ -143,12 +150,16 @@ export function CompressorApp({
     }
   }
 
+  const presetSettings: CompressionPreset = { format, quality, targetKb, maxWidth };
+
   async function compressAll() {
     if (!workerRef.current || batchRef.current || !items.length) return;
 
     const batch = new CompressionBatch();
     batchRef.current = batch;
     setIsProcessing(true);
+    setResultSettings(JSON.stringify(presetSettings));
+    setItems(current => current.map(item => ({ ...item, status: "queued", result: undefined, error: undefined })));
     setLastZipBytes(undefined);
     try {
       await batch.run(items, (item, signal) => runCompression(item, options, signal), {
@@ -252,6 +263,10 @@ export function CompressorApp({
 
   return (
     <section className="compressor-shell" aria-label={t.title}>
+      <ReceiveTransfer tool="compress" locale={locale} onBusyChange={setReceiving} onReceive={incoming => {
+        if (isProcessing || items.length + incoming.length > maxFiles) throw new Error("transfer-limit");
+        void addFiles(incoming);
+      }} />
       <div className="compressor-card">
         <div className="compressor-heading">
           <h2>{t.title}</h2>
@@ -260,10 +275,10 @@ export function CompressorApp({
           <label
             onDragOver={event => { event.preventDefault(); setIsDragging(true); }}
             onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setIsDragging(false); }}
-            onDrop={event => { event.preventDefault(); setIsDragging(false); void addFiles(event.dataTransfer.files); }}
+            onDrop={event => { event.preventDefault(); setIsDragging(false); if (!receiving) void addFiles(event.dataTransfer.files); }}
             className={`dropzone ${isDragging ? "is-dragging" : ""}`}
           >
-            <input type="file" multiple accept="image/jpeg,image/png,image/webp" className="sr-only" aria-label={t.choose}
+            <input type="file" multiple accept="image/jpeg,image/png,image/webp" className="sr-only" disabled={receiving} aria-label={t.choose}
               onChange={event => { if (event.target.files) void addFiles(event.target.files); event.currentTarget.value = ""; }} />
             <span>
               <span className="file-art" aria-hidden="true"><ImageIcon strokeWidth={1.1} /><ImageIcon strokeWidth={1.1} /></span>
@@ -276,6 +291,10 @@ export function CompressorApp({
 
           <div className="settings-panel">
             <h3 className="settings-title">{t.settings}</h3>
+            <BatchPresets tool="compress" locale={locale} settings={presetSettings} disabled={isProcessing || receiving} onApply={value => {
+              const preset = value as CompressionPreset;
+              setFormat(preset.format); setQuality(preset.quality); setTargetKb(preset.targetKb); setMaxWidth(preset.maxWidth);
+            }} />
             <div className="setting-line">
               <label htmlFor="compression-target">{t.targetSize}</label>
               <div>
@@ -315,7 +334,7 @@ export function CompressorApp({
               </div>
             </div>
             <div className="compressor-actions">
-              <button type="button" className="primary-button" onClick={() => void compressAll()} disabled={!items.length || isProcessing}>
+              <button type="button" className="primary-button" onClick={() => void compressAll()} disabled={receiving || !items.length || isProcessing}>
                 {isProcessing ? <Loader2 size={15} className="animate-spin" /> : <ImageIcon size={15} />}{isProcessing ? t.compressing : t.compress}
               </button>
               {isProcessing ? <button type="button" onClick={cancelCompression} className="secondary-button"><X size={14} />{t.cancel}</button> : null}
@@ -367,6 +386,7 @@ export function CompressorApp({
               </article>
             );
           })}
+          {completed.length > 0 && <ContinueProcessing tool="compress" locale={locale} count={completed.length} disabled={isProcessing} stale={resultSettings !== JSON.stringify(presetSettings)} getImages={() => completed.flatMap(item => item.result ? [{ name: item.result.outputName, blob: new Blob([item.result.buffer], { type: item.result.mimeType }) }] : [])} />}
         </div>
       ) : null}
 

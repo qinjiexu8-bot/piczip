@@ -19,7 +19,7 @@ export default function Page() {
       <h2>Image files</h2>
       <p>
         PicZip compresses selected images in your browser. The image files you choose are not
-        uploaded to a PicZip server for compression, and PicZip does not store your image content.
+        uploaded to a PicZip server for processing. Temporary browser storage is used only when you choose to continue in another tool, as described below.
       </p>
       <h2>Analytics</h2>
       <p>
@@ -35,9 +35,9 @@ export default function Page() {
       </p>
       <h2>Browser storage</h2>
       <p>
-        Compression results are kept in browser memory while the page is open. Future offline support
-        should cache only application assets, not user images, unless explicitly disclosed.
+        Processing results stay in browser memory. When you choose Continue processing, the selected results and their file names are temporarily stored in this browser to pass them to the next tool. They are removed after receipt. Unused transfers expire after 10 minutes and are cleaned up the next time a tool accesses this storage.
       </p>
+      <p>Batch presets store only the name you enter and tool settings in this browser, until you delete them or clear site data. They do not include images and do not sync to other browsers or devices.</p>
       <h2>Contact</h2>
       <p>Questions about privacy can be sent through the public contact channel after it is added.</p>
     </ContentPage>
