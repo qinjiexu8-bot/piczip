@@ -1,3 +1,4 @@
+import { CropRelatedLinks } from "@/components/image-tools/CropRelatedLinks";
 import Image from "next/image";
 import Link from "next/link";
 import { GuideArticlePage } from "@/components/site/GuideArticlePage";
@@ -68,5 +69,6 @@ export function TranslatedGuideArticle({ locale, slug }: { locale: AddedLocale; 
         <Link className={linkClass} href={localePath("/guide", locale)}>{t.allGuides}</Link>
       </div>
     </aside>
+    <CropRelatedLinks locale={locale} />
   </GuideArticlePage>;
 }

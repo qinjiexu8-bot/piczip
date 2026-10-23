@@ -1,3 +1,4 @@
+import { CropRelatedLinks } from "./CropRelatedLinks";
 import type { Locale } from "@/lib/i18n/config";
 import { ToolIntro } from "@/components/site/ToolIntro";
 import { Header } from "@/components/site/Header";
@@ -11,5 +12,6 @@ export function ImageToolPage({ tool, locale }: { tool: ToolKind; locale: Locale
   return <div className="grain flex min-h-screen flex-col overflow-x-clip"><Header /><main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-7 sm:px-8">
     <ToolIntro title={title} description={description} />
     <ImageToolApp key={`${tool}-${locale}`} tool={tool} locale={locale} /><ToolLinks locale={locale} current={tool} />
+    {tool === "crop" && <CropRelatedLinks locale={locale} fromTool />}
   </main><SiteFooter locale={locale} /></div>;
 }

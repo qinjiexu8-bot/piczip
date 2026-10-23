@@ -1,3 +1,4 @@
+import { CropRelatedLinks } from "@/components/image-tools/CropRelatedLinks";
 import Image from "next/image";
 import Link from "next/link";
 import { GuideArticlePage } from "@/components/site/GuideArticlePage";
@@ -68,5 +69,6 @@ export function ToolGuideArticle({ tool, locale }: { tool: ToolKind; locale: Gui
         <li><Link className={linkClass} href={prefix || "/"}>{zh ? "打开图片压缩工具" : "Open the image compressor"}</Link></li>
       </ul>
     </aside>
+    <CropRelatedLinks locale={locale} />
   </GuideArticlePage>;
 }

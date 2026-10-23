@@ -1,5 +1,6 @@
 "use client";
 
+import { cropMessages } from "@/lib/image-tools/crop-messages";
 import Link from "next/link";
 import { LanguageMenu } from "./LanguageMenu";
 import { siteMessages } from "@/lib/i18n/messages";
@@ -16,6 +17,7 @@ export function Header() {
     { label: t.compress, href: localizedHref(pathname, "/"), active: normalized === "/" || normalized.startsWith("/compress") || normalized === "/local-image-compressor" || normalized === "/batch-image-compressor" },
     { label: t.resize, href: localizedHref(pathname, "/resize-image"), active: normalized === "/resize-image" },
     { label: t.convert, href: localizedHref(pathname, "/convert-image"), active: normalized === "/convert-image" },
+    { label: cropMessages[locale].nav, href: localizedHref(pathname, "/crop-image"), active: normalized === "/crop-image" },
     { label: t.stitch, href: localizedHref(pathname, "/stitch-images"), active: normalized === "/stitch-images" },
     { label: hasLocalePage("/guide", locale) ? t.guides : `${t.guides} (${t.english})`, href: localizedHref(pathname, "/guide"), active: normalized === "/guide" || normalized.startsWith("/guides/") },
     { label: t.faq, href: localizedHref(pathname, "/faq"), active: normalized === "/faq" },
@@ -29,7 +31,7 @@ export function Header() {
           PicZip<span className="brand-dot">.</span>
         </Link>
         <div className="flex items-center gap-3 sm:gap-7">
-          <nav aria-label={t.mainNav} className="hidden items-center gap-5 xl:gap-5 xl:flex">
+          <nav aria-label={t.mainNav} className="hidden items-center gap-4 xl:flex">
             {items.map(item => (
               <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} className={`site-nav-link ${item.active ? "is-active" : ""}`}>
                 {item.label}

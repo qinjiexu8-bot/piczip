@@ -12,12 +12,16 @@ import { BatchPresets } from "@/components/workflow/BatchPresets";
 import { ContinueProcessing } from "@/components/workflow/ContinueProcessing";
 import { ReceiveTransfer } from "@/components/workflow/ReceiveTransfer";
 
+import { CropControls, CropEditor } from "./CropEditor";
+import { defaultCrop } from "@/lib/image-tools/crop";
+import { cropMessages } from "@/lib/image-tools/crop-messages";
+
 const subscribeToHydration = () => () => {};
 
 type Input = ToolFile & { url: string };
 type Result = ToolResult & { url: string };
 const sizeLabel = (n: number) => n < 1024 * 1024 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1024 / 1024).toFixed(1)} MB`;
-const initialOptions = (tool: ToolKind): ToolOptions => ({ tool, resize: { mode: "pixels", width: 1200, height: 0, percent: 50, lock: true }, format: tool === "resize" ? "original" : tool === "stitch" ? "png" : "webp", quality: 90, background: "#ffffff", transparent: false, direction: "vertical", edge: 800, gap: 16 });
+const initialOptions = (tool: ToolKind): ToolOptions => ({ tool, ...(tool === "crop" ? { crop: { ...defaultCrop } } : {}), resize: { mode: "pixels", width: 1200, height: 0, percent: 50, lock: true }, format: (tool === "resize" || tool === "crop") ? "original" : tool === "stitch" ? "png" : "webp", quality: 90, background: "#ffffff", transparent: false, direction: "vertical", edge: 800, gap: 16 });
 
 export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale }) {
   const ready = useSyncExternalStore(subscribeToHydration, () => true, () => false);
@@ -65,6 +69,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   function move(index: number, offset: number) { const next = [...files]; [next[index], next[index + offset]] = [next[index + offset], next[index]]; setFiles(next); if (results.length) setStale(true); }
   function clear() { stop(); files.forEach(item => revoke(item.url)); setFiles([]); clearResults(); setErrors([]); setStatus(""); }
   function describeError(code: string) {
+    if (code === "invalid-crop") return cropMessages[locale].invalid;
     const messages: Record<string, [string, string]> = {
       "output-limit": ["Output exceeds 8192 px per side or 16 megapixels. Reduce the dimensions.", "输出超过单边 8192 像素或 1600 万像素，请调小尺寸。"],
       "input-limit": ["Input exceeds 50 MB or 40 megapixels.", "原图超过 50 MB 或 4000 万像素。"],
@@ -109,8 +114,8 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
     } catch { if (mounted.current) setErrors(previous => [...previous, t("ZIP download failed. Try individual downloads.")]); }
     finally { if (mounted.current) setZipping(false); }
   }
-  const action = tool === "resize" ? t("Resize images") : tool === "convert" ? t("Convert images") : t("Stitch images");
-  return <div className="image-tool-shell">
+  const action = tool === "crop" ? cropMessages[locale].action : tool === "resize" ? t("Resize images") : tool === "convert" ? t("Convert images") : t("Stitch images");
+  return <div className={`image-tool-shell ${tool === "crop" ? "is-crop-tool" : ""}`}>
     <ReceiveTransfer tool={tool} locale={locale} onBusyChange={setReceiving} onReceive={incoming => addFiles(incoming, true)} />
     <section className="compressor-card">
       <div className="compressor-heading"><h2>{t("Make it yours")}</h2></div>
@@ -128,11 +133,13 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
             <img src={item.url} alt="" width={48} height={48} /><div className="tool-file-info"><strong title={item.file.name}>{item.file.name}</strong><span>{sizeLabel(item.file.size)}</span></div>
             <div className="tool-row-actions">{tool === "stitch" && <><button className="icon-button" disabled={busy || index === 0} aria-label={t("moveUp", { name: item.file.name })} onClick={() => move(index, -1)}><ArrowUp size={14} /></button><button className="icon-button" disabled={busy || index === files.length - 1} aria-label={t("moveDown", { name: item.file.name })} onClick={() => move(index, 1)}><ArrowDown size={14} /></button></>}<button className="icon-button is-remove" disabled={busy} aria-label={t("remove", { name: item.file.name })} onClick={() => remove(item.id)}><Trash2 size={14} /></button></div>
           </li>)}</ol></>}
+          {tool === "crop" && <CropEditor files={files} value={options.crop ?? defaultCrop} onChange={crop => change({ crop })} locale={locale} disabled={busy || receiving} format={options.format} background={options.background} />}
           <p className="tool-footnote">{t("Up to 50 MB / 40 MP per input. Output: up to 16 MP and 8192 px per side. Animated images export a still frame.")}</p>
         </div>
         <div className="settings-panel tool-settings">
           <fieldset disabled={!ready || busy || receiving}><legend className="settings-title">{t("02 / Your settings")}</legend>
             <BatchPresets tool={tool} locale={locale} settings={options} disabled={!ready || busy || receiving} onApply={value => change(value as ToolOptions)} />
+            {tool === "crop" && <CropControls value={options.crop ?? defaultCrop} onChange={crop => change({ crop })} locale={locale} />}
             {tool === "resize" && <>
               <label className="tool-field">{t("Resize by")}<select value={options.resize.mode} onChange={event => change({ resize: { ...options.resize, mode: event.target.value as "pixels" | "percent" } })}><option value="pixels">{t("Pixels")}</option><option value="percent">{t("Percentage")}</option></select></label>
               {options.resize.mode === "pixels" ? <><div className="tool-field-pair"><label className="tool-field">{t("Width (px)")}<input type="number" min="0" max="8192" value={options.resize.width || ""} placeholder={t("Auto")} onChange={event => change({ resize: { ...options.resize, width: Number(event.target.value) } })} /></label><label className="tool-field">{t("Height (px)")}<input type="number" min="0" max="8192" value={options.resize.height || ""} placeholder={t("Auto")} onChange={event => change({ resize: { ...options.resize, height: Number(event.target.value) } })} /></label></div><label className="tool-checkbox"><input type="checkbox" checked={options.resize.lock} onChange={event => change({ resize: { ...options.resize, lock: event.target.checked } })} />{t("Keep aspect ratio")}</label><p className="field-hint">{t("With ratio locked, images fit within these bounds. Leave one side empty to calculate it automatically.")}</p></> : <label className="tool-field">{t("Scale (%)")}<input type="number" min="1" max="400" value={options.resize.percent || ""} onChange={event => change({ resize: { ...options.resize, percent: Number(event.target.value) } })} /></label>}
@@ -141,7 +148,7 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
               <label className="tool-field">{t("Direction")}<select value={options.direction} onChange={event => change({ direction: event.target.value as "vertical" | "horizontal" })}><option value="vertical">{t("Vertical")}</option><option value="horizontal">{t("Horizontal")}</option></select></label>
               <div className="tool-field-pair"><label className="tool-field">{options.direction === "vertical" ? t("Shared width (px)") : t("Shared height (px)")}<input type="number" min="1" max="8192" value={options.edge || ""} onChange={event => change({ edge: Number(event.target.value) })} /></label><label className="tool-field">{t("Spacing (px)")}<input type="number" min="0" max="200" value={options.gap} onChange={event => change({ gap: Number(event.target.value) })} /></label></div><p className="field-hint">{t("Images scale proportionally to a shared edge. Use the arrows to reorder them.")}</p>
             </>}
-            <label className="tool-field">{t("Output format")}<select value={options.format} onChange={event => change({ format: event.target.value as ToolOptions["format"] })}>{tool === "resize" && <option value="original">{t("Keep original format")}</option>}<option value="jpeg">JPG</option><option value="png">PNG</option><option value="webp">WebP</option></select></label>
+            <label className="tool-field">{t("Output format")}<select value={options.format} onChange={event => change({ format: event.target.value as ToolOptions["format"] })}>{(tool === "resize" || tool === "crop") && <option value="original">{t("Keep original format")}</option>}<option value="jpeg">JPG</option><option value="png">PNG</option><option value="webp">WebP</option></select></label>
             <label className="tool-field">{t("Quality")} <span className="quality-field"><input type="range" min="20" max="100" value={options.quality} disabled={options.format === "png"} onChange={event => change({ quality: Number(event.target.value) })} /><output>{options.quality}%</output></span></label>
             {options.format === "png" && <p className="field-hint">{t("PNG is lossless; the quality setting does not apply.")}</p>}
             {(options.format === "jpeg" || tool === "stitch") && <><label className="tool-field tool-color">{t("Background color")}<input type="color" value={options.background} disabled={options.transparent && options.format !== "jpeg"} onChange={event => change({ background: event.target.value })} /></label>{tool === "stitch" && options.format !== "jpeg" ? <label className="tool-checkbox"><input type="checkbox" checked={options.transparent} onChange={event => change({ transparent: event.target.checked })} />{t("Transparent background")}</label> : <p className="field-hint">{t("JPG has no transparency. Transparent areas use this color.")}</p>}</>}

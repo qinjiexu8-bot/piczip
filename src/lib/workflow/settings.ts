@@ -1,6 +1,7 @@
+import { validCrop } from "../image-tools/crop.ts";
 import type { ToolOptions } from "../image-tools/types";
 
-export type WorkflowTool = "compress" | "resize" | "convert" | "stitch";
+export type WorkflowTool = "compress" | "resize" | "convert" | "stitch" | "crop";
 export type CompressionPreset = { format: "auto" | "jpeg" | "png" | "webp"; quality: number; targetKb: number; maxWidth: number };
 export type Settings = CompressionPreset | ToolOptions;
 export type Preset = { id: string; tool: WorkflowTool; name: string; settings: Settings };
@@ -11,7 +12,8 @@ const integer = (value: unknown, min: number, max: number) => number(value, min,
 export function validSettings(tool: WorkflowTool, value: unknown): value is Settings {
   if (!record(value) || !number(value.quality, 20, 100)) return false;
   if (tool === "compress") return ["auto", "jpeg", "png", "webp"].includes(String(value.format)) && number(value.targetKb, 0, 51200) && integer(value.maxWidth, 0, 40000000);
-  if (value.tool !== tool || !["jpeg", "png", "webp", ...(tool === "resize" ? ["original"] : [])].includes(String(value.format))) return false;
+  if (tool === "crop" && !validCrop(value.crop)) return false;
+  if (value.tool !== tool || !["jpeg", "png", "webp", ...((tool === "resize" || tool === "crop") ? ["original"] : [])].includes(String(value.format))) return false;
   if (typeof value.background !== "string" || !/^#[\da-f]{6}$/i.test(value.background) || typeof value.transparent !== "boolean") return false;
   if (!["vertical", "horizontal"].includes(String(value.direction)) || !integer(value.edge, 1, 8192) || !integer(value.gap, 0, 200)) return false;
   const r = value.resize;
@@ -22,6 +24,6 @@ export function validSettings(tool: WorkflowTool, value: unknown): value is Sett
 export function parsePresets(raw: string | null): Preset[] {
   if (!raw) return [];
   const data: unknown = JSON.parse(raw);
-  if (!Array.isArray(data) || data.length > 80 || !data.every(p => record(p) && typeof p.id === "string" && typeof p.name === "string" && p.name.trim().length > 0 && p.name.length <= 60 && ["compress", "resize", "convert", "stitch"].includes(String(p.tool)) && validSettings(p.tool as WorkflowTool, p.settings))) throw new Error("invalid-presets");
+  if (!Array.isArray(data) || data.length > 100 || !data.every(p => record(p) && typeof p.id === "string" && typeof p.name === "string" && p.name.trim().length > 0 && p.name.length <= 60 && ["compress", "resize", "convert", "stitch", "crop"].includes(String(p.tool)) && validSettings(p.tool as WorkflowTool, p.settings))) throw new Error("invalid-presets");
   return data as Preset[];
 }

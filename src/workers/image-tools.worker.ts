@@ -1,6 +1,7 @@
 /// <reference lib="webworker" />
 import { resizeDimensions, stitchLayout, validateOutput } from "@/lib/image-tools/geometry";
 import type { Format, ToolFile, ToolOptions, ToolResponse } from "@/lib/image-tools/types";
+import { cropOutput, defaultCrop, drawCrop } from "@/lib/image-tools/crop";
 const ctx = self as unknown as DedicatedWorkerGlobalScope;
 const send = (message: ToolResponse) => ctx.postMessage(message);
 async function decode(file: File) {
@@ -73,10 +74,11 @@ ctx.onmessage = async (event: MessageEvent<{ files: ToolFile[]; options: ToolOpt
         try {
           const image = await decode(file);
           try {
-            const size = options.tool === "resize" ? resizeDimensions(image, options.resize) : validateOutput(image);
+            const size = options.tool === "resize" ? resizeDimensions(image, options.resize) : options.tool === "crop" ? cropOutput(image, options.crop ?? defaultCrop) : validateOutput(image);
             const format = formatFor(file, options);
             const { canvas, context } = canvasFor(size.width, size.height, options, format);
-            context.drawImage(image, 0, 0, size.width, size.height);
+            if (options.tool === "crop") drawCrop(context, image, image, options.crop ?? defaultCrop);
+            else context.drawImage(image, 0, 0, size.width, size.height);
             const blob = await encode(canvas, format, options.quality);
             send({ type: "result", result: { id, name: outputName(file.name, options.tool, format), blob, ...{ width: size.width, height: size.height } } });
           } finally { image.close(); }

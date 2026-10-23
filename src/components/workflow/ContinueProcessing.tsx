@@ -6,7 +6,7 @@ import { localePath } from "@/lib/i18n/routes";
 import { workflowMessages } from "@/lib/workflow/messages";
 import type { WorkflowTool } from "@/lib/workflow/settings";
 import { saveTransfer, transferAllowed, type TransferImage } from "@/lib/workflow/transfer";
-const paths: Record<WorkflowTool, string> = { compress: "/", resize: "/resize-image", convert: "/convert-image", stitch: "/stitch-images" };
+const paths: Record<WorkflowTool, string> = { compress: "/", resize: "/resize-image", convert: "/convert-image", stitch: "/stitch-images", crop: "/crop-image" };
 export function ContinueProcessing({ tool, locale, count, getImages, disabled, stale = false }: { tool: WorkflowTool; locale: Locale; count: number; getImages: () => TransferImage[]; disabled: boolean; stale?: boolean }) {
   const t = workflowMessages[locale];
   const id = useId();
