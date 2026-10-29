@@ -1,3 +1,4 @@
+import { directoryCopy } from "@/lib/navigation/directory";
 import Link from "next/link";
 import { Footer } from "./Footer";
 import { articleCopy } from "@/lib/guides/article-copy";
@@ -21,6 +22,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           })}
         </nav>
       </footer>}
+    <nav aria-label={directoryCopy[locale].all} className="directory-footer-link"><Link href={localePath("/tools", locale)} prefetch={false}>{directoryCopy[locale].browse} <span aria-hidden="true">↗</span></Link></nav>
     <p data-site-copyright className="mx-auto w-full max-w-6xl px-5 pb-6 text-[11px] leading-5 text-[#788373] sm:px-8">© 2026 PicZip. {articleCopy[locale].copyright}</p>
   </>;
 }
