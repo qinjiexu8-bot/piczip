@@ -14,6 +14,11 @@ import { stripLocale } from "@/lib/i18n/routes";
  */
 // These guides were first published on 2026-10-23 (Git 29fd731 / 6fb93fa).
 export const newGuideDates = {
+  "/guides/convert-heic-photos-to-jpg": { published: "2026-10-29", modified: "2026-10-29" },
+  "/guides/combine-images-into-pdf": { published: "2026-10-29", modified: "2026-10-29" },
+  "/guides/automate-image-batch-workflow": { published: "2026-10-29", modified: "2026-10-29" },
+  "/guides/add-image-padding-and-expand-canvas": { published: "2026-10-29", modified: "2026-10-29" },
+  "/guides/pixelate-and-redact-images": { published: "2026-10-29", modified: "2026-10-29" },
   "/guides/crop-rotate-flip-images": { published: "2026-10-23", modified: "2026-10-23" },
   "/guides/batch-watermark-and-rename-images": { published: "2026-10-23", modified: "2026-10-23" },
 } as const;

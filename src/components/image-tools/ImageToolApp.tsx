@@ -1,5 +1,9 @@
 "use client";
 
+import canvasMessages from "@/lib/image-tools/canvas-messages.json";
+import { defaultPadding, validPadding } from "@/lib/image-tools/padding";
+import { defaultMosaic, validMosaic } from "@/lib/image-tools/mosaic";
+import { PaddingControls, PaddingPreview, MosaicControls, MosaicEditor } from "./CanvasTools";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ArrowDown, ArrowUp, Download, ImagePlus, Plus, Trash2 } from "lucide-react";
 import { zip } from "fflate";
@@ -26,7 +30,7 @@ const subscribeToHydration = () => () => {};
 type Input = ToolFile & { url: string };
 type Result = ToolResult & { url: string };
 const sizeLabel = (n: number) => n < 1024 * 1024 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1024 / 1024).toFixed(1)} MB`;
-const initialOptions = (tool: ToolKind): ToolOptions => ({ tool, rename: { ...defaultRename }, ...(tool === "watermark" ? { watermark: { ...defaultWatermark } } : {}), ...(tool === "crop" ? { crop: { ...defaultCrop } } : {}), resize: { mode: "pixels", width: 1200, height: 0, percent: 50, lock: true }, format: (tool === "resize" || tool === "crop" || tool === "watermark") ? "original" : tool === "stitch" ? "png" : "webp", quality: 90, background: "#ffffff", transparent: false, direction: "vertical", edge: 800, gap: 0 });
+const initialOptions = (tool: ToolKind): ToolOptions => ({ tool, ...(tool === "padding" ? { padding: { ...defaultPadding } } : {}), ...(tool === "mosaic" ? { mosaic: structuredClone(defaultMosaic) } : {}), rename: { ...defaultRename }, ...(tool === "watermark" ? { watermark: { ...defaultWatermark } } : {}), ...(tool === "crop" ? { crop: { ...defaultCrop } } : {}), resize: { mode: "pixels", width: 1200, height: 0, percent: 50, lock: true }, format: (tool === "resize" || tool === "crop" || tool === "watermark" || tool === "mosaic") ? "original" : tool === "stitch" || tool === "padding" ? "png" : "webp", quality: 90, background: "#ffffff", transparent: false, direction: "vertical", edge: 800, gap: 0 });
 
 export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale }) {
   const ready = useSyncExternalStore(subscribeToHydration, () => true, () => false);
@@ -77,6 +81,8 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
   function move(index: number, offset: number) { const next = [...files]; [next[index], next[index + offset]] = [next[index + offset], next[index]]; setFiles(next); if (results.length) setStale(true); }
   function clear() { stop(); files.forEach(item => revoke(item.url)); setFiles([]); clearResults(); setErrors([]); setStatus(""); }
   function describeError(code: string) {
+    if (code === "invalid-padding") return canvasMessages[locale].padding.invalid;
+    if (code === "invalid-mosaic") return canvasMessages[locale].mosaic.invalid;
     if (code === "invalid-watermark") return watermarkMessages[locale].invalid;
     if (code === "invalid-crop") return cropMessages[locale].invalid;
     const messages: Record<string, [string, string]> = {
@@ -123,8 +129,8 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
     } catch { if (mounted.current) setErrors(previous => [...previous, t("ZIP download failed. Try individual downloads.")]); }
     finally { if (mounted.current) setZipping(false); }
   }
-  const action = tool === "watermark" ? watermarkMessages[locale].action : tool === "crop" ? cropMessages[locale].action : tool === "resize" ? t("Resize images") : tool === "convert" ? t("Convert images") : t("Stitch images");
-  return <div className={`image-tool-shell ${tool === "crop" ? "is-crop-tool" : ""}`}>
+  const action = tool === "padding" || tool === "mosaic" ? canvasMessages[locale][tool].action : tool === "watermark" ? watermarkMessages[locale].action : tool === "crop" ? cropMessages[locale].action : tool === "resize" ? t("Resize images") : tool === "convert" ? t("Convert images") : t("Stitch images");
+  return <div className={`image-tool-shell ${["crop", "mosaic"].includes(tool) ? "is-crop-tool" : ""}`}>
     <ReceiveTransfer tool={tool} locale={locale} onBusyChange={setReceiving} onReceive={incoming => addFiles(incoming, true)} />
     <section className="compressor-card">
       <div className="compressor-heading"><h2>{t("Make it yours")}</h2></div>
@@ -142,6 +148,8 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
             <img src={item.url} alt="" width={48} height={48} /><div className="tool-file-info"><strong title={item.file.name}>{item.file.name}</strong><span>{sizeLabel(item.file.size)}</span></div>
             <div className="tool-row-actions">{tool === "stitch" && <><button className="icon-button" disabled={busy || index === 0} aria-label={t("moveUp", { name: item.file.name })} onClick={() => move(index, -1)}><ArrowUp size={14} /></button><button className="icon-button" disabled={busy || index === files.length - 1} aria-label={t("moveDown", { name: item.file.name })} onClick={() => move(index, 1)}><ArrowDown size={14} /></button></>}<button className="icon-button is-remove" disabled={busy} aria-label={t("remove", { name: item.file.name })} onClick={() => remove(item.id)}><Trash2 size={14} /></button></div>
           </li>)}</ol></>}
+          {tool === "padding" && <PaddingPreview files={files} value={options.padding ?? defaultPadding} locale={locale} format={options.format} background={options.background} transparent={options.transparent} disabled={!ready || busy || receiving} />}
+          {tool === "mosaic" && <MosaicEditor files={files} value={options.mosaic ?? defaultMosaic} onChange={mosaic => change({ mosaic })} locale={locale} format={options.format} background={options.background} disabled={!ready || busy || receiving} />}
           {tool === "watermark" && <WatermarkPreview files={files} value={options.watermark ?? defaultWatermark} locale={locale} background={options.background} format={options.format} />}
           {tool === "crop" && <CropEditor files={files} value={options.crop ?? defaultCrop} onChange={crop => change({ crop })} locale={locale} disabled={busy || receiving} format={options.format} background={options.background} />}
           <p className="tool-footnote">{t("Up to 50 MB / 40 MP per input. Output: up to 16 MP and 8192 px per side. Animated images export a still frame.")}</p>
@@ -149,6 +157,8 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
         <div className="settings-panel tool-settings">
           <fieldset disabled={!ready || busy || receiving || watermarkLoading}><legend className="settings-title">{t("02 / Your settings")}</legend>
             <BatchPresets tool={tool} locale={locale} settings={options} disabled={!ready || busy || receiving} onApply={value => change({ ...value as ToolOptions, rename: (value as ToolOptions).rename ?? { ...defaultRename } })} />
+            {tool === "padding" && <PaddingControls value={options.padding ?? defaultPadding} onChange={padding => change({ padding })} locale={locale} />}
+            {tool === "mosaic" && <MosaicControls value={options.mosaic ?? defaultMosaic} onChange={mosaic => change({ mosaic })} locale={locale} />}
             {tool === "watermark" && <WatermarkControls onLoadingChange={setWatermarkLoading} locale={locale} value={options.watermark ?? defaultWatermark} onChange={watermark => change({watermark})} />}
             {tool === "crop" && <CropControls value={options.crop ?? defaultCrop} onChange={crop => change({ crop })} locale={locale} />}
             {tool === "resize" && <>
@@ -159,14 +169,14 @@ export function ImageToolApp({ tool, locale }: { tool: ToolKind; locale: Locale 
               <label className="tool-field">{t("Direction")}<select value={options.direction} onChange={event => change({ direction: event.target.value as "vertical" | "horizontal" })}><option value="vertical">{t("Vertical")}</option><option value="horizontal">{t("Horizontal")}</option></select></label>
               <div className="tool-field-pair"><label className="tool-field">{options.direction === "vertical" ? t("Shared width (px)") : t("Shared height (px)")}<input type="number" min="1" max="8192" value={options.edge || ""} onChange={event => change({ edge: Number(event.target.value) })} /></label><label className="tool-field">{t("Spacing (px)")}<input type="number" min="0" max="200" value={options.gap} onChange={event => change({ gap: Number(event.target.value) })} /></label></div><p className="field-hint">{t("Images scale proportionally to a shared edge. Use the arrows to reorder them.")} {t("Use 0 for no gap, or enter a spacing from 1 to 200 px.")}</p>
             </>}
-            <label className="tool-field">{t("Output format")}<select value={options.format} onChange={event => change({ format: event.target.value as ToolOptions["format"] })}>{(tool === "resize" || tool === "crop" || tool === "watermark") && <option value="original">{t("Keep original format")}</option>}<option value="jpeg">JPG</option><option value="png">PNG</option><option value="webp">WebP</option></select></label>
+            <label className="tool-field">{t("Output format")}<select value={options.format} onChange={event => change({ format: event.target.value as ToolOptions["format"] })}>{(tool === "resize" || tool === "crop" || tool === "watermark" || tool === "mosaic") && <option value="original">{t("Keep original format")}</option>}<option value="jpeg">JPG</option><option value="png">PNG</option><option value="webp">WebP</option></select></label>
             <label className="tool-field">{t("Quality")} <span className="quality-field"><input type="range" min="20" max="100" value={options.quality} disabled={options.format === "png"} onChange={event => change({ quality: Number(event.target.value) })} /><output>{options.quality}%</output></span></label>
             {options.format === "png" && <p className="field-hint">{t("PNG is lossless; the quality setting does not apply.")}</p>}
-            {(options.format === "jpeg" || tool === "stitch") && <><label className="tool-field tool-color">{t("Background color")}<input type="color" value={options.background} disabled={options.transparent && options.format !== "jpeg"} onChange={event => change({ background: event.target.value })} /></label>{tool === "stitch" && options.format !== "jpeg" ? <label className="tool-checkbox"><input type="checkbox" checked={options.transparent} onChange={event => change({ transparent: event.target.checked })} />{t("Transparent background")}</label> : <p className="field-hint">{t("JPG has no transparency. Transparent areas use this color.")}</p>}</>}
+            {(options.format === "jpeg" || tool === "stitch" || tool === "padding") && <><label className="tool-field tool-color">{t("Background color")}<input type="color" value={options.background} disabled={options.transparent && options.format !== "jpeg"} onChange={event => change({ background: event.target.value })} /></label>{(tool === "stitch" || tool === "padding") && options.format !== "jpeg" ? <label className="tool-checkbox"><input type="checkbox" checked={options.transparent} onChange={event => change({ transparent: event.target.checked })} />{t("Transparent background")}</label> : <p className="field-hint">{t("JPG has no transparency. Transparent areas use this color.")}</p>}</>}
             {tool === "convert" && <p className="tool-format-note">{t("PNG keeps transparency without lossy encoding. JPG suits photos. WebP balances file size and quality. Conversion may increase file size.")}</p>}
             <ExportSettings locale={locale} value={options.rename ?? defaultRename} onChange={rename => change({rename})} names={results.length ? results.map(r=>r.name) : tool === "stitch" ? (files.length ? [`piczip-stitched.${options.format === "jpeg" ? "jpg" : options.format === "original" ? "png" : options.format}`] : []) : files.map(f=>f.file.name.replace(/\.[^.]+$/, "") + `-${tool}.${options.format === "original" ? f.file.name.split(".").pop() : options.format === "jpeg" ? "jpg" : options.format}`)} disabled={!ready || busy || receiving} />
           </fieldset>
-          <div className="compressor-actions">{busy ? <button className="secondary-button" onClick={() => { stop(); setStatus(t("Cancelled. Completed results are kept.")); }}>{t("Cancel")}</button> : <button className="primary-button" disabled={watermarkLoading || (tool === "watermark" && !validWatermark(options.watermark)) || receiving || !ready || files.length < (tool === "stitch" ? 2 : 1)} onClick={start}>{action}<ArrowDown size={14} /></button>}</div>
+          <div className="compressor-actions">{busy ? <button className="secondary-button" onClick={() => { stop(); setStatus(t("Cancelled. Completed results are kept.")); }}>{t("Cancel")}</button> : <button className="primary-button" disabled={(tool === "padding" && !validPadding(options.padding)) || (tool === "mosaic" && (!validMosaic(options.mosaic) || !options.mosaic.regions.length)) || watermarkLoading || (tool === "watermark" && !validWatermark(options.watermark)) || receiving || !ready || files.length < (tool === "stitch" ? 2 : 1)} onClick={start}>{action}<ArrowDown size={14} /></button>}</div>
           <p className="tool-status" role="status">{status || (tool === "stitch" ? t("Select at least 2 images to begin.") : t("Your original files stay untouched."))}</p>
         </div>
       </div>

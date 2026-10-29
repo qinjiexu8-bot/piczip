@@ -1,9 +1,10 @@
 import type { WorkflowTool } from "./settings";
 export type TransferImage = { name: string; blob: Blob };
+export type TransferTarget = WorkflowTool | "pdf" | "flow";
 type StoredImage = { name: string; type: string; bytes: ArrayBuffer };
-type Packet = { id: string; target: WorkflowTool; expires: number; images: StoredImage[] };
+type Packet = { id: string; target: TransferTarget; expires: number; images: StoredImage[] };
 export const TRANSFER_TTL = 10 * 60 * 1000;
-export function transferAllowed(images: TransferImage[], target: WorkflowTool) {
+export function transferAllowed(images: TransferImage[], target: TransferTarget) {
   return images.length >= (target === "stitch" ? 2 : 1) && images.length <= (target === "stitch" ? 20 : 50) && images.every(i => i.blob.size <= 50 * 1024 * 1024 && ["image/jpeg", "image/png", "image/webp"].includes(i.blob.type)) && images.reduce((sum, i) => sum + i.blob.size, 0) <= 200 * 1024 * 1024;
 }
 function open(): Promise<IDBDatabase> {
@@ -34,7 +35,7 @@ async function transact<T>(action: (store: IDBObjectStore, result: (value: T) =>
     transaction.onerror = transaction.onabort = () => { clearTimeout(timer); db.close(); reject(new Error("storage-unavailable")); };
   });
 }
-export async function saveTransfer(images: TransferImage[], target: WorkflowTool): Promise<string> {
+export async function saveTransfer(images: TransferImage[], target: TransferTarget): Promise<string> {
   if (!transferAllowed(images, target)) throw new Error("transfer-limit");
   const id = crypto.randomUUID();
   // WebKit may reject Blob/File values in IndexedDB. Store portable binary data instead.
@@ -43,7 +44,7 @@ export async function saveTransfer(images: TransferImage[], target: WorkflowTool
   await transact<void>(store => { store.put({ id, target, expires: Date.now() + TRANSFER_TTL, images: stored } satisfies Packet); });
   return id;
 }
-export async function readTransfer(id: string, target: WorkflowTool): Promise<TransferImage[] | null> {
+export async function readTransfer(id: string, target: TransferTarget): Promise<TransferImage[] | null> {
   return transact((store, done) => {
     const request = store.get(id);
     request.onsuccess = () => {

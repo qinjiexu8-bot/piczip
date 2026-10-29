@@ -6,7 +6,7 @@ import { type Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/routes";
 import { createMetadata } from "@/lib/seo/metadata";
 
-const toolPaths = ["/", "/resize-image", "/crop-image", "/convert-image", "/stitch-images", "/watermark-image"];
+const toolPaths = ["/", "/resize-image", "/crop-image", "/convert-image", "/stitch-images", "/watermark-image", "/pad-image", "/mosaic-image", "/heic-to-jpg", "/images-to-pdf", "/batch-workflow"];
 export type InfoKind = "about" | "faq";
 
 export function infoMetadata(locale: Locale, kind: InfoKind) {

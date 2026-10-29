@@ -20,7 +20,8 @@ test('sitemap languages match HTML, all alternate URLs exist, and lastmod is sta
  assert.equal(entries.find(e=>e.url===production+'/about').date,undefined);
  assert.equal(entries.find(e=>e.url===production+'/guides/compress-image-to-100kb-without-uploading').date,'2026-07-29T00:00:00.000Z');
  for(const prefix of ['', '/zh','/es','/pt-br','/ja']){
-  assert.equal(entries.find(e=>e.url===production+prefix+'/guide').date,'2026-10-23T00:00:00.000Z');
+  assert.equal(entries.find(e=>e.url===production+prefix+'/guide').date,'2026-10-29T00:00:00.000Z');
+  for(const slug of ['add-image-padding-and-expand-canvas','pixelate-and-redact-images'])assert.equal(entries.find(e=>e.url===production+prefix+'/guides/'+slug).date,'2026-10-29T00:00:00.000Z');
   for(const slug of ['crop-rotate-flip-images','batch-watermark-and-rename-images'])assert.equal(entries.find(e=>e.url===production+prefix+'/guides/'+slug).date,'2026-10-23T00:00:00.000Z');
  }
 });

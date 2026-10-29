@@ -1,0 +1,292 @@
+{
+  "en": {
+    "padding": {
+      "steps": [
+        "Choose JPG, PNG or WebP images. Select each file in the preview to inspect the batch.",
+        "Choose Borders in pixels and enter the four margins, Fixed canvas with width and height, or Aspect ratio. For canvas and ratio modes, choose the image position.",
+        "Choose a background color or transparency. PNG and WebP support transparent padding; JPG uses the selected background color. Inspect the output dimensions.",
+        "Run Add padding, check the results, then download individually or as a ZIP. Save a batch preset or send the results to another tool."
+      ],
+      "sections": [
+        [
+          "Borders, fixed canvas and ratios",
+          "Borders add exact pixels without resizing: a 200 × 100 image with left/right 20 and top/bottom 10 becomes 240 × 120. Ratio mode expands the canvas without cropping; 1:1 turns the same image into 200 × 200. Fixed canvas uses the dimensions you enter, shrinking an image only if needed to fit. Smaller images are never enlarged. Position controls the remaining space."
+        ],
+        [
+          "Batch settings and output limits",
+          "One preset stores margins, canvas settings, background and export naming in this browser; it does not store your input images. Apply the preset, then process again. Inputs accept JPG, PNG and WebP, up to 50 images, 50 MB and 40 MP each; output is limited to 8192 px per side and 16 MP. For a consistent product-image layout, use Fixed canvas; for original pixel dimensions plus a frame, use Borders."
+        ]
+      ],
+      "faqs": [
+        [
+          "Why is there still a white background after choosing transparency?",
+          "The tool adds transparent padding but does not remove the background already inside the original image. JPG exports also cannot retain transparency."
+        ],
+        [
+          "Can I keep working after adding padding?",
+          "Yes. Send completed results directly to resizing, mosaic, watermarking or compression. If you change any image settings, run the tool again before transferring. Temporary transfers expire after 10 minutes."
+        ]
+      ]
+    },
+    "mosaic": {
+      "steps": [
+        "Choose images and select a preview. Drag on the image to create a rectangle; drag a selected rectangle to move it. Add up to 20 regions.",
+        "Use Add region for keyboard editing, select a region, and enter its left/top and width/height percentages. Remove a region or clear all to start over.",
+        "Choose Pixelate and set a block size from 4 to 100 px, or choose Solid cover and an opaque color. Inspect every image using the preview selector.",
+        "Apply mosaic and inspect the exported results. Download individual files or a ZIP, save a preset, or continue to another tool. Keep the original separately."
+      ],
+      "sections": [
+        [
+          "Relative regions across a batch",
+          "Regions are percentages of each image. A rectangle at left/top 25%, width/height 50% covers the same relative area on different dimensions. This is useful for consistent screenshot layouts, but it does not track faces or text. Images with different layouts need separate batches or adjusted settings. The saved preset includes these rectangles, mode, block size, color and export settings."
+        ],
+        [
+          "Use solid cover for sensitive details",
+          "Pixelation changes visible detail but may leave words or faces recognizable. For sensitive information, choose an opaque solid cover and ensure it fully covers the content on every exported image. There is no automatic face detection. The exported cover is merged into the pixels, not saved as a removable layer. Inputs are limited to 50 MB and 40 MP per image, output to 8192 px per side and 16 MP."
+        ]
+      ],
+      "faqs": [
+        [
+          "Why is the Start button disabled?",
+          "Choose at least one image and one valid region. Block size must be 4–100 px. You can create a region by dragging or using Add region."
+        ],
+        [
+          "Can I reuse regions and rename the results?",
+          "Yes. Save a preset for repeated layouts and use the shared Export settings to name downloads, ZIP files and transferred results. The preset stays in this browser and does not sync to other devices."
+        ]
+      ]
+    }
+  },
+  "zh": {
+    "padding": {
+      "steps": [
+        "选择 JPG、PNG 或 WebP 图片，从预览列表逐张查看。",
+        "选择“四边像素”并填写各边宽度，或使用“固定画布”填写宽高，也可以按常用比例扩展画布。固定画布与比例模式可设置图片位置。",
+        "选择背景颜色或透明背景。PNG 和 WebP 可保留透明补边，JPG 使用所选背景颜色。确认预览中的输出尺寸。",
+        "开始补边，检查结果后单独下载或打包 ZIP。可保存批量预设，也可把完成的图片交给下一个工具。"
+      ],
+      "sections": [
+        [
+          "三种方式有什么区别？",
+          "四边像素直接增加边距，不改变原图尺寸。例如 200 × 100 图片左右各加 20、上下各加 10，结果为 240 × 120。比例模式只扩展画布，不裁剪，选择 1:1 会得到 200 × 200。固定画布使用输入的宽高，过大的图片会按比例缩小以完整放入，小图不会放大；图片位置决定剩余留白的分布。"
+        ],
+        [
+          "批量预设与输出限制",
+          "预设在当前浏览器保存边距、画布、背景及导出命名，不保存待处理图片。应用预设后仍需开始处理。支持一次最多 50 张 JPG、PNG、WebP，每张最多 50 MB、4000 万像素；输出单边最多 8192 像素、总计 1600 万像素。需要统一商品图尺寸时选固定画布，保留原图像素并加边框时选四边像素。"
+        ]
+      ],
+      "faqs": [
+        [
+          "选了透明背景，为什么原图还是白底？",
+          "工具只为新增留白设置透明，不会去掉原图内部已有的背景。导出 JPG 也无法保留透明区域。"
+        ],
+        [
+          "补边后可以继续做其他处理吗？",
+          "可以直接将结果传给尺寸调整、马赛克、水印或压缩工具。修改参数后请重新处理再传递。临时传递在 10 分钟后过期。"
+        ]
+      ]
+    },
+    "mosaic": {
+      "steps": [
+        "选择图片并切换预览。按住图片空白区域拖出矩形，拖动已有矩形可以移动位置，最多添加 20 个区域。",
+        "也可点击“添加区域”使用键盘编辑，选择当前区域后填写左侧、顶部、宽度和高度的百分比。可删除单个区域或清空重来。",
+        "选择像素马赛克并设置 4–100 像素的块大小，或选择实色遮挡与颜色。用预览列表逐张检查处理位置。",
+        "应用马赛克并检查导出结果，再单独下载或打包 ZIP。可保存预设或继续其他工具，原图请另行保留。"
+      ],
+      "sections": [
+        [
+          "批量处理如何定位区域？",
+          "区域按每张图片的百分比计算。例如左侧、顶部为 25%，宽高为 50%，会覆盖不同尺寸图片的同一相对位置。适合布局一致的截图，但不会跟踪人脸或文字。布局不同的图片应分批处理或重新调整设置。预设会保存这些矩形、处理方式、块大小、颜色和导出设置。"
+        ],
+        [
+          "敏感信息建议使用实色遮挡",
+          "马赛克会改变可见细节，但文字或人脸仍可能被辨认。处理敏感信息时，请选不透明实色遮挡，并逐张确认导出图片完全覆盖目标内容。工具没有自动人脸识别。导出的遮挡已合并到像素中，不是可移除图层。每张原图最多 50 MB、4000 万像素，输出单边最多 8192 像素、总计 1600 万像素。"
+        ]
+      ],
+      "faqs": [
+        [
+          "为什么开始按钮不可用？",
+          "至少选择一张图片和一个有效区域，块大小应为 4–100 像素。可拖动框选，或点击“添加区域”。"
+        ],
+        [
+          "区域可以复用并统一命名吗？",
+          "可以保存预设来重复处理相同布局，并在公共导出设置中为单张下载、ZIP 内文件和传递结果统一命名。预设仅在当前浏览器保存，不会跨设备同步。"
+        ]
+      ]
+    }
+  },
+  "es": {
+    "padding": {
+      "steps": [
+        "Selecciona imágenes JPG, PNG o WebP y revísalas con el selector de vista previa.",
+        "Elige Bordes en píxeles e indica los cuatro márgenes, Lienzo fijo con ancho y alto o Proporción. Elige la posición en los modos de lienzo o proporción.",
+        "Selecciona el color o la transparencia. PNG y WebP conservan márgenes transparentes; JPG usa el color elegido. Comprueba las dimensiones.",
+        "Añade los bordes, revisa los resultados y descárgalos por separado o en ZIP. Guarda un ajuste o continúa en otra herramienta."
+      ],
+      "sections": [
+        [
+          "Diferencias entre los modos",
+          "Los bordes añaden píxeles sin redimensionar: una imagen de 200 × 100 con 20 a izquierda/derecha y 10 arriba/abajo pasa a 240 × 120. La proporción amplía sin recortar; 1:1 produce 200 × 200. El lienzo fijo reduce imágenes grandes para que quepan, sin ampliar las pequeñas. La posición distribuye el espacio restante."
+        ],
+        [
+          "Lotes y límites",
+          "El ajuste guarda márgenes, lienzo, fondo y nombres en este navegador, sin imágenes de entrada. Aplícalo y ejecuta el proceso. Se admiten hasta 50 imágenes, 50 MB y 40 MP por archivo. La salida admite 8192 px por lado y 16 MP. Usa lienzo fijo para fotos de producto uniformes y bordes para conservar los píxeles originales."
+        ]
+      ],
+      "faqs": [
+        [
+          "¿Por qué permanece el fondo blanco?",
+          "Solo el espacio añadido puede ser transparente. No se elimina el fondo de la imagen original y JPG no admite transparencia."
+        ],
+        [
+          "¿Puedo continuar después de añadir bordes?",
+          "Sí. Envía los resultados a tamaño, pixelado, marcas de agua o compresión. Procesa de nuevo si cambias ajustes. Las transferencias caducan a los 10 minutos."
+        ]
+      ]
+    },
+    "mosaic": {
+      "steps": [
+        "Selecciona imágenes y una vista previa. Arrastra para dibujar un rectángulo o mueve uno existente. Puedes crear hasta 20 zonas.",
+        "Usa Añadir zona para editar con teclado. Indica izquierda, arriba, ancho y alto en porcentajes. Elimina una zona o bórralas todas.",
+        "Elige Pixelar con bloques de 4–100 px o Cubrir con color opaco. Revisa cada imagen con el selector de vista previa.",
+        "Aplica el pixelado e inspecciona la exportación. Descarga por separado o en ZIP, guarda un ajuste o continúa en otra herramienta. Conserva el original."
+      ],
+      "sections": [
+        [
+          "Coordenadas relativas en lote",
+          "Las zonas son porcentajes de cada imagen: izquierda/arriba 25% y ancho/alto 50% cubren la misma zona relativa a distintas resoluciones. Es útil para capturas con el mismo diseño; no sigue caras ni texto. Procesa diseños distintos en lotes separados. El ajuste guarda rectángulos, modo, bloques, color y exportación."
+        ],
+        [
+          "Ocultar datos sensibles",
+          "El pixelado puede dejar texto o caras reconocibles. Para información sensible usa una cobertura opaca y comprueba que cada exportación cubra todo el contenido. No hay detección automática de caras. La cobertura se integra en los píxeles, no es una capa editable. Entrada: 50 MB y 40 MP por imagen; salida: 8192 px por lado y 16 MP."
+        ]
+      ],
+      "faqs": [
+        [
+          "¿Por qué no puedo iniciar?",
+          "Selecciona una imagen y una zona válida. Los bloques deben medir 4–100 px. Dibuja una zona o usa Añadir zona."
+        ],
+        [
+          "¿Puedo reutilizar zonas y nombres?",
+          "Sí. Guarda un ajuste para diseños repetidos y usa la configuración común de exportación para nombres de descargas, ZIP y transferencias. Los ajustes solo se guardan en este navegador."
+        ]
+      ]
+    }
+  },
+  "pt-br": {
+    "padding": {
+      "steps": [
+        "Selecione imagens JPG, PNG ou WebP e confira cada uma na lista de prévia.",
+        "Escolha Bordas em pixels e informe as quatro margens, Tela fixa com largura e altura ou Proporção. Nos modos de tela ou proporção, escolha a posição.",
+        "Escolha a cor ou a transparência. PNG e WebP mantêm margens transparentes; JPG usa a cor escolhida. Confira as dimensões.",
+        "Adicione as bordas, revise e baixe os resultados individuais ou em ZIP. Salve uma predefinição ou continue em outra ferramenta."
+      ],
+      "sections": [
+        [
+          "Diferenças entre os modos",
+          "Bordas adicionam pixels sem redimensionar: uma imagem de 200 × 100 com 20 à esquerda/direita e 10 acima/abaixo vira 240 × 120. A proporção expande sem recortar; 1:1 gera 200 × 200. A tela fixa reduz imagens grandes para caber, sem ampliar as pequenas. A posição distribui o espaço restante."
+        ],
+        [
+          "Lotes e limites",
+          "A predefinição salva margens, tela, fundo e nomes neste navegador, sem as imagens. Aplique e execute o processamento. São aceitas até 50 imagens, 50 MB e 40 MP por arquivo. A saída aceita 8192 px por lado e 16 MP. Use tela fixa para fotos de produto uniformes e bordas para manter os pixels originais."
+        ]
+      ],
+      "faqs": [
+        [
+          "Por que o fundo branco continua?",
+          "Somente o espaço adicionado pode ser transparente. O fundo da imagem original não é removido, e JPG não aceita transparência."
+        ],
+        [
+          "Posso continuar depois de adicionar bordas?",
+          "Sim. Envie os resultados para tamanho, pixelização, marca-d’água ou compressão. Processe novamente se mudar os ajustes. As transferências expiram em 10 minutos."
+        ]
+      ]
+    },
+    "mosaic": {
+      "steps": [
+        "Escolha imagens e uma prévia. Arraste para desenhar um retângulo ou mover um existente. Você pode criar até 20 áreas.",
+        "Use Adicionar área para editar pelo teclado. Informe esquerda, topo, largura e altura em porcentagens. Remova uma área ou limpe todas.",
+        "Escolha Pixelar com blocos de 4–100 px ou Cobertura sólida com cor opaca. Confira cada imagem na prévia.",
+        "Aplique e confira a exportação. Baixe arquivos individuais ou ZIP, salve uma predefinição ou continue em outra ferramenta. Guarde o original."
+      ],
+      "sections": [
+        [
+          "Coordenadas relativas em lote",
+          "As áreas são porcentagens de cada imagem: esquerda/topo de 25% e largura/altura de 50% cobrem a mesma posição relativa em resoluções diferentes. Isso serve para capturas com o mesmo layout; não acompanha rostos nem texto. Processe layouts diferentes em lotes separados. A predefinição salva retângulos, modo, blocos, cor e exportação."
+        ],
+        [
+          "Ocultar dados sensíveis",
+          "A pixelização pode deixar textos ou rostos reconhecíveis. Para dados sensíveis use cobertura opaca e confira se cada exportação cobre todo o conteúdo. Não há detecção automática de rostos. A cobertura é mesclada aos pixels, sem camada editável. Entrada: 50 MB e 40 MP por imagem; saída: 8192 px por lado e 16 MP."
+        ]
+      ],
+      "faqs": [
+        [
+          "Por que não consigo iniciar?",
+          "Selecione uma imagem e uma área válida. Os blocos devem ter 4–100 px. Desenhe uma área ou use Adicionar área."
+        ],
+        [
+          "Posso reutilizar áreas e nomes?",
+          "Sim. Salve uma predefinição para layouts repetidos e use as configurações comuns de exportação para nomes de downloads, ZIP e transferências. As predefinições ficam apenas neste navegador."
+        ]
+      ]
+    }
+  },
+  "ja": {
+    "padding": {
+      "steps": [
+        "JPG・PNG・WebPを選び、プレビュー一覧から各画像を確認します。",
+        "ピクセル指定で四辺の余白を入力するか、固定キャンバスの幅・高さ、または縦横比を選びます。キャンバス・比率モードでは画像の位置を指定できます。",
+        "背景色または透過を選びます。PNG・WebPは透明な余白を保持でき、JPGでは選んだ色を使います。出力寸法を確認してください。",
+        "余白を追加し、結果を確認して個別またはZIPで保存します。プリセット保存や次のツールへの受け渡しもできます。"
+      ],
+      "sections": [
+        [
+          "方式の違い",
+          "余白指定は元画像を変更せずにピクセルを加えます。200 × 100の画像に左右20、上下10を加えると240 × 120です。比率モードは切り抜かずに拡張し、1:1なら200 × 200になります。固定キャンバスは大きい画像だけ縮小して収め、小さい画像は拡大しません。位置で余白の分布を調整できます。"
+        ],
+        [
+          "一括設定と制限",
+          "余白・キャンバス・背景・ファイル名をこのブラウザーのプリセットに保存します。入力画像は含まれず、適用後に処理を開始します。最大50枚、各50 MB・4000万画素、出力は一辺8192 px・1600万画素です。商品画像の寸法統一には固定キャンバス、元の画素を保つには余白指定を使います。"
+        ]
+      ],
+      "faqs": [
+        [
+          "透過を選んだのに白い背景が残るのは？",
+          "追加した余白だけを透過にします。元画像の背景は削除しません。また、JPGでは透過を保持できません。"
+        ],
+        [
+          "余白追加後も続けて処理できますか？",
+          "はい。サイズ変更、モザイク、透かし、圧縮へ渡せます。設定を変えたら再処理してください。一時的な転送は10分で期限切れになります。"
+        ]
+      ]
+    },
+    "mosaic": {
+      "steps": [
+        "画像とプレビューを選び、ドラッグして矩形を描くか、既存の矩形を移動します。最大20領域を作成できます。",
+        "「領域を追加」でキーボード操作もできます。左・上・幅・高さを割合で指定し、不要な領域を削除します。",
+        "4〜100 pxのモザイク、または不透明な単色の塗りつぶしを選びます。プレビュー一覧で各画像を確認してください。",
+        "処理して出力を確認し、個別またはZIPで保存します。プリセットや次のツールも利用できます。元画像は別に保管してください。"
+      ],
+      "sections": [
+        [
+          "一括処理の相対座標",
+          "領域は画像に対する割合です。左・上25%、幅・高さ50%なら、解像度が違っても同じ相対位置を覆います。同じ配置のスクリーンショットに便利ですが、顔や文字の位置は追跡しません。配置が異なる画像は分けて処理してください。矩形、方式、ブロックサイズ、色、出力設定をプリセットに保存できます。"
+        ],
+        [
+          "機密情報を隠すとき",
+          "モザイクでは文字や顔が判別できる場合があります。機密情報には不透明な塗りつぶしを使い、すべての出力で完全に覆われているか確認してください。顔の自動検出はありません。塗りつぶしは画素に統合され、編集可能なレイヤーにはなりません。入力は各50 MB・4000万画素、出力は一辺8192 px・1600万画素です。"
+        ]
+      ],
+      "faqs": [
+        [
+          "開始できないのはなぜ？",
+          "画像と有効な領域を1つ以上選んでください。ブロックサイズは4〜100 pxです。ドラッグまたは「領域を追加」で領域を作れます。"
+        ],
+        [
+          "領域や名前を再利用できますか？",
+          "はい。同じ配置にはプリセットを使い、共通の出力設定で個別保存・ZIP・転送の名前を指定できます。プリセットは現在のブラウザーだけに保存されます。"
+        ]
+      ]
+    }
+  }
+}

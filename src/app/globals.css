@@ -292,7 +292,7 @@ main [id] { scroll-margin-top: calc(var(--site-header-height) + 16px); }
 .tool-settings fieldset { min-width: 0; }
 .tool-settings fieldset:disabled { opacity: .65; }
 .tool-field { display: flex; flex-direction: column; gap: 8px; margin: 0 0 17px; font-size: 12px; color: #456052; }
-.tool-field select, .tool-field input[type=number] { width: 100%; min-width: 0; padding: 10px 11px; height: 41px; border: 1px solid #dce4dc; border-radius: 7px; background: #fff; color: #24473b; }
+.tool-field select, .tool-field input[type=number], .feature-card .tool-field input[type=text] { width: 100%; min-width: 0; padding: 10px 11px; height: 41px; border: 1px solid #dce4dc; border-radius: 7px; background: #fff; color: #24473b; }
 .tool-field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .tool-checkbox { display: flex; align-items: center; gap: 9px; font-size: 12px; color: #456052; }
 .tool-checkbox input { accent-color: #087f6b; width: 16px; height: 16px; }
@@ -484,3 +484,56 @@ html[lang="ja"] { --font-sans: var(--font-noto-sans), "Hiragino Sans", "Hiragino
 .export-settings .tool-checkbox input[type=checkbox] { width: 16px; height: 16px; min-height: 16px; padding: 0; flex: 0 0 16px; }
 .export-settings > summary::after { content: "⌄"; margin-left: auto; }
 .export-settings[open] > summary::after { transform: rotate(180deg); }
+
+/* Border/canvas preview and manual redaction use the shared tool workspace. */
+.canvas-tool-controls { display: grid; gap: 12px; margin-top: 14px; }
+.canvas-tool-controls .tool-field, .canvas-tool-controls .field-hint { margin-bottom: 0; }
+.canvas-tool-preview { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); min-width: 0; }
+.canvas-preview-stage { display: grid; place-items: center; min-height: 140px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: repeating-conic-gradient(#e9eee7 0% 25%, #f9faf7 0% 50%) 0 0 / 16px 16px; }
+.canvas-preview-stage canvas { display: block; max-width: 100%; height: auto; box-shadow: 0 2px 8px #173c3614; }
+.mosaic-stage { position: relative; max-width: 100%; margin: 14px auto; touch-action: none; user-select: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; background: repeating-conic-gradient(#e9eee7 0% 25%, #f9faf7 0% 50%) 0 0 / 16px 16px; }
+.mosaic-stage canvas { display: block; width: 100%; height: 100%; }
+.mosaic-region { position: absolute; border: 1px dashed white; box-shadow: 0 0 0 1px #173c3670; cursor: move; }
+.mosaic-region.is-selected { border: 2px solid #12a58a; }
+.mosaic-region > span { position: absolute; left: 0; top: 0; padding: 1px 5px; color: white; background: #087f6b; font-size: 10px; pointer-events: none; }
+.mosaic-region-settings { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.mosaic-region-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+.mosaic-safety-note { margin-top: 4px; padding: 12px; border-radius: 8px; background: #f3f6ed; font-size: 11px; line-height: 1.8; color: #52695b; }
+@media (max-width: 639px) { .canvas-preview-stage { padding: 8px; } }
+
+/* Import, document export and reusable workflows share the tool workspace. */
+.feature-card { padding: 28px; border: 1px solid var(--line); border-radius: 24px; background: #fff; }
+.feature-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; }
+.feature-grid > * { min-width: 0; }
+.feature-settings { border-left: 1px solid var(--line); padding-left: 28px; }
+.feature-settings .tool-field, .feature-grid > div > .tool-field { margin: 18px 0; }
+.feature-dropzone { min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: 100%; margin: 20px 0; }
+.feature-dropzone span { font-weight: 600; font-size: 18px; }
+.feature-dropzone small { color: var(--muted); font-size: 13px; }
+.feature-file-list { list-style: none; padding: 0; margin: 18px 0; display: grid; gap: 10px; }
+.feature-file-list li { display: flex; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 12px; padding: 12px; min-width: 0; }
+.feature-file-list li > span:not(.feature-file-icon) { flex: 1; min-width: 0; }
+.feature-file-list strong { display: block; font-size: 14px; overflow-wrap: anywhere; }
+.feature-file-list small { color: var(--muted); font-size: 12px; }
+.feature-file-list img { border-radius: 7px; width: 44px; height: 44px; object-fit: cover; }
+.feature-file-list li > div { display: flex; flex-shrink: 0; gap: 2px; }
+.feature-file-list button { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 34px; border-radius: 7px; }
+.feature-file-list button:hover:not(:disabled) { background: #e9f3ec; }
+.feature-file-list button:disabled { opacity: .35; }
+.feature-file-icon { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: #edf4eb; color: #07816e; font-size: 13px; flex-shrink: 0; }
+.feature-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+.feature-download { margin: 16px 0; }
+.feature-results { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); }
+.feature-related { display: flex; flex-wrap: wrap; gap: 16px 24px; margin: 28px 0; padding: 22px; background: #edf4eb; border: 1px solid var(--line); border-radius: 16px; font-size: 14px; }
+.feature-related a { color: #07816e; font-weight: 500; }
+.feature-card .workflow-error { white-space: pre-line; overflow-wrap: anywhere; }
+@media (max-width: 767px) {
+  .feature-card { padding: 20px; border-radius: 20px; }
+  .feature-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .feature-settings { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 24px; }
+  .feature-file-list li { padding: 10px; gap: 8px; }
+  .feature-file-list li > div { flex-direction: column; }
+}
+
+.feature-license { margin: 16px 0 0; font-size: 12px; color: var(--muted); }
+.feature-license a:hover { text-decoration: underline; }

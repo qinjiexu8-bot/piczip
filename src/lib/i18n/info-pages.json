@@ -1,7 +1,7 @@
 {
   "en": {
     "aboutTitle": "About PicZip",
-    "aboutDescription": "Six image tools for everyday work: compress, resize, crop, convert, stitch and watermark, with continuous processing and reusable batch presets.",
+    "aboutDescription": "Image tools for compression, resizing, cropping, formats, layouts, watermarks, HEIC, PDF and automatic workflows.",
     "faqTitle": "Image tools FAQ",
     "faqDescription": "Help with image tools, continuous processing, batch presets, export naming and downloads.",
     "toolsTitle": "Choose a tool",
@@ -11,16 +11,21 @@
       "Crop, rotate and flip",
       "Convert image formats",
       "Stitch images",
-      "Batch watermark"
+      "Batch watermark",
+      "Add padding / expand canvas",
+      "Pixelate / cover image areas",
+      "HEIC to JPG",
+      "Images to PDF",
+      "Automatic workflows"
     ],
     "aboutSections": [
       [
         "What you can do",
-        "Compress JPG, PNG and WebP with a target file size; resize by pixels or percentage; crop, rotate and flip; convert formats; join images horizontally or vertically; and add text or logo watermarks. Choose the tool that matches the next step in your work."
+        "Compress JPG, PNG and WebP with a target file size; resize by pixels or percentage; crop, rotate and flip; convert formats; join images horizontally or vertically; and add text or logo watermarks. Choose the tool that matches the next step in your work. Add borders or expand the canvas without cropping, and pixelate or cover selected areas. HEIC conversion, image-to-PDF export and saved automatic workflows are also available."
       ],
       [
         "Keep working with your results",
-        "Use Continue processing to send completed results to another tool without downloading and selecting them again. For example, crop a product photo, resize it, add a watermark and then compress it. Review settings and start processing at every step; this is not an unattended multi-step pipeline."
+        "Continue processing lets you send results to another tool and start each step yourself. For repeated work, combine saved batch presets into an automatic workflow that runs 2–6 steps in order."
       ],
       [
         "Reuse your batch settings",
@@ -41,11 +46,11 @@
     "extraFaqs": [
       [
         "Which tools are available?",
-        "PicZip offers compression, resizing, JPG/PNG/WebP conversion, horizontal or vertical stitching, cropping with rotation and flipping, and text or logo watermarks. Use the links below to open a tool or its guide."
+        "PicZip offers compression, resizing, JPG/PNG/WebP conversion, horizontal or vertical stitching, cropping with rotation and flipping, and text or logo watermarks. Use the links below to open a tool or its guide. Add borders or expand the canvas without cropping, and pixelate or cover selected areas. HEIC conversion, image-to-PDF export and saved automatic workflows are also available."
       ],
       [
         "How do I continue in another tool?",
-        "Finish the current operation, then choose a destination under Continue processing. Completed results are passed to that tool without a download. Review its settings and start processing. If you change settings or images, process them again before continuing. Temporary transfers expire after 10 minutes and are cleared when received."
+        "Finish the current operation, then choose a destination under Continue processing. Completed results are passed to that tool without a download. Review its settings and start processing. If you change settings or images, process them again before continuing. Temporary transfers expire after 10 minutes and are cleared when received. Continue processing lets you send results to another tool and start each step yourself. For repeated work, combine saved batch presets into an automatic workflow that runs 2–6 steps in order."
       ],
       [
         "What is saved in a batch preset?",
@@ -67,7 +72,7 @@
   },
   "zh": {
     "aboutTitle": "关于 PicZip",
-    "aboutDescription": "压缩、调整尺寸、裁剪、格式转换、拼接与水印，配合连续处理和批量预设，完成日常图片工作。",
+    "aboutDescription": "提供压缩、尺寸调整、裁剪、格式转换、拼接、水印、补边、马赛克、HEIC 转换、图片转 PDF 和自动处理流程。",
     "faqTitle": "图片工具常见问题",
     "faqDescription": "了解图片工具、连续处理、批量预设、导出重命名和下载的使用方法。",
     "toolsTitle": "选择图片工具",
@@ -77,16 +82,21 @@
       "裁剪、旋转与翻转",
       "格式转换",
       "图片拼接",
-      "批量水印"
+      "批量水印",
+      "图片补边与画布扩展",
+      "马赛克与区域遮挡",
+      "HEIC 转 JPG",
+      "图片转 PDF",
+      "自动处理流程"
     ],
     "aboutSections": [
       [
         "现在可以做什么",
-        "为 JPG、PNG 和 WebP 设置目标大小并压缩；按像素或比例调整尺寸；裁剪、旋转与翻转；转换格式；横向或纵向拼接；添加文字或 Logo 水印。根据当前任务选择工具即可。"
+        "为 JPG、PNG 和 WebP 设置目标大小并压缩；按像素或比例调整尺寸；裁剪、旋转与翻转；转换格式；横向或纵向拼接；添加文字或 Logo 水印。根据当前任务选择工具即可。 为图片补边或扩展画布，手动选择区域添加马赛克或实色遮挡。 还支持 HEIC 照片转换、图片转 PDF，以及保存并自动执行处理流程。"
       ],
       [
         "用处理结果继续下一步",
-        "完成操作后，使用“继续处理”将结果送到下一个工具，无需先下载再选择图片。例如先裁剪商品图，再调整尺寸、添加水印，最后压缩。每一步都需要确认设置并开始处理，不会自动执行整套流程。"
+        "“继续处理”可将结果交给其他工具，由你逐步确认并开始。重复任务则可以把批量预设组合为自动流程，一次按顺序执行 2–6 步。"
       ],
       [
         "重复任务使用批量预设",
@@ -107,11 +117,11 @@
     "extraFaqs": [
       [
         "目前有哪些图片工具？",
-        "支持图片压缩、尺寸调整、JPG/PNG/WebP 格式转换、横向或纵向拼接、裁剪及旋转翻转，以及文字或 Logo 水印。可通过下方链接进入工具或查看指南。"
+        "支持图片压缩、尺寸调整、JPG/PNG/WebP 格式转换、横向或纵向拼接、裁剪及旋转翻转，以及文字或 Logo 水印。可通过下方链接进入工具或查看指南。 为图片补边或扩展画布，手动选择区域添加马赛克或实色遮挡。 还支持 HEIC 照片转换、图片转 PDF，以及保存并自动执行处理流程。"
       ],
       [
         "如何在工具之间连续处理？",
-        "完成当前操作后，在“继续处理”中选择目标工具，即可直接传递已完成的结果，无需下载。进入下一步后确认设置并开始处理。如果修改了图片或参数，请先重新处理。临时传递在 10 分钟后过期，接收后即清理。"
+        "完成当前操作后，在“继续处理”中选择目标工具，即可直接传递已完成的结果，无需下载。进入下一步后确认设置并开始处理。如果修改了图片或参数，请先重新处理。临时传递在 10 分钟后过期，接收后即清理。 “继续处理”可将结果交给其他工具，由你逐步确认并开始。重复任务则可以把批量预设组合为自动流程，一次按顺序执行 2–6 步。"
       ],
       [
         "批量预设会保存什么？",
@@ -133,7 +143,7 @@
   },
   "es": {
     "aboutTitle": "Acerca de PicZip",
-    "aboutDescription": "Comprime, redimensiona, recorta, convierte, une y añade marcas de agua a tus imágenes, con edición entre herramientas y ajustes por lotes reutilizables.",
+    "aboutDescription": "Herramientas para comprimir, redimensionar, recortar, convertir, unir, añadir marcas, HEIC, PDF y flujos automáticos.",
     "faqTitle": "Preguntas sobre las herramientas de imagen",
     "faqDescription": "Ayuda sobre herramientas, edición entre pasos, ajustes por lotes, nombres de exportación y descargas.",
     "toolsTitle": "Elige una herramienta",
@@ -143,16 +153,21 @@
       "Recortar, girar y voltear",
       "Convertir formatos",
       "Unir imágenes",
-      "Marcas de agua por lotes"
+      "Marcas de agua por lotes",
+      "Añadir bordes y ampliar lienzo",
+      "Pixelar y cubrir zonas",
+      "HEIC a JPG",
+      "Imágenes a PDF",
+      "Flujos automáticos"
     ],
     "aboutSections": [
       [
         "Qué puedes hacer",
-        "Comprime JPG, PNG y WebP con un tamaño de archivo objetivo; redimensiona por píxeles o porcentaje; recorta, gira y voltea; convierte formatos; une imágenes horizontal o verticalmente; y añade texto o un logotipo como marca de agua. Elige la herramienta que necesites para cada paso."
+        "Comprime JPG, PNG y WebP con un tamaño de archivo objetivo; redimensiona por píxeles o porcentaje; recorta, gira y voltea; convierte formatos; une imágenes horizontal o verticalmente; y añade texto o un logotipo como marca de agua. Elige la herramienta que necesites para cada paso. Añade bordes o amplía el lienzo sin recortar; pixela o cubre las zonas que selecciones. También puedes convertir HEIC, crear PDF y guardar flujos automáticos."
       ],
       [
         "Continúa con tus resultados",
-        "Usa Seguir editando para enviar los resultados terminados a otra herramienta sin descargarlos y volver a seleccionarlos. Por ejemplo, recorta una foto de producto, redimensiónala, añade una marca de agua y comprímela. Revisa los ajustes e inicia cada paso: no se ejecuta toda la secuencia automáticamente."
+        "Seguir editando envía resultados a otra herramienta para iniciar cada paso manualmente. Para tareas repetidas, combina ajustes por lotes en un flujo automático de 2–6 pasos."
       ],
       [
         "Reutiliza ajustes por lotes",
@@ -173,11 +188,11 @@
     "extraFaqs": [
       [
         "¿Qué herramientas están disponibles?",
-        "Puedes comprimir, redimensionar, convertir JPG/PNG/WebP, unir horizontal o verticalmente, recortar, girar, voltear y añadir marcas de agua de texto o logotipo. Abre una herramienta o su guía con los enlaces de abajo."
+        "Puedes comprimir, redimensionar, convertir JPG/PNG/WebP, unir horizontal o verticalmente, recortar, girar, voltear y añadir marcas de agua de texto o logotipo. Abre una herramienta o su guía con los enlaces de abajo. Añade bordes o amplía el lienzo sin recortar; pixela o cubre las zonas que selecciones. También puedes convertir HEIC, crear PDF y guardar flujos automáticos."
       ],
       [
         "¿Cómo continúo en otra herramienta?",
-        "Termina la operación y elige un destino en Seguir editando. Los resultados terminados se transfieren sin descargarlos. Revisa los ajustes de la siguiente herramienta e inicia el proceso. Si cambias imágenes o parámetros, vuelve a procesar antes de continuar. Las transferencias temporales caducan a los 10 minutos y se eliminan al recibirlas."
+        "Termina la operación y elige un destino en Seguir editando. Los resultados terminados se transfieren sin descargarlos. Revisa los ajustes de la siguiente herramienta e inicia el proceso. Si cambias imágenes o parámetros, vuelve a procesar antes de continuar. Las transferencias temporales caducan a los 10 minutos y se eliminan al recibirlas. Seguir editando envía resultados a otra herramienta para iniciar cada paso manualmente. Para tareas repetidas, combina ajustes por lotes en un flujo automático de 2–6 pasos."
       ],
       [
         "¿Qué se guarda en un ajuste por lotes?",
@@ -199,7 +214,7 @@
   },
   "pt-br": {
     "aboutTitle": "Sobre o PicZip",
-    "aboutDescription": "Comprima, redimensione, recorte, converta, junte e adicione marcas-d’água às imagens, com edição entre ferramentas e predefinições em lote reutilizáveis.",
+    "aboutDescription": "Ferramentas para comprimir, redimensionar, recortar, converter, juntar, marcar, trabalhar com HEIC, PDF e fluxos automáticos.",
     "faqTitle": "Perguntas sobre as ferramentas de imagem",
     "faqDescription": "Ajuda sobre ferramentas, edição contínua, predefinições em lote, nomes de exportação e downloads.",
     "toolsTitle": "Escolha uma ferramenta",
@@ -209,16 +224,21 @@
       "Recortar, girar e espelhar",
       "Converter formatos",
       "Juntar imagens",
-      "Marca-d’água em lote"
+      "Marca-d’água em lote",
+      "Adicionar bordas e ampliar tela",
+      "Pixelizar e cobrir áreas",
+      "HEIC para JPG",
+      "Imagens para PDF",
+      "Fluxos automáticos"
     ],
     "aboutSections": [
       [
         "O que você pode fazer",
-        "Comprima JPG, PNG e WebP com um tamanho de arquivo desejado; redimensione por pixels ou porcentagem; recorte, gire e espelhe; converta formatos; junte imagens na horizontal ou vertical; e adicione texto ou um logotipo como marca-d’água. Escolha a ferramenta adequada para cada etapa."
+        "Comprima JPG, PNG e WebP com um tamanho de arquivo desejado; redimensione por pixels ou porcentagem; recorte, gire e espelhe; converta formatos; junte imagens na horizontal ou vertical; e adicione texto ou um logotipo como marca-d’água. Escolha a ferramenta adequada para cada etapa. Adicione bordas ou amplie a tela sem cortar; pixelize ou cubra as áreas selecionadas. Também é possível converter HEIC, criar PDF e salvar fluxos automáticos."
       ],
       [
         "Continue com os resultados",
-        "Use Continuar edição para enviar os resultados concluídos a outra ferramenta sem baixar e selecionar tudo novamente. Por exemplo, recorte uma foto de produto, redimensione, adicione uma marca-d’água e comprima. Confira os ajustes e inicie cada etapa; a sequência inteira não é executada automaticamente."
+        "Continuar edição envia resultados para outra ferramenta e você inicia cada etapa. Para tarefas repetidas, combine predefinições em um fluxo automático de 2–6 etapas."
       ],
       [
         "Reutilize predefinições em lote",
@@ -239,11 +259,11 @@
     "extraFaqs": [
       [
         "Quais ferramentas estão disponíveis?",
-        "Você pode comprimir, redimensionar, converter JPG/PNG/WebP, juntar na horizontal ou vertical, recortar, girar, espelhar e adicionar marcas-d’água de texto ou logotipo. Use os links abaixo para abrir uma ferramenta ou seu guia."
+        "Você pode comprimir, redimensionar, converter JPG/PNG/WebP, juntar na horizontal ou vertical, recortar, girar, espelhar e adicionar marcas-d’água de texto ou logotipo. Use os links abaixo para abrir uma ferramenta ou seu guia. Adicione bordas ou amplie a tela sem cortar; pixelize ou cubra as áreas selecionadas. Também é possível converter HEIC, criar PDF e salvar fluxos automáticos."
       ],
       [
         "Como continuo em outra ferramenta?",
-        "Conclua a operação e escolha um destino em Continuar edição. Os resultados prontos são transferidos sem download. Confira os ajustes da próxima ferramenta e inicie o processamento. Se mudar as imagens ou os parâmetros, processe novamente antes de continuar. As transferências temporárias expiram em 10 minutos e são removidas ao serem recebidas."
+        "Conclua a operação e escolha um destino em Continuar edição. Os resultados prontos são transferidos sem download. Confira os ajustes da próxima ferramenta e inicie o processamento. Se mudar as imagens ou os parâmetros, processe novamente antes de continuar. As transferências temporárias expiram em 10 minutos e são removidas ao serem recebidas. Continuar edição envia resultados para outra ferramenta e você inicia cada etapa. Para tarefas repetidas, combine predefinições em um fluxo automático de 2–6 etapas."
       ],
       [
         "O que uma predefinição em lote salva?",
@@ -265,7 +285,7 @@
   },
   "ja": {
     "aboutTitle": "PicZip について",
-    "aboutDescription": "圧縮、サイズ変更、切り抜き、形式変換、結合、透かし。ツール間の連続処理と一括処理プリセットで、日々の画像作業を進められます。",
+    "aboutDescription": "圧縮、サイズ変更、切り抜き、形式変換、結合、透かし、余白、モザイク、HEIC、PDF、自動ワークフローに対応する画像ツール。",
     "faqTitle": "画像ツールのよくある質問",
     "faqDescription": "画像ツール、連続処理、一括処理プリセット、出力ファイル名、ダウンロードについてのご案内です。",
     "toolsTitle": "ツールを選ぶ",
@@ -275,16 +295,21 @@
       "切り抜き・回転・反転",
       "形式変換",
       "画像結合",
-      "透かしの一括追加"
+      "透かしの一括追加",
+      "余白追加・キャンバス拡張",
+      "モザイク・領域の塗りつぶし",
+      "HEICをJPGに",
+      "画像をPDFに",
+      "自動ワークフロー"
     ],
     "aboutSections": [
       [
         "できること",
-        "JPG・PNG・WebPを目標ファイルサイズに合わせて圧縮し、ピクセル数や割合でサイズを変更できます。切り抜き・回転・反転、形式変換、横方向や縦方向の結合、文字やロゴの透かしにも対応しています。作業に合わせてツールを選んでください。"
+        "JPG・PNG・WebPを目標ファイルサイズに合わせて圧縮し、ピクセル数や割合でサイズを変更できます。切り抜き・回転・反転、形式変換、横方向や縦方向の結合、文字やロゴの透かしにも対応しています。作業に合わせてツールを選んでください。 画像に余白を追加してキャンバスを拡張し、選択した領域にモザイクや塗りつぶしを適用できます。 HEIC変換、画像からPDFの作成、保存できる自動ワークフローにも対応しています。"
       ],
       [
         "結果を次のツールへ",
-        "処理が終わったら「続けて処理」で次のツールへ送れます。ダウンロードして選び直す必要はありません。例えば商品写真を切り抜き、サイズを変更し、透かしを入れてから圧縮できます。各段階で設定を確認して処理を開始してください。一連の操作が自動実行されるわけではありません。"
+        "「続けて処理」では結果を次のツールへ送り、各段階を自分で開始します。繰り返す作業は一括プリセットを組み合わせて、2～6ステップの自動フローにできます。"
       ],
       [
         "一括処理の設定を再利用",
@@ -305,11 +330,11 @@
     "extraFaqs": [
       [
         "どのようなツールがありますか？",
-        "圧縮、サイズ変更、JPG・PNG・WebPの形式変換、横・縦方向の結合、切り抜き・回転・反転、文字やロゴの透かしに対応しています。下のリンクからツールやガイドを開けます。"
+        "圧縮、サイズ変更、JPG・PNG・WebPの形式変換、横・縦方向の結合、切り抜き・回転・反転、文字やロゴの透かしに対応しています。下のリンクからツールやガイドを開けます。 画像に余白を追加してキャンバスを拡張し、選択した領域にモザイクや塗りつぶしを適用できます。 HEIC変換、画像からPDFの作成、保存できる自動ワークフローにも対応しています。"
       ],
       [
         "別のツールで続けるには？",
-        "処理を完了してから「続けて処理」で送り先を選びます。結果をダウンロードせずに渡せます。次のツールで設定を確認し、処理を開始してください。画像や設定を変更した場合は、再処理してから続けてください。一時的な転送データは10分で期限切れとなり、受信後に削除されます。"
+        "処理を完了してから「続けて処理」で送り先を選びます。結果をダウンロードせずに渡せます。次のツールで設定を確認し、処理を開始してください。画像や設定を変更した場合は、再処理してから続けてください。一時的な転送データは10分で期限切れとなり、受信後に削除されます。 「続けて処理」では結果を次のツールへ送り、各段階を自分で開始します。繰り返す作業は一括プリセットを組み合わせて、2～6ステップの自動フローにできます。"
       ],
       [
         "一括処理プリセットには何が保存されますか？",

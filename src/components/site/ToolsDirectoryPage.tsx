@@ -25,7 +25,7 @@ export function ToolsDirectoryPage({ locale }: { locale: Locale }) {
       <section className="directory-intro">
         <div className="directory-eyebrow"><Grid2X2 size={15} aria-hidden="true" />{t.all}</div>
         <h1>{t.title}</h1><p>{t.description}</p>
-        <span className="directory-count">{t.count}</span>
+        <span className="directory-count">{t.count.replace("{count}", String(tools.length))}</span>
       </section>
       <div className="directory-grid">
         {tools.map(tool => <article key={tool.id} className="directory-card" data-tool-category={tool.group}>

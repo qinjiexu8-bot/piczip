@@ -1,0 +1,177 @@
+{
+  "en": {
+    "heic": {
+      "description": "Convert iPhone HEIC photos to JPG or PNG, check orientation, choose quality and send the results to the next image tool.",
+      "steps": [
+        "Open HEIC to JPG and choose your .heic or .heif files. Files are processed one at a time to limit memory use.",
+        "Choose JPG for smaller, widely supported photo files, or PNG when you want lossless encoding of the decoded pixels. JPG quality changes file size and detail.",
+        "Start conversion. Check the preview, dimensions and orientation before downloading. You can cancel; completed images remain available.",
+        "Download images individually or as a ZIP. Continue processing can send them to cropping, resizing, compression, an automatic workflow or PDF export."
+      ],
+      "section": "What is preserved?",
+      "body": "The converter follows the photo’s container rotation and mirror properties. It exports a flattened still image rather than the full camera container. PNG output does not recover detail already lost in the original HEIC compression. If the source cannot be decoded, it is reported separately and the remaining photos continue."
+    },
+    "pdf": {
+      "description": "Create an ordered PDF from pictures with A4, Letter or image-sized pages, adjustable margins and a chosen file name.",
+      "steps": [
+        "Open Images to PDF and choose JPG, PNG or WebP files, or send completed results from another tool.",
+        "Use the up and down arrows to arrange page order. Each image becomes one page; remove unwanted files before exporting.",
+        "Choose A4, US Letter or Fit each image. For fixed paper, choose portrait or landscape. Set a margin from 0 to 50 mm and a file name.",
+        "Create the PDF, download it and review the page order and margins. If an image fails, replace it and create the PDF again."
+      ],
+      "section": "Paper size and image quality",
+      "body": "Images are centered and fitted proportionally, so the complete image stays visible. Image-sized pages use 96 pixels per inch and can have different sizes within one document. Fixed paper sizes keep every page consistent. This creates an image PDF rather than editable text; use the crop tool first to remove unwanted borders."
+    },
+    "flow": {
+      "description": "Combine image-tool presets into a saved workflow, run multiple steps automatically, and handle cancellation or failed steps.",
+      "steps": [
+        "Configure each operation in its own tool and save a batch preset. For example, save crop, resize, watermark and compression settings.",
+        "Open Automatic workflows. Select a saved preset and add it as a step. Add 2–6 steps and use the arrows to put them in the required order.",
+        "Name and save the workflow. It stores copies of the settings, so later changes to the source presets do not silently alter the saved workflow.",
+        "Choose images and run. Each step receives the previous step’s results. Download the final files or send them to another tool."
+      ],
+      "section": "Order, limits and recovery",
+      "body": "Cropping or adding a watermark before compression usually avoids unnecessary repeated lossy exports; use PNG in intermediate presets when preserving pixels matters. A workflow can contain one stitching step, which combines the batch into one image for the following steps. Cancelling or a failed step stops the workflow and keeps the last completed step’s results. Review results before reusing a workflow on images with different compositions."
+    }
+  },
+  "zh": {
+    "heic": {
+      "description": "将 iPhone 的 HEIC 照片转换成 JPG 或 PNG，检查照片方向和画质，并继续进行裁剪、压缩或 PDF 导出。",
+      "steps": [
+        "打开 HEIC 转 JPG，选择 .heic 或 .heif 文件。照片依次处理，以控制内存占用。",
+        "选择通用且体积较小的 JPG，或选择对解码后像素无损编码的 PNG。JPG 画质会影响文件大小和细节。",
+        "开始转换后检查预览、尺寸和方向。可以中途取消，已完成的照片仍可下载。",
+        "单张下载或打包为 ZIP，也可以通过“继续处理”送到裁剪、尺寸调整、压缩、自动流程或 PDF 工具。"
+      ],
+      "section": "会保留哪些内容？",
+      "body": "转换会应用照片容器中的旋转和镜像方向，导出平面的静态图片，不保留完整相机容器。PNG 无法恢复 HEIC 原始压缩中已经丢失的细节。无法解码的照片会单独提示，其余照片继续转换。"
+    },
+    "pdf": {
+      "description": "按指定顺序将图片合成为 PDF，设置 A4、Letter 或自适应页面、边距和导出文件名。",
+      "steps": [
+        "打开图片转 PDF，选择 JPG、PNG 或 WebP 图片，也可以接收其他工具已完成的结果。",
+        "使用上移、下移按钮调整页序；一张图片占一页，导出前移除不需要的文件。",
+        "选择 A4、Letter 或适应每张图片。固定纸张可设置横向或竖向，边距为 0–50 毫米，并填写文件名。",
+        "生成并下载 PDF，检查页序和边距。如果某张图片无法读取，请更换文件后重新生成。"
+      ],
+      "section": "纸张大小与画质",
+      "body": "图片居中并按比例放入页面，完整内容不会被裁剪。自适应页面按每英寸 96 像素计算尺寸，同一文档可包含不同大小的页面；固定纸张则保持一致。本工具生成图片型 PDF，不会把图片中的文字变成可编辑文本。需要去掉原图边框时，可以先使用裁剪工具。"
+    },
+    "flow": {
+      "description": "把各图片工具的批量预设组合为自动流程，保存步骤顺序，一键执行并处理取消或失败的情况。",
+      "steps": [
+        "在各图片工具中配置参数并保存批量预设，例如裁剪、尺寸调整、水印和压缩。",
+        "打开自动处理流程，选择预设并添加步骤。一个流程包含 2–6 步，可用上下箭头调整顺序。",
+        "填写名称并保存流程。流程保存的是参数副本，之后修改或删除原预设不会悄悄改变已保存流程。",
+        "选择图片并运行，下一步自动接收上一步的结果。完成后下载文件，或继续交给其他工具处理。"
+      ],
+      "section": "步骤顺序、限制与恢复",
+      "body": "通常先裁剪、加水印，再压缩；在需要保留像素的中间步骤选择 PNG，避免重复有损编码。一个流程最多包含一个拼接步骤，将整批图片变成一张后，可继续执行其他单图操作。取消或某一步失败后，流程停止，并保留最后一个完整成功步骤的结果。将流程用于构图不同的新图片时，请先检查结果。"
+    }
+  },
+  "es": {
+    "heic": {
+      "description": "Convierte fotos HEIC del iPhone a JPG o PNG, revisa su orientación y calidad y envíalas a otra herramienta.",
+      "steps": [
+        "Abre HEIC a JPG y elige archivos .heic o .heif. Las fotos se procesan una a una para limitar la memoria.",
+        "Elige JPG para fotos compatibles y más ligeras, o PNG para codificar sin pérdidas los píxeles decodificados. La calidad JPG afecta al tamaño y al detalle.",
+        "Inicia la conversión y revisa la vista previa, las dimensiones y la orientación. Al cancelar se conservan las fotos terminadas.",
+        "Descarga archivos individuales o un ZIP. Seguir editando los envía a recorte, tamaño, compresión, un flujo automático o PDF."
+      ],
+      "section": "Qué se conserva",
+      "body": "Se aplican la rotación y el reflejo del contenedor de la foto. Se exporta una imagen estática, no el contenedor completo de la cámara. PNG no recupera detalles perdidos en la compresión HEIC original. Los archivos que no se pueden leer se notifican por separado y el resto continúa."
+    },
+    "pdf": {
+      "description": "Crea un PDF ordenado con páginas A4, Carta o adaptadas a la imagen, márgenes ajustables y nombre propio.",
+      "steps": [
+        "Abre Imágenes a PDF y elige JPG, PNG o WebP, o recibe resultados de otra herramienta.",
+        "Usa las flechas para ordenar las páginas. Cada imagen ocupa una página; elimina archivos que no necesites.",
+        "Elige A4, Carta US o ajustar a cada imagen. En papel fijo, elige orientación. Define márgenes de 0–50 mm y un nombre.",
+        "Crea y descarga el PDF. Revisa el orden y los márgenes; si una imagen falla, sustitúyela y vuelve a crear el documento."
+      ],
+      "section": "Papel y calidad",
+      "body": "Las imágenes se centran y ajustan proporcionalmente sin recortarlas. Las páginas adaptadas usan 96 píxeles por pulgada y pueden tener tamaños distintos. El papel fijo mantiene el mismo tamaño. Se crea un PDF de imágenes, no texto editable. Recorta los bordes no deseados antes de exportar."
+    },
+    "flow": {
+      "description": "Combina ajustes guardados en un flujo automático, ordena los pasos y aprende a recuperar resultados tras una cancelación o error.",
+      "steps": [
+        "Configura cada operación en su herramienta y guarda un ajuste por lotes, por ejemplo recorte, tamaño, marca de agua y compresión.",
+        "Abre Flujos automáticos. Elige un ajuste y añádelo como paso. Combina 2–6 pasos y ordénalos con las flechas.",
+        "Pon un nombre y guarda el flujo. Se guarda una copia de los ajustes: cambiar el ajuste original no modifica el flujo guardado.",
+        "Elige imágenes y ejecuta. Cada paso recibe los resultados del anterior. Descarga los archivos finales o envíalos a otra herramienta."
+      ],
+      "section": "Orden y recuperación",
+      "body": "Suele convenir recortar y añadir marcas antes de comprimir. Usa PNG en pasos intermedios para evitar pérdidas repetidas. Un flujo admite un solo paso de unión, que convierte el lote en una imagen para los pasos siguientes. Cancelar o fallar un paso detiene el flujo y conserva los resultados del último paso completo. Revisa los resultados al usar fotos con composiciones distintas."
+    }
+  },
+  "pt-br": {
+    "heic": {
+      "description": "Converta fotos HEIC do iPhone para JPG ou PNG, confira orientação e qualidade e envie os resultados para outra ferramenta.",
+      "steps": [
+        "Abra HEIC para JPG e escolha arquivos .heic ou .heif. As fotos são processadas uma por vez para limitar o uso de memória.",
+        "Escolha JPG para fotos leves e compatíveis, ou PNG para codificar sem perdas os pixels decodificados. A qualidade JPG afeta tamanho e detalhes.",
+        "Inicie a conversão e confira prévia, dimensões e orientação. Ao cancelar, as fotos concluídas continuam disponíveis.",
+        "Baixe arquivos individuais ou ZIP. Continuar edição envia as fotos para recorte, tamanho, compressão, fluxo automático ou PDF."
+      ],
+      "section": "O que é preservado",
+      "body": "A rotação e o espelhamento do contêiner da foto são aplicados. A saída é uma imagem estática, não o contêiner completo da câmera. PNG não recupera detalhes perdidos na compressão HEIC original. Arquivos ilegíveis são informados separadamente, e os demais continuam."
+    },
+    "pdf": {
+      "description": "Crie um PDF ordenado com páginas A4, Carta ou ajustadas à imagem, margens configuráveis e nome próprio.",
+      "steps": [
+        "Abra Imagens para PDF e escolha JPG, PNG ou WebP, ou receba resultados de outra ferramenta.",
+        "Use as setas para ordenar as páginas. Cada imagem ocupa uma página; remova arquivos desnecessários.",
+        "Escolha A4, Carta US ou ajustar a cada imagem. No papel fixo, defina a orientação. Informe margem de 0–50 mm e nome.",
+        "Crie e baixe o PDF. Confira ordem e margens. Se uma imagem falhar, substitua-a e gere novamente."
+      ],
+      "section": "Papel e qualidade",
+      "body": "As imagens ficam centralizadas e ajustadas proporcionalmente, sem cortes. Páginas adaptadas usam 96 pixels por polegada e podem ter tamanhos diferentes. Papel fixo mantém o tamanho uniforme. O documento contém imagens, não texto editável. Recorte bordas indesejadas antes de exportar."
+    },
+    "flow": {
+      "description": "Combine predefinições em um fluxo automático, ordene etapas e recupere resultados após cancelamentos ou falhas.",
+      "steps": [
+        "Configure cada operação em sua ferramenta e salve uma predefinição em lote: recorte, tamanho, marca-d’água e compressão, por exemplo.",
+        "Abra Fluxos automáticos. Escolha uma predefinição e adicione como etapa. Combine de 2 a 6 etapas e ordene pelas setas.",
+        "Dê um nome e salve o fluxo. Uma cópia das configurações é salva; mudar a predefinição original não altera o fluxo salvo.",
+        "Escolha imagens e execute. Cada etapa recebe o resultado da anterior. Baixe os arquivos finais ou envie para outra ferramenta."
+      ],
+      "section": "Ordem e recuperação",
+      "body": "Em geral, recorte e adicione marcas antes de comprimir. Use PNG nas etapas intermediárias para evitar perdas repetidas. Um fluxo aceita uma única junção, que transforma o lote em uma imagem para as etapas seguintes. Cancelar ou falhar uma etapa interrompe o fluxo e mantém o resultado da última etapa completa. Confira resultados em fotos com composições diferentes."
+    }
+  },
+  "ja": {
+    "heic": {
+      "description": "iPhoneのHEIC写真をJPG・PNGに変換し、向きや画質を確認して他の画像ツールへ送る手順を紹介します。",
+      "steps": [
+        "HEICをJPGに変換するツールで.heic・.heifファイルを選びます。メモリー使用量を抑えるため1枚ずつ処理します。",
+        "写真を軽く広く使う場合はJPG、デコードした画素を可逆圧縮で保存する場合はPNGを選びます。JPGの画質設定は容量と細部に影響します。",
+        "変換を開始し、プレビュー、寸法、向きを確認します。中止しても完了済みの写真は残ります。",
+        "個別またはZIPでダウンロードします。「続けて処理」で切り抜き、サイズ変更、圧縮、自動フロー、PDFへ送れます。"
+      ],
+      "section": "保持される内容",
+      "body": "写真コンテナーの回転・反転情報を適用して、静止画として出力します。カメラのコンテナー全体は保持しません。元のHEIC圧縮で失われた細部はPNGでも復元されません。読み取れない写真は個別に表示し、ほかの写真は続けて変換します。"
+    },
+    "pdf": {
+      "description": "画像を順番にPDFへまとめ、A4・レター・画像サイズの用紙、余白、ファイル名を設定する方法です。",
+      "steps": [
+        "画像をPDFにするツールでJPG・PNG・WebPを選ぶか、ほかのツールから結果を受け取ります。",
+        "上下の矢印でページ順を調整します。1画像が1ページになり、不要なファイルは削除できます。",
+        "A4、米国レター、画像に合わせる、から選びます。固定用紙では向きを指定し、余白0～50 mmと名前を設定します。",
+        "PDFを作成してダウンロードし、順番と余白を確認します。読み取れない画像がある場合は差し替えて再作成してください。"
+      ],
+      "section": "用紙と画質",
+      "body": "画像は中央に縦横比を保って配置され、切り抜かれません。画像サイズのページは96ピクセル毎インチで計算し、ページごとにサイズを変えられます。固定用紙は同じサイズになります。編集可能な文字ではなく画像のPDFです。不要な枠は先に切り抜いてください。"
+    },
+    "flow": {
+      "description": "保存済みプリセットを自動フローにまとめ、実行順を設定し、中止や失敗時の結果を取り出す方法です。",
+      "steps": [
+        "各ツールで設定を決め、一括プリセットを保存します。例は切り抜き、サイズ変更、透かし、圧縮です。",
+        "自動ワークフローを開き、プリセットを選んでステップに追加します。2～6ステップを矢印で並べ替えます。",
+        "名前を付けて保存します。設定のコピーを保存するので、元のプリセットを変更しても保存済みフローは変わりません。",
+        "画像を選んで実行します。各ステップが前の結果を受け取り、最後にダウンロードするか他のツールへ送れます。"
+      ],
+      "section": "順番と復旧",
+      "body": "通常は切り抜きや透かしを済ませてから圧縮します。繰り返しの画質低下を避けたい中間処理にはPNGを使ってください。1つのフローに結合は1ステップまで追加できます。結合後の1枚に、次の処理を適用します。中止や失敗では最後に完了したステップの画像を保持します。構図の異なる画像に使う前に結果を確認してください。"
+    }
+  }
+}

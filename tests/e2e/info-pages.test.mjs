@@ -24,7 +24,7 @@ test('five-language About and FAQ have localized routes, tools, titles and match
       assert.equal(data.canonical, 'https://piczip.app' + path);
       assert.equal(data.alternates.length, 6);
       assert.equal(await page.locator('h1').count(), 1);
-      assert.deepEqual(data.tools, ['/', '/resize-image', '/crop-image', '/convert-image', '/stitch-images', '/watermark-image', '/guide'].map(p => prefix ? prefix + (p === '/' ? '' : p) : p));
+      assert.deepEqual(data.tools, ['/', '/resize-image', '/crop-image', '/convert-image', '/stitch-images', '/watermark-image', '/pad-image', '/mosaic-image', '/heic-to-jpg', '/images-to-pdf', '/batch-workflow', '/guide'].map(p => prefix ? prefix + (p === '/' ? '' : p) : p));
       await page.locator('.language-menu summary').click();
       const destinations = await page.locator('.language-options a').evaluateAll(links => links.map(a => new URL(a.href).pathname));
       assert.deepEqual(destinations.sort(), ['', '/zh', '/es', '/pt-br', '/ja'].map(p => `${p}/${kind}`).sort());

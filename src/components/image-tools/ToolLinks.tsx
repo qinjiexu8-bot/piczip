@@ -2,10 +2,10 @@ import type { Locale } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/routes";
 import { siteMessages } from "@/lib/i18n/messages";
 import Link from "next/link";
-import { Stamp, Crop, ArrowUpRight, Scaling, Replace, PanelsTopLeft } from "lucide-react";
+import { Maximize2, Grid2X2, Stamp, Crop, ArrowUpRight, Scaling, Replace, PanelsTopLeft } from "lucide-react";
 import { toolCatalog } from "@/lib/image-tools/catalog";
 import type { ToolKind } from "@/lib/image-tools/types";
-const icons = { watermark: Stamp, crop: Crop, resize: Scaling, convert: Replace, stitch: PanelsTopLeft };
+const icons = { padding: Maximize2, mosaic: Grid2X2, watermark: Stamp, crop: Crop, resize: Scaling, convert: Replace, stitch: PanelsTopLeft };
 export function ToolLinks({ locale, current }: { locale: Locale; current?: ToolKind }) {
   return <section className="tool-discovery" aria-label={siteMessages[locale].common.moreTools}>
     <div className="tool-discovery-heading"><h2>{siteMessages[locale].common.discovery}</h2></div>

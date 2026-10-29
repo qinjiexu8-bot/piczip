@@ -5,7 +5,7 @@ import { chromium, webkit } from 'playwright';
 const base = process.env.PICZIP_TEST_URL || 'http://127.0.0.1:3100';
 const browserType = process.env.PICZIP_TEST_BROWSER === 'webkit' ? webkit : chromium;
 const prefixes = ['', '/zh', '/es', '/pt-br', '/ja'];
-const paths = ['/', '/resize-image', '/convert-image', '/crop-image', '/stitch-images', '/watermark-image'];
+const paths = ['/', '/resize-image', '/convert-image', '/crop-image', '/stitch-images', '/watermark-image', '/pad-image', '/mosaic-image', '/heic-to-jpg', '/images-to-pdf', '/batch-workflow'];
 const localPath = (prefix, path) => prefix ? prefix + (path === '/' ? '' : path) : path;
 async function setup(t, viewport) {
   const browser = await browserType.launch();
@@ -16,7 +16,7 @@ async function setup(t, viewport) {
   return page;
 }
 
-test('tool directory: five locales, six working tools and guides, metadata and language switching', async t => {
+test('tool directory: five locales, eleven working tools and guides, metadata and language switching', async t => {
   const page = await setup(t, { width: 1440, height: 900 });
   const xml = await (await fetch(base + '/sitemap.xml')).text();
   for (const prefix of prefixes) {
@@ -26,7 +26,7 @@ test('tool directory: five locales, six working tools and guides, metadata and l
     assert.equal(response.status(), 200);
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal((await page.locator('[data-tool-category]').evaluateAll(cards => [...new Set(cards.map(c => c.dataset.toolCategory))])).length, 3);
-    assert.equal(await page.locator('[data-directory-tool]').count(), 6);
+    assert.equal(await page.locator('[data-directory-tool]').count(), 11);
     const urls = await page.locator('[data-directory-tool]').evaluateAll(links => links.map(a => new URL(a.href).pathname));
     assert.deepEqual(urls.sort(), paths.map(path => localPath(prefix, path)).sort());
     for (const href of await page.locator('.directory-card a').evaluateAll(links => [...new Set(links.map(a => a.href))])) {
@@ -54,7 +54,7 @@ test('desktop navigation: keyboard, outside click, active tool, language menu an
     await page.keyboard.press('Enter');
     await page.locator('.nav-tools-menu[open]').waitFor();
     assert.ok(await page.locator('.nav-tools-menu').getAttribute('open') !== null);
-    assert.equal(await page.locator('.nav-tool-groups a').count(), 6);
+    assert.equal(await page.locator('.nav-tool-groups a').count(), 11);
     assert.equal(await page.locator('.nav-tool-groups a[aria-current=page]').getAttribute('href'), prefix + '/crop-image');
     const bounds = await page.locator('.nav-tools-panel').boundingBox();
     assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= 1024);
@@ -71,7 +71,7 @@ test('desktop navigation: keyboard, outside click, active tool, language menu an
     await page.locator('.language-menu summary').click();
     await summary.click();
     await page.locator('.nav-tool-groups a').last().click();
-    await page.waitForURL(base + prefix + '/watermark-image');
+    await page.waitForURL(base + prefix + '/mosaic-image');
     assert.equal(await page.locator('.nav-tools-menu').getAttribute('open'), null);
   }
 });
@@ -87,7 +87,7 @@ test('mobile navigation: grouped links, Escape, route changes and short-screen s
     for (const group of await page.locator('.mobile-category').all()) {
       await group.locator('summary').click();
     }
-    assert.equal(await page.locator('.mobile-category a:visible').count(), 6);
+    assert.equal(await page.locator('.mobile-category a:visible').count(), 11);
     const bounds = await page.locator('.mobile-nav-panel').boundingBox();
     assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= 320);
     await page.locator('.mobile-category a').last().focus();
@@ -125,8 +125,8 @@ test('directory layout: aligned rows across desktop, tablet and mobile in all fi
         const r = item.getBoundingClientRect();
         return { x: Math.round(r.x), y: Math.round(r.y), height: Math.round(r.height), right: Math.round(r.right) };
       }));
-      assert.equal(cards.length, 6);
-      assert.equal(new Set(cards.map(r => r.y)).size, 6 / columns, `${prefix} at ${width}px`);
+      assert.equal(cards.length, 11);
+      assert.equal(new Set(cards.map(r => r.y)).size, Math.ceil(11 / columns), `${prefix} at ${width}px`);
       for (let i = 0; i < cards.length; i += columns) {
         const row = cards.slice(i, i + columns);
         assert.equal(new Set(row.map(r => r.height)).size, 1);

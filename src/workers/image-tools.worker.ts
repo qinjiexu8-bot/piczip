@@ -1,3 +1,5 @@
+import { paddingLayout } from "@/lib/image-tools/padding";
+import { drawMosaic, validMosaic } from "@/lib/image-tools/mosaic";
 /// <reference lib="webworker" />
 import { resizeDimensions, stitchLayout, validateOutput } from "@/lib/image-tools/geometry";
 import type { Format, ToolFile, ToolOptions, ToolResponse } from "@/lib/image-tools/types";
@@ -18,7 +20,7 @@ function canvasFor(width: number, height: number, options: ToolOptions, format: 
   const canvas = new OffscreenCanvas(width, height);
   const context = canvas.getContext("2d");
   if (!context) throw new Error("browser");
-  if (format === "jpeg" || (options.tool === "stitch" && !options.transparent)) {
+  if (format === "jpeg" || (["stitch", "padding"].includes(options.tool) && !options.transparent)) {
     context.fillStyle = options.background;
     context.fillRect(0, 0, width, height);
   }
@@ -80,11 +82,18 @@ ctx.onmessage = async (event: MessageEvent<{ files: ToolFile[]; options: ToolOpt
         try {
           const image = await decode(file);
           try {
-            const size = options.tool === "resize" ? resizeDimensions(image, options.resize) : options.tool === "crop" ? cropOutput(image, options.crop ?? defaultCrop) : validateOutput(image);
+            const size = options.tool === "resize" ? resizeDimensions(image, options.resize) : options.tool === "crop" ? cropOutput(image, options.crop ?? defaultCrop) : options.tool === "padding" ? paddingLayout(image, options.padding!) : validateOutput(image);
             const format = formatFor(file, options);
             const { canvas, context } = canvasFor(size.width, size.height, options, format);
             if (options.tool === "crop") drawCrop(context, image, image, options.crop ?? defaultCrop);
-            else context.drawImage(image, 0, 0, size.width, size.height);
+            else if (options.tool === "padding") {
+              const layout = paddingLayout(image, options.padding!);
+              context.drawImage(image, layout.x, layout.y, layout.imageWidth, layout.imageHeight);
+            } else context.drawImage(image, 0, 0, size.width, size.height);
+            if (options.tool === "mosaic") {
+              if (!validMosaic(options.mosaic) || !options.mosaic.regions.length) throw new Error("invalid-mosaic");
+              drawMosaic(context, image, image, options.mosaic, (w, h) => new OffscreenCanvas(w, h), 1, format === "jpeg" ? options.background : undefined);
+            }
             if (options.tool === "watermark") drawWatermark(context, size.width, size.height, options.watermark!, logo);
             const blob = await encode(canvas, format, options.quality);
             send({ type: "result", result: { id, name: outputName(file.name, options.tool, format), blob, ...{ width: size.width, height: size.height } } });

@@ -2,9 +2,9 @@
 import { useEffect, useEffectEvent, useState } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import { workflowMessages } from "@/lib/workflow/messages";
-import type { WorkflowTool } from "@/lib/workflow/settings";
+import type { TransferTarget } from "@/lib/workflow/transfer";
 import { readTransfer, deleteTransfer } from "@/lib/workflow/transfer";
-export function ReceiveTransfer({ tool, locale, onReceive, onBusyChange }: { tool: WorkflowTool; locale: Locale; onReceive: (files: File[]) => void; onBusyChange: (busy: boolean) => void }) {
+export function ReceiveTransfer({ tool, locale, onReceive, onBusyChange }: { tool: TransferTarget; locale: Locale; onReceive: (files: File[]) => void; onBusyChange: (busy: boolean) => void }) {
   const t = workflowMessages[locale];
   const [state, setState] = useState<"idle" | "loading" | "received" | "missing" | "importError">("idle");
   const [attempt, setAttempt] = useState(0);

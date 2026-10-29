@@ -1,9 +1,12 @@
+import canvasMessages from "./canvas-messages.json";
 import { siteMessages } from "@/lib/i18n/messages";
 import type { Locale } from "@/lib/i18n/config";
 import type { ToolKind } from "./types";
 import { cropMessages } from "./crop-messages";
 import { watermarkMessages } from "./watermark-messages";
 export const toolCatalog: Record<ToolKind, { path: string } & Record<Locale, [string, string]>> = {
+  mosaic: { path: "/mosaic-image", "en": [canvasMessages["en"].mosaic.title, canvasMessages["en"].mosaic.description], "zh": [canvasMessages["zh"].mosaic.title, canvasMessages["zh"].mosaic.description], "es": [canvasMessages["es"].mosaic.title, canvasMessages["es"].mosaic.description], "pt-br": [canvasMessages["pt-br"].mosaic.title, canvasMessages["pt-br"].mosaic.description], "ja": [canvasMessages["ja"].mosaic.title, canvasMessages["ja"].mosaic.description] },
+  padding: { path: "/pad-image", "en": [canvasMessages["en"].padding.title, canvasMessages["en"].padding.description], "zh": [canvasMessages["zh"].padding.title, canvasMessages["zh"].padding.description], "es": [canvasMessages["es"].padding.title, canvasMessages["es"].padding.description], "pt-br": [canvasMessages["pt-br"].padding.title, canvasMessages["pt-br"].padding.description], "ja": [canvasMessages["ja"].padding.title, canvasMessages["ja"].padding.description] },
   watermark: { path: "/watermark-image", "en": [watermarkMessages["en"].title, watermarkMessages["en"].description], "zh": [watermarkMessages["zh"].title, watermarkMessages["zh"].description], "es": [watermarkMessages["es"].title, watermarkMessages["es"].description], "pt-br": [watermarkMessages["pt-br"].title, watermarkMessages["pt-br"].description], "ja": [watermarkMessages["ja"].title, watermarkMessages["ja"].description] },
   crop: { path: "/crop-image", en: [cropMessages.en.title, cropMessages.en.description], zh: [cropMessages.zh.title, cropMessages.zh.description], es: [cropMessages.es.title, cropMessages.es.description], "pt-br": [cropMessages["pt-br"].title, cropMessages["pt-br"].description], ja: [cropMessages.ja.title, cropMessages.ja.description] },
   resize: { "es": siteMessages["es"].catalog.resize as [string, string], "pt-br": siteMessages["pt-br"].catalog.resize as [string, string], "ja": siteMessages["ja"].catalog.resize as [string, string], path: "/resize-image", en: ["Resize images", "The right dimensions, every time. Resize by pixels or percentage, one image or a whole batch."], zh: ["图片尺寸调整", "按像素或百分比调整尺寸，一张图片或一整批，都能轻松处理。"] },
