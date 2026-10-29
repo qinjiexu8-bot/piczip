@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, BookOpen, ChevronDown, CircleHelp, Grid2X2, ImageIcon, Menu } from "lucide-react";
+import { ArrowUpRight, BookOpen, ChevronDown, CircleHelp, Grid2X2, Menu } from "lucide-react";
 import { LanguageMenu } from "./LanguageMenu";
 import { siteMessages } from "@/lib/i18n/messages";
 import { getLocale, localePath, stripLocale } from "@/lib/i18n/routes";
@@ -49,7 +50,7 @@ export function Header() {
   return <header className="site-header" ref={header}>
     <div className="site-header-inner">
       <Link href={localePath("/", locale)} className="brand" aria-label={`PicZip · ${t.home}`} onClick={closeMenus}>
-        <span className="brand-mark"><ImageIcon size={23} strokeWidth={1.8} /></span>PicZip<span className="brand-dot">.</span>
+        <Image className="brand-mark" src="/favicon.ico" width={36} height={36} alt="" unoptimized />PicZip<span className="brand-dot">.</span>
       </Link>
       <div className="header-actions">
         <nav aria-label={t.mainNav} className="site-desktop-nav hidden items-center lg:flex">

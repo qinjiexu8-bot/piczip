@@ -37,7 +37,7 @@ a, button, input, select, summary { -webkit-tap-highlight-color: transparent; }
 main [id] { scroll-margin-top: calc(var(--site-header-height) + 16px); }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 750; font-size: 25px; letter-spacing: -1px; color: #133e35; }
 .brand-dot { color: #138371; margin-left: -8px; }
-.brand-mark { display: grid; place-items: center; width: 34px; height: 36px; color: #0b816b; background: #e7f0e8; border: 1px solid #c7ded1; border-radius: 9px; }
+.brand-mark { display: block; width: 36px; height: 36px; flex-shrink: 0; }
 .site-desktop-nav { gap: 3px; }
 .site-nav-link { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 10px; border-radius: 12px; white-space: nowrap; font-size: 15px; font-weight: 500; color: #65736c; transition: color .18s, background .18s, box-shadow .18s; }
 .site-nav-link > svg { display: none; flex-shrink: 0; }
