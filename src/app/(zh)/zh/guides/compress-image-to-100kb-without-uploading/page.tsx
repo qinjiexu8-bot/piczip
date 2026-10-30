@@ -97,7 +97,7 @@ export default function Page() {
           alt="PicZip 中文界面设置为目标 100KB、Auto 输出、质量 82 和最大宽度 2400px"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           本次测试使用的设置。原图只在当前浏览器中读取。
@@ -120,7 +120,7 @@ export default function Page() {
           alt="PicZip 中文界面显示 2.8MB PNG 压缩为 99KB，页面显示减少 97%"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           实际完成后的结果页：输出 99 KB，图片尺寸保持不变。
@@ -168,6 +168,7 @@ export default function Page() {
         在 PicZip 压缩流程中，用户选中的图片文件不会发往图片处理服务器，相关计算在浏览器中完成。
         具体实现和边界可以查看
         <Link
+          prefetch={false}
           className="font-black text-teal-700 underline-offset-4 hover:underline"
           href="/zh/compress-image-without-upload"
         >

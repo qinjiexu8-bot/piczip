@@ -73,7 +73,7 @@ export default function Page() {
           alt="PicZip PNG result for an 800 by 600 transparent test image with no size reduction"
           width={1280}
           height={720}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
           loading="eager"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
@@ -114,7 +114,7 @@ export default function Page() {
           alt="PicZip WebP result for the same 800 by 600 transparent test image"
           width={1280}
           height={720}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           WebP retained the 800×600 canvas and alpha counts while reducing this fixture to 96,120

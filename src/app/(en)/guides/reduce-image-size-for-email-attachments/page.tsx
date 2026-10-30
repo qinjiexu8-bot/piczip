@@ -113,7 +113,7 @@ export default function Page() {
           alt="PicZip batch compressor set to 300KB, Auto output, quality 82, and 1600px maximum width"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The settings used for our mixed three-image email batch.
@@ -141,7 +141,7 @@ export default function Page() {
           alt="PicZip showing three completed email images of 262KB, 29KB, and 81KB"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           PicZip displayed 3.4MB saved across the batch; exact output data totaled 381,034 bytes.

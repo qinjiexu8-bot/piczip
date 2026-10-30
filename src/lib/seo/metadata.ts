@@ -9,6 +9,7 @@ type PageMetadata = {
   description: string;
   path: string;
   robots?: Metadata["robots"];
+  /** Legacy caller hint; the route catalog is now authoritative for availability. */
   hasChineseVersion?: boolean;
   type?: "website" | "article";
 };
@@ -18,14 +19,13 @@ export function createMetadata({
   description,
   path,
   robots,
-  hasChineseVersion = true,
   type = "website",
 }: PageMetadata): Metadata {
   const url = absoluteUrl(path);
   const canonicalPath = path === "/zh" ? "/zh" : path;
   const locale = getLocale(path);
   const ogLocales: Record<Locale, string> = { en: "en_US", zh: "zh_CN", es: "es_ES", "pt-br": "pt_BR", ja: "ja_JP" };
-  const translatedLocales = locales.filter(value => hasLocalePage(path, value) && (hasChineseVersion || value !== "zh"));
+  const translatedLocales = locales.filter(value => hasLocalePage(path, value));
 
   const ogImageUrl = absoluteUrl("/og-image.jpg");
 
@@ -35,7 +35,7 @@ export function createMetadata({
     robots,
     alternates: {
       canonical: absoluteUrl(canonicalPath),
-      languages: languageAlternates(path, hasChineseVersion),
+      languages: languageAlternates(path),
     },
     openGraph: {
       title,

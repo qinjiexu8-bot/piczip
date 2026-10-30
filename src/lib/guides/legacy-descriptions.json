@@ -1,0 +1,12 @@
+{
+  "/guides/compress-image-to-100kb-without-uploading": "Compress an image to under 100KB without uploading it. Follow a tested PicZip workflow with real settings, screenshots, file sizes, and limits.",
+  "/guides/compress-image-to-200kb-for-online-forms": "Prepare an image under 200KB for an online form. See two tested PicZip settings, exact byte results, dimensions, screenshots, and form checks.",
+  "/guides/compress-png-without-losing-transparency": "Compress a transparent PNG locally and verify its alpha channel. See tested PNG and WebP results, exact sizes, limitations, and practical checks.",
+  "/guides/compress-screenshot-without-blurry-text": "Compress screenshots while protecting small text. See tested full-size and resized results, exact bytes, format trade-offs, and a practical review checklist.",
+  "/guides/jpg-vs-png-vs-webp-file-size": "Compare JPG, PNG, and WebP file size using the same image and dimensions. See exact PicZip results, format trade-offs, and when smaller is not better.",
+  "/guides/reduce-image-size-for-email-attachments": "Reduce several image attachments before emailing them. See a tested three-image batch, exact sizes, ZIP result, settings, and delivery trade-offs.",
+  "/guides/reduce-image-size-without-changing-dimensions": "Reduce image file size while keeping the same width and height. See exact JPG and WebP test results, settings, limitations, and verification steps.",
+  "/guides/reduce-png-size-for-email-signature": "Reduce a PNG email signature by matching its display width, preserving transparency, and comparing PNG with WebP. Includes exact PicZip test results.",
+  "/guides/why-compressed-image-is-still-too-large": "Find out why a compressed image can remain too large. Follow a tested format, target-size, and width troubleshooting sequence with exact results.",
+  "/zh/guides/compress-image-to-100kb-without-uploading": "实测把图片压缩到 100KB 以下且不上传服务器的方法，包含 PicZip 设置、准确字节数、截图和未达标时的调整建议。"
+}

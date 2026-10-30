@@ -36,9 +36,7 @@ export const localizedEnglishRoutes = [
   "/terms",
   "/about",
   "/guides/compress-image-to-100kb-without-uploading",
-] as const;
 
-export const englishOnlyRoutes = [
   "/guides/compress-image-to-200kb-for-online-forms",
   "/guides/reduce-image-size-for-email-attachments",
   "/guides/jpg-vs-png-vs-webp-file-size",
@@ -48,6 +46,8 @@ export const englishOnlyRoutes = [
   "/guides/compress-png-without-losing-transparency",
   "/guides/reduce-png-size-for-email-signature",
 ] as const;
+
+export const englishOnlyRoutes = [] as const;
 
 export const englishRoutes = [...localizedEnglishRoutes, ...englishOnlyRoutes] as const;
 

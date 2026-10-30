@@ -1,3 +1,4 @@
+import compressionGuides from "@/lib/guides/translations/zh.json";
 import { ToolGuideLinks } from "@/components/guides/ToolGuideLinks";
 import Link from "next/link";
 import { ContentPage } from "@/components/site/ContentPage";
@@ -18,6 +19,12 @@ export default function Page() {
       breadcrumbLabel="指南"
     >
       <ToolGuideLinks locale="zh" />
+      <h2 className="text-xl font-semibold text-foreground">压缩场景与问题排查</h2>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {Object.entries(compressionGuides).map(([slug, guide]) => <Link key={slug} data-guide-card href={`/zh/guides/${slug}`} className="rounded-xl border border-black/10 bg-white p-5 hover:border-teal-700/40">
+          <h3 className="font-semibold text-foreground">{guide.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{guide.description}</p>
+        </Link>)}
+      </div>
       <h2 className="text-xl font-semibold text-foreground">图片压缩：先选择合适格式</h2>
       <p>
         照片通常适合 JPG，截图和透明图适合 PNG，网站图片可以优先考虑 WebP。如果目标是尽量减小体积，
@@ -40,7 +47,7 @@ export default function Page() {
         如果图片压缩后仍然太大，可以先降低最大宽度，再继续降低质量。很多时候，适当缩小尺寸比把质量拉得很低更清晰。
       </p>
       <h2>隐私图片优先本地处理</h2>
-      <p>证件照、申请材料、内部截图、合同图片等隐私文件，适合用浏览器本地压缩，减少上传风险。</p>
+      <p>证件照、申请材料、内部截图、合同图片等隐私文件，适合用<Link href="/zh/local-image-compressor" className="font-medium text-teal-700 underline">浏览器本地图片压缩</Link>，减少上传风险。</p>
       <h2>重复任务用批量 ZIP</h2>
       <p>产品图、博客配图和网站素材可以统一设置目标大小，压缩完成后打包 ZIP 下载，效率更高。</p>
       <p>

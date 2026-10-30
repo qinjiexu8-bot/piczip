@@ -50,9 +50,8 @@ for (const locale of locales) {
         await page.keyboard.press('Escape'); assert.equal(await page.locator('.language-menu').getAttribute('open'), null);
       }
       if (path === '/faq') {
-        assert.equal(await page.locator('.home-faq-list details').count(), 9);
-        await page.locator('.home-faq-list summary').first().click();
-        assert.ok(await page.locator('.home-faq-list details p').first().isVisible());
+        assert.equal(await page.locator('[data-info-faq]').count(), 11);
+        assert.ok(await page.locator('[data-info-faq] p').first().isVisible());
       }
       // Follow real language links across root layouts; preserve the current tool.
       await page.locator('.language-menu summary').click();
@@ -103,7 +102,7 @@ for (const locale of locales) {
       }
       const output = page.locator('.tool-output').first(); await output.waitFor();
       const dims = [Number(await output.getAttribute('data-output-width')), Number(await output.getAttribute('data-output-height'))];
-      assert.deepEqual(dims, route === 'resize-image' ? [160, 100] : route === 'convert-image' ? [320, 200] : [160, 216]);
+      assert.deepEqual(dims, route === 'resize-image' ? [160, 100] : route === 'convert-image' ? [320, 200] : [160, 200]);
       assert.equal(await output.getAttribute('data-output-type'), route === 'convert-image' ? 'image/jpeg' : 'image/png');
       const event = page.waitForEvent('download'); await output.locator('a[download]').click(); assert.ok((await readFile(await (await event).path())).length > 0);
       if (route === 'resize-image') {

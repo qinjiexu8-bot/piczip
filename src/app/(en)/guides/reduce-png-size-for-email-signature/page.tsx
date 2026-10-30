@@ -72,7 +72,7 @@ export default function Page() {
           alt="PicZip showing a transparent PNG resized to 320 pixels wide for an email signature"
           width={1280}
           height={720}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
           loading="eager"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
@@ -96,7 +96,7 @@ export default function Page() {
         PNG supports alpha. JPG does not. If you choose JPG, transparent areas must be replaced by a
         solid background, so it is unsuitable when the signature must blend with varying
         backgrounds. Our separate{" "}
-        <Link className="font-black text-teal-700" href="/guides/compress-png-without-losing-transparency">
+        <Link prefetch={false} className="font-black text-teal-700" href="/guides/compress-png-without-losing-transparency">
           transparency test
         </Link>{" "}
         explains how we verified the alpha channel.
@@ -116,7 +116,7 @@ export default function Page() {
           alt="PicZip showing a 320 pixel wide transparent WebP result for an email signature"
           width={1280}
           height={720}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The 320×240 WebP measured 17,220 bytes at quality 82.

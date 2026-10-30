@@ -115,7 +115,7 @@ export default function Page() {
           alt="PicZip with a 200KB target, Auto output, quality 82, and maximum width disabled"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           Our first run disabled the maximum-width limit so the original 1536×1024 dimensions were
@@ -143,7 +143,7 @@ export default function Page() {
           alt="PicZip showing a 2.8MB source compressed to 154KB with a 1200px maximum width"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The 1200px run displayed 154KB; the exact result was 157,426 bytes at 1200×800.
@@ -199,7 +199,7 @@ export default function Page() {
       <p>
         PicZip processes the selected image in the browser. For more detail about that boundary,
         read how to{" "}
-        <Link className="font-black text-teal-700 underline-offset-4 hover:underline" href="/compress-image-without-upload">
+        <Link prefetch={false} className="font-black text-teal-700 underline-offset-4 hover:underline" href="/compress-image-without-upload">
           compress an image without uploading it
         </Link>
         . Then use the{" "}

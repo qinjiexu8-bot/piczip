@@ -105,7 +105,7 @@ export default function Page() {
           alt="PicZip set to a 100KB target with Auto output, quality 82, and a 2400px maximum width."
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The settings used for our test. The source image was loaded locally in the browser.
@@ -131,7 +131,7 @@ export default function Page() {
           alt="PicZip showing a 2.8MB PNG reduced to 99KB with a 97% displayed reduction."
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           Our completed test. PicZip reduced the file without resizing it.
@@ -199,7 +199,7 @@ export default function Page() {
         For PicZip&apos;s compressor, yes. Image decoding, resizing, format conversion, and
         compression run in the browser. There is no image-upload endpoint in this workflow. Read
         more about the design on the{" "}
-        <Link className="font-black text-teal-700 underline-offset-4 hover:underline" href="/compress-image-without-upload">
+        <Link prefetch={false} className="font-black text-teal-700 underline-offset-4 hover:underline" href="/compress-image-without-upload">
           compress images without uploading
         </Link>{" "}
         page.

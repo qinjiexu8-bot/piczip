@@ -59,7 +59,7 @@ export default function Page() {
           alt="PicZip showing a PNG re-encode larger than the original coastal image"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
           loading="eager"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
@@ -109,7 +109,7 @@ export default function Page() {
           alt="PicZip showing the same source reduced to 154KB with a 1200px maximum width"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           Reducing width to 1200px returned 157,426 bytes, but also reduced the pixel dimensions.

@@ -24,7 +24,11 @@ export function Footer() {
       </p>
       <nav className="flex flex-wrap gap-x-5 gap-y-2 font-medium">
         {footerLinks.map(([label, href]) => (
-          <Link key={href} href={href} className="hover:text-foreground">
+          // Footer links are the bottom of the page and rarely the next click, so
+          // speculative prefetching here only adds edge requests (Vercel counts
+          // prefetches as requests, cached or not). Header navigation keeps its
+          // default prefetch because it drives the actual next navigation.
+          <Link key={href} href={href} prefetch={false} className="hover:text-foreground">
             {label}
           </Link>
         ))}

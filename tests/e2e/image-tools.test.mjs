@@ -128,6 +128,7 @@ test('Chinese tools, active navigation, locale switching and mobile layout', asy
   const { page, file } = await setup(t, '/zh/stitch-images');
   await page.setViewportSize({ width: 375, height: 812 });
   await page.getByLabel('打开导航菜单').click();
+  for (const group of await page.locator('.mobile-category').all()) if (await group.getAttribute('open') === null) await group.locator('summary').click();
   await page.getByRole('navigation', { name: '手机导航', exact: true }).getByRole('link', { name: '尺寸调整' }).click();
   await page.waitForURL('**/zh/resize-image');
   await page.getByRole('heading', { name: '图片尺寸调整', exact: true }).waitFor();
@@ -139,7 +140,7 @@ test('Chinese tools, active navigation, locale switching and mobile layout', asy
   await page.locator('.language-options').getByRole('link', { name: 'English', exact: true }).click(); await page.waitForURL(url => url.pathname === '/resize-image');
   assert.equal(new URL(page.url()).pathname, '/resize-image');
   await page.setViewportSize({ width: 1440, height: 1000 });
-  const active = page.getByRole('navigation', { name: 'Main navigation', exact: true }).locator('[aria-current=page]');
+  const active = page.getByRole('navigation', { name: 'Main navigation', exact: true }).locator('.site-nav-link[aria-current=page]');
   assert.equal(await active.innerText(), 'Resize');
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
 });

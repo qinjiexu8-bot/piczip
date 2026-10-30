@@ -22,7 +22,7 @@ test('tool directory: five locales, eleven working tools and guides, metadata an
   for (const prefix of prefixes) {
     assert.ok(xml.includes(`<loc>https://piczip.app${prefix}/tools</loc>`));
     const response = await page.goto(base + prefix + '/tools');
-    await page.waitForLoadState('networkidle', { timeout: 10000 });
+    await page.evaluate(() => document.fonts.ready.then(() => undefined));
     assert.equal(response.status(), 200);
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal((await page.locator('[data-tool-category]').evaluateAll(cards => [...new Set(cards.map(c => c.dataset.toolCategory))])).length, 3);
@@ -48,7 +48,7 @@ test('desktop navigation: keyboard, outside click, active tool, language menu an
   const page = await setup(t, { width: 1024, height: 800 });
   for (const prefix of prefixes) {
     await page.goto(base + prefix + '/crop-image');
-    await page.waitForLoadState('networkidle', { timeout: 10000 });
+    await page.evaluate(() => document.fonts.ready.then(() => undefined));
     const summary = page.locator('.nav-tools-menu > summary');
     await summary.focus();
     await page.keyboard.press('Enter');
@@ -80,7 +80,7 @@ test('mobile navigation: grouped links, Escape, route changes and short-screen s
   const page = await setup(t, { width: 320, height: 740 });
   for (const prefix of prefixes) {
     await page.goto(base + prefix + '/tools');
-    await page.waitForLoadState('networkidle', { timeout: 10000 });
+    await page.evaluate(() => document.fonts.ready.then(() => undefined));
     await page.locator('.mobile-menu > summary').click();
     assert.ok(await page.locator('.mobile-nav-panel').isVisible());
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
@@ -96,11 +96,11 @@ test('mobile navigation: grouped links, Escape, route changes and short-screen s
     await page.locator('.mobile-menu > summary').click();
     await page.locator('.mobile-category a').first().click();
     await page.waitForURL(base + (prefix || '/'));
-    await page.waitForLoadState('networkidle', { timeout: 10000 });
+    await page.evaluate(() => document.fonts.ready.then(() => undefined));
     assert.equal(await page.locator('.mobile-menu').getAttribute('open'), null);
   }
   await page.goto(base + '/ja/tools');
-  await page.waitForLoadState('networkidle', { timeout: 10000 });
+  await page.evaluate(() => document.fonts.ready.then(() => undefined));
   await page.setViewportSize({ width: 667, height: 375 });
   await page.locator('.mobile-menu > summary').click();
   for (const group of await page.locator('.mobile-category').all()) {
@@ -120,7 +120,7 @@ test('directory layout: aligned rows across desktop, tablet and mobile in all fi
     await page.setViewportSize({ width, height: 900 });
     for (const prefix of prefixes) {
       await page.goto(base + prefix + '/tools');
-      await page.waitForLoadState('networkidle', { timeout: 10000 });
+      await page.evaluate(() => document.fonts.ready.then(() => undefined));
       const cards = await page.locator('.directory-card').evaluateAll(items => items.map(item => {
         const r = item.getBoundingClientRect();
         return { x: Math.round(r.x), y: Math.round(r.y), height: Math.round(r.height), right: Math.round(r.right) };

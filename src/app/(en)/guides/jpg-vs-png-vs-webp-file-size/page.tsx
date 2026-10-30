@@ -94,7 +94,7 @@ export default function Page() {
           alt="PicZip showing the coastal source encoded as a 3.3MB PNG"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The explicit PNG run produced 3,449,964 bytes, larger than the 2,976,317-byte source.
@@ -149,7 +149,7 @@ export default function Page() {
           alt="PicZip showing the coastal source encoded as a 262KB WebP"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The WebP run displayed 262KB; the exact result was 268,434 bytes.

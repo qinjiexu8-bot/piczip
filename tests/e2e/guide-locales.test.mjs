@@ -9,11 +9,12 @@ const names = { en: 'English', zh: '简体中文', es: 'Español', 'pt-br': 'Por
 const load = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
 const evidence = await load('../../src/lib/guides/guide-evidence.json');
 const slugs = Object.keys(evidence);
-const chineseSlugs = new Set([...slugs.slice(0, 3), 'compress-image-to-100kb-without-uploading']);
+const allSlugs = [...(await readFile(new URL('../../src/lib/guides/guide-slugs.ts', import.meta.url), 'utf8')).matchAll(/"([^"]+)"/g)].map(m => m[1]);
+const chineseSlugs = new Set(slugs);
 const normalize = text => text.replace(/\s+/g, ' ').trim();
 
 for (const locale of ['es', 'pt-br', 'ja']) {
-  test(`${locale}: 12 complete guides, local links, images, metadata and mobile layout`, async t => {
+  test(`${locale}: complete guide catalog and original translated articles, local links, images, metadata and mobile layout`, async t => {
     const browser = await engine.launch(); t.after(() => browser.close());
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     const errors = []; page.on('pageerror', error => errors.push(error.message));
@@ -21,8 +22,8 @@ for (const locale of ['es', 'pt-br', 'ja']) {
     assert.deepEqual(Object.keys(guides), slugs);
     const hub = await page.goto(`${base}/${locale}/guide`);
     assert.equal(hub.status(), 200);
-    assert.equal(await page.locator('[data-guide-card]').count(), 12);
-    assert.deepEqual(await page.locator('[data-guide-card]').evaluateAll(items => items.map(item => item.getAttribute('href'))), slugs.map(slug => `/${locale}/guides/${slug}`));
+    assert.equal(await page.locator('[data-guide-card]').count(), allSlugs.length);
+    assert.deepEqual(await page.locator('[data-guide-card]').evaluateAll(items => items.map(item => item.getAttribute('href'))), allSlugs.map(slug => `/${locale}/guides/${slug}`));
     await page.locator('[data-guide-card]').first().click();
     await page.waitForURL(`${base}/${locale}/guides/${slugs[0]}`);
     const hrefs = new Set();

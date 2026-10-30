@@ -45,6 +45,7 @@ test('drag selection, move, resize and keyboard adjustment update geometry',asyn
  assert(Math.abs(Number(await page.getByLabel('Width (%)',{exact:true}).inputValue())-60)<1);
  const selection=page.locator('.crop-selection');await selection.focus();const before=Number(await page.getByLabel('Left (%)',{exact:true}).inputValue());await page.keyboard.press('ArrowRight');assert(Number(await page.getByLabel('Left (%)',{exact:true}).inputValue())>before);
  const corner=await page.locator('.crop-corner').boundingBox();await page.mouse.move(corner.x+12,corner.y+12);await page.mouse.down();await page.mouse.move(corner.x+25,corner.y+20,{steps:5});await page.mouse.up();
+ await page.waitForFunction(input => Number(input.value) > 60, await page.getByLabel('Width (%)',{exact:true}).elementHandle());
  assert(Number(await page.getByLabel('Width (%)',{exact:true}).inputValue())>60);
  await run(page);assert((await pixels(page)).width<200);
 });

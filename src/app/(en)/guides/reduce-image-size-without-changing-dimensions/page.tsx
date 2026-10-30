@@ -100,7 +100,7 @@ export default function Page() {
           alt="PicZip showing a 2.8MB image reduced to 262KB as WebP with maximum width disabled"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
           loading="eager"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
@@ -119,7 +119,7 @@ export default function Page() {
           alt="PicZip showing the same coastal image becoming larger after PNG re-encoding"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           PNG preserved 1536×1024 too, but grew to 3,449,964 bytes, so unchanged dimensions alone

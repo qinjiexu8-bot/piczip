@@ -1,3 +1,4 @@
+import descriptions from "@/lib/guides/legacy-descriptions.json";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/site/Breadcrumb";
@@ -16,6 +17,7 @@ type GuideArticlePageProps = {
   path: string;
   publishedAt: string;
   verifiedAt: string;
+  modifiedAt?: string;
   readingTime: string;
   howToSteps: string[];
   breadcrumbLabel: string;
@@ -30,12 +32,14 @@ export function GuideArticlePage({
   path,
   publishedAt,
   verifiedAt,
+  modifiedAt,
   readingTime,
   howToSteps,
   breadcrumbLabel,
   image,
   children,
 }: GuideArticlePageProps) {
+  description = (descriptions as Record<string, string>)[path] ?? description;
   const isChinese = locale === "zh";
   const t = articleCopy[locale];
   const aboutPath = localizedHref(localePath("/", locale), "/about");
@@ -48,7 +52,7 @@ export function GuideArticlePage({
     description,
     url: absoluteUrl(path),
     datePublished: publishedAt,
-    dateModified: verifiedAt,
+    dateModified: modifiedAt ?? ((descriptions as Record<string, string>)[path] ? "2026-10-29" : verifiedAt),
     author: {
       "@type": "Organization",
       name: "PicZip",
@@ -107,7 +111,7 @@ export function GuideArticlePage({
                 {formatDate(publishedAt, locale)}
               </span>
               <span>
-                {t.verified}
+                {isChinese && publishedAt > verifiedAt ? "原始测试：" : t.verified}
                 {formatDate(verifiedAt, locale)}
               </span>
               <span>{readingTime}</span>

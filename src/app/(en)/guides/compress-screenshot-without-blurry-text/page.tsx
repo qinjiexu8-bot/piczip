@@ -109,7 +109,7 @@ export default function Page() {
           alt="PicZip showing a 440KB interface screenshot reduced to 81KB at full dimensions"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The full-size WebP run retained 1440×1200 dimensions and produced 82,578 bytes.
@@ -145,7 +145,7 @@ export default function Page() {
           alt="PicZip showing the interface screenshot reduced to a 1000px maximum width and 48KB"
           width={1265}
           height={712}
-          sizes="(max-width: 896px) 100vw, 832px"
+          sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 895px) calc(100vw - 64px), 832px"
         />
         <figcaption className="mt-2 text-sm leading-6 text-slate-500">
           The 1000×833 run produced 49,558 bytes, with about 51.8% fewer pixels than the source.

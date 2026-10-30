@@ -1,3 +1,5 @@
+import legacyDescriptions from "@/lib/guides/legacy-descriptions.json";
+import chineseGuides from "@/lib/guides/translations/zh.json";
 import { stripLocale } from "@/lib/i18n/routes";
 
 /**
@@ -9,10 +11,10 @@ import { stripLocale } from "@/lib/i18n/routes";
  *
  * Rule: only routes with a verifiable date get a `<lastmod>`; everything else
  * omits the field (which is valid and means "unknown"). When you revise a guide,
- * update its `verifiedAt` on the article page **and** the date here so the two
- * stay in sync.
+ * update its editorial modification date here and in Article data. Keep the
+ * original verification date when only translating or editing descriptions.
  */
-// These guides were first published on 2026-10-23 (Git 29fd731 / 6fb93fa).
+// Crop/watermark: Git 29fd731 / 6fb93fa; the five October 29 guides: e042e9d.
 export const newGuideDates = {
   "/guides/convert-heic-photos-to-jpg": { published: "2026-10-29", modified: "2026-10-29" },
   "/guides/combine-images-into-pdf": { published: "2026-10-29", modified: "2026-10-29" },
@@ -49,10 +51,19 @@ export const latestGuideDate = Object.values(guideLastModified).reduce(
   "",
 );
 
+// Tool pages and their processing handoffs changed in e042e9d on 2026-10-29.
+const toolLastModified = Object.fromEntries([
+  "/", "/resize-image", "/convert-image", "/crop-image", "/stitch-images",
+  "/watermark-image", "/pad-image", "/mosaic-image", "/heic-to-jpg",
+  "/batch-workflow", "/images-to-pdf", "/tools",
+].map(path => [path, "2026-10-29"]));
+
 /** Returns the `<lastmod>` for a route, or `undefined` when no real date exists. */
 export function lastModifiedFor(route: string): Date | undefined {
   const normalized = stripLocale(route);
-  const date = guideLastModified[normalized] ?? (normalized === "/guide" ? latestGuideDate : undefined);
+  const chinesePublication = route.startsWith("/zh/guides/") && normalized.slice(8) in chineseGuides ? "2026-10-29" : undefined;
+  const descriptionRevision = route in legacyDescriptions ? "2026-10-29" : undefined;
+  const date = chinesePublication ?? descriptionRevision ?? toolLastModified[normalized] ?? guideLastModified[normalized] ?? (normalized === "/guide" ? latestGuideDate : undefined);
 
   return date ? new Date(`${date}T00:00:00Z`) : undefined;
 }
