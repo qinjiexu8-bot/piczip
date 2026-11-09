@@ -537,3 +537,16 @@ html[lang="ja"] { --font-sans: var(--font-noto-sans), "Hiragino Sans", "Hiragino
 
 .feature-license { margin: 16px 0 0; font-size: 12px; color: var(--muted); }
 .feature-license a:hover { text-decoration: underline; }
+
+/* Promotion sits above the sticky navigation and scrolls with the document. */
+.pizyn-promo { width: 100%; flex-shrink: 0; background: #173f35; color: #f1f7ee; }
+.pizyn-promo-inner { max-width: 1320px; margin-inline: auto; padding: 9px 32px; display: flex; justify-content: center; align-items: center; gap: 20px; }
+.pizyn-promo-brand { display: inline-flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 650; white-space: nowrap; }
+.pizyn-promo p { margin: 0; font-size: 12px; line-height: 1.7; }
+.pizyn-promo-cta { display: inline-flex; align-items: center; justify-content: center; gap: 4px; flex-shrink: 0; padding: 4px 11px; border-radius: 6px; background: #e1efbf; color: #173f35; font-size: 12px; font-weight: 600; text-decoration: none; }
+.pizyn-promo-cta:hover { background: #f0f8d9; }
+.pizyn-promo-cta:focus-visible { outline: 2px solid white; outline-offset: 3px; }
+@media (max-width: 639px) {
+  .pizyn-promo-inner { padding: 10px 20px; gap: 8px 12px; flex-wrap: wrap; justify-content: space-between; }
+  .pizyn-promo p { order: 3; flex-basis: 100%; font-size: 11px; }
+}

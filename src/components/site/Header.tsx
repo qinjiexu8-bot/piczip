@@ -47,7 +47,15 @@ export function Header() {
     menu.querySelector("summary")?.focus();
   };
 
-  return <header className="site-header" ref={header}>
+  return <>
+    <aside className="pizyn-promo" aria-label="Pizyn 推广" lang="zh-CN">
+      <div className="pizyn-promo-inner">
+        <span className="pizyn-promo-brand">Pizyn</span>
+        <p>GPT Image、Nano Banana 和 FLUX，一个工作台就能用</p>
+        <a href="https://pizyn.com" target="_blank" rel="sponsored noopener noreferrer" className="pizyn-promo-cta">开始生图 <ArrowUpRight size={15} aria-hidden="true" /></a>
+      </div>
+    </aside>
+    <header className="site-header" ref={header}>
     <div className="site-header-inner">
       <Link href={localePath("/", locale)} className="brand" aria-label={`PicZip · ${t.home}`} onClick={closeMenus}>
         <Image className="brand-mark" src="/favicon.ico" width={36} height={36} alt="" unoptimized />PicZip<span className="brand-dot">.</span>
@@ -96,5 +104,6 @@ export function Header() {
         </details>
       </div>
     </div>
-  </header>;
+  </header>
+  </>;
 }
